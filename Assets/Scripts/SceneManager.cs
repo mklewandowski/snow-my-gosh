@@ -128,7 +128,7 @@ public class SceneManager : MonoBehaviour
     void UpdatePlaying()
     {
         // WTD calculate distance and update HUD
-        float trackMinZ = -20f;
+        float trackMinZ = -10f;
         for (int i = 0; i < Tracks.Length; i++)
         {
             if (Tracks[i].transform.localPosition.z < trackMinZ)

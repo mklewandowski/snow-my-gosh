@@ -5,11 +5,16 @@ public class Player : MonoBehaviour
     AudioManager audioManager;
 
     Vector3 movement = new Vector3(0, 0, 0);
-    float gravity = -10f;
-    bool thrust = false;
-    bool isGrounded = false;
-    float speedRange = 6f;
-    float maxAngle = 35f;
+
+    float turnSpeed = 400f;
+    float desiredXPos = 0f;
+    float xIncrement = 2f;
+    float minX = -4f;
+    float maxX = 4f;
+    float currYRotation = 0f;
+    float desiredYRotation = 0f;
+    float rotateDir = 1f;
+    float rotateSpeed = 150f;
 
     void Awake()
     {
@@ -17,48 +22,59 @@ public class Player : MonoBehaviour
     }
 
     void Update() {
-        thrust = Input.GetKey ("space") | Input.GetButton ("Fire1") | Input.GetButton ("Fire2");
-
-        movement.y += gravity * Time.deltaTime;
-        // user "thrust", give vehicle some upward movement
-        if (thrust && Globals.CurrentGameState == Globals.GameState.Playing)
+        bool moveLeft = Input.GetKeyDown(KeyCode.LeftArrow);
+        bool moveRight = !moveLeft && Input.GetKeyDown(KeyCode.RightArrow);
+        if (moveLeft)
         {
-            movement.y += 25f * Time.deltaTime;
-            isGrounded = false;
+            desiredXPos = Mathf.Max(minX, desiredXPos - xIncrement);
+            movement.x = turnSpeed * -1f * Time.deltaTime;
+            desiredYRotation = -20f;
+            rotateDir = -1f;
         }
-        movement.y = Mathf.Max(movement.y, -6.0f);
-        movement.y = Mathf.Min(movement.y, 6.0f);
-        this.gameObject.GetComponent<Rigidbody> ().velocity = movement;
-
-        // what is the min position based on the current angle?
-        float maxYPos = 3.9f;
-        float minYPos = -3.1f;
-        float adjustAmount = .45f;
-        float anglePercent = (movement.y / speedRange);
-        minYPos = minYPos - adjustAmount * anglePercent;
-
-        if(transform.localPosition.y <= minYPos)
+        else if (moveRight)
         {
-            // did we hit the ground? stop it if we did
-            isGrounded = true;
-            transform.localPosition = new Vector3 (transform.localPosition.x, minYPos, transform.localPosition.z);
-            movement.y = 0f;
-            this.gameObject.GetComponent<Rigidbody> ().velocity = movement;
+            desiredXPos = Mathf.Min(maxX, desiredXPos + xIncrement);
+            movement.x = turnSpeed * Time.deltaTime;
+            desiredYRotation = 20f;
+            rotateDir = 1f;
         }
-        else if (transform.localPosition.y >= maxYPos)
+        if (movement.x > 0 && transform.localPosition.x >= desiredXPos)
         {
-            // don't let the ship go offscreen to the top
-            transform.localPosition = new Vector3 (transform.localPosition.x, maxYPos, transform.localPosition.z);
-            if (movement.y > 0)
-                movement.y -= 30f * Time.deltaTime;
-            else
-                movement.y -= 10f * Time.deltaTime;
-            this.gameObject.GetComponent<Rigidbody> ().velocity = movement;
+            transform.localPosition = new Vector3 (desiredXPos, transform.localPosition.y, transform.localPosition.z);
+            movement.x = 0;
         }
+        else if (movement.x < 0 && transform.localPosition.x <= desiredXPos)
+        {
+            transform.localPosition = new Vector3 (desiredXPos, transform.localPosition.y, transform.localPosition.z);
+            movement.x = 0;
+        }
+        Camera.main.transform.position = new Vector3(transform.localPosition.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
+        this.gameObject.GetComponent<Rigidbody>().velocity = movement;
 
-        // set the rotation of vehicle
-        float newRotation = 0f;
-        newRotation = maxAngle * (movement.y / speedRange);
-        this.transform.eulerAngles = new Vector3 (0, 0, newRotation);
+                // set the rotation of vehicle
+        if (currYRotation != desiredYRotation)
+        {
+            currYRotation += rotateDir * Time.deltaTime * rotateSpeed;
+            if (rotateDir == 1f)
+            {
+                currYRotation = Mathf.Min(desiredYRotation, currYRotation);
+                Debug.Log(currYRotation);
+                if (currYRotation == 20f)
+                {
+                    desiredYRotation = 0;
+                    rotateDir = -1f;
+                }
+            }
+            else  if (rotateDir == -1f)
+            {
+                currYRotation = Mathf.Max(desiredYRotation, currYRotation);
+                if (currYRotation == -20f)
+                {
+                    desiredYRotation = 0;
+                    rotateDir = 1f;
+                }
+            }
+            this.transform.eulerAngles = new Vector3 (0, currYRotation, 0);
+        }
     }
 }
