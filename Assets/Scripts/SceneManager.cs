@@ -283,7 +283,7 @@ public class SceneManager : MonoBehaviour
                     }
                     else if (randomVal < 50f)
                     {
-                        // robot
+                        // ghost/ball
                         GameObject enemy = (GameObject)Instantiate(EnemyPrefab, new Vector3(x, Random.Range(-2.0f, 2.6f), objectZPos), Quaternion.identity, ItemContainer.transform);
                     }
                 }
