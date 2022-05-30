@@ -5,7 +5,9 @@ public class Item : MonoBehaviour
     public enum ItemType {
         Arrow,
         Star,
-        Ghost,
+        Ghost1,
+        Ghost2,
+        Ghost3,
         Ball,
         Heart,
         Coin,
@@ -37,7 +39,15 @@ public class Item : MonoBehaviour
         {
             debrisColor = Color.red;
         }
-        else if (itemType == ItemType.Ghost)
+        else if (itemType == ItemType.Ghost1)
+        {
+            debrisColor = Color.black;
+        }
+        else if (itemType == ItemType.Ghost2)
+        {
+            debrisColor = Color.red;
+        }
+        else if (itemType == ItemType.Ghost3)
         {
             debrisColor = Color.yellow;
         }

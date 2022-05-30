@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 4044449184303245744}
   - component: {fileID: 4044449184303245759}
   - component: {fileID: 4044449184303245745}
+  - component: {fileID: 6936124814904551742}
   m_Layer: 0
-  m_Name: SnowBall
+  m_Name: Ghost2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,6 +78,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 3
+--- !u!114 &6936124814904551742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3810516749534826504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665d89d5998c72d459dd3cb6ebe2c5bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topY: 0
+  bottomY: 0
+  offsetY: 1
+  moveSpeedMin: 0.25
+  moveSpeedMax: 1
+  moveSpeed: 0.75
+  bounceOn: 1
 --- !u!1 &5290717097629870289
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,14 +122,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5290717097629870289}
-  m_LocalRotation: {x: 0, y: 0.8660254, z: -0, w: -0.5}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4587615956146277042}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 240, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &2237557878320546464
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -117,7 +137,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5290717097629870289}
-  m_Mesh: {fileID: -2432090755550338912, guid: 67afc5a10990d5047ab836e85070d7a9, type: 3}
+  m_Mesh: {fileID: -2432090755550338912, guid: a54848e5d75a10444a83b2ab33e2528e, type: 3}
 --- !u!23 &3326151489001317940
 MeshRenderer:
   m_ObjectHideFlags: 0
