@@ -18,6 +18,10 @@ public class SceneManager : MonoBehaviour
     GameObject Level;
     [SerializeField]
     GameObject[] Tracks;
+    [SerializeField]
+    GameObject[] TreesLeft;
+    [SerializeField]
+    GameObject[] TreesRight;
 
     // titles and messages
     [SerializeField]
@@ -110,6 +114,15 @@ public class SceneManager : MonoBehaviour
             {
                 Tracks[i].GetComponent<Rigidbody>().velocity = trackMovement;
             }
+            Vector3 treeMovement = new Vector3 (0, 0, Globals.ScrollSpeed.z * Globals.ScrollDirection.z);
+            for (int i = 0; i < TreesLeft.Length; i++)
+            {
+                TreesLeft[i].GetComponent<Rigidbody>().velocity = treeMovement;
+            }
+            for (int i = 0; i < TreesRight.Length; i++)
+            {
+                TreesRight[i].GetComponent<Rigidbody>().velocity = treeMovement;
+            }
         }
     }
 
@@ -139,6 +152,32 @@ public class SceneManager : MonoBehaviour
                         Tracks[i].transform.localPosition.x,
                         Tracks[i].transform.localPosition.y,
                         Tracks[abutIndex].transform.localPosition.z + renderer.bounds.size.z
+                    );
+            }
+        }
+        float treeMinZ = -4f;
+        float treeOffsetZ = 4f;
+        for (int i = 0; i < TreesLeft.Length; i++)
+        {
+            if (TreesLeft[i].transform.localPosition.z < treeMinZ)
+            {
+                int abutIndex = i == 0 ? TreesLeft.Length - 1 : i - 1;
+                TreesLeft[i].transform.localPosition = new Vector3(
+                        TreesLeft[i].transform.localPosition.x,
+                        TreesLeft[i].transform.localPosition.y,
+                        TreesLeft[abutIndex].transform.localPosition.z + treeOffsetZ
+                    );
+            }
+        }
+        for (int i = 0; i < TreesRight.Length; i++)
+        {
+            if (TreesRight[i].transform.localPosition.z < treeMinZ)
+            {
+                int abutIndex = i == 0 ? TreesRight.Length - 1 : i - 1;
+                TreesRight[i].transform.localPosition = new Vector3(
+                        TreesRight[i].transform.localPosition.x,
+                        TreesRight[i].transform.localPosition.y,
+                        TreesRight[abutIndex].transform.localPosition.z + treeOffsetZ
                     );
             }
         }
