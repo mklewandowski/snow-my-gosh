@@ -25,6 +25,8 @@ public class SceneManager : MonoBehaviour
 
     // titles and messages
     [SerializeField]
+    GameObject HUDBackground;
+    [SerializeField]
     GameObject HUDPlayer;
     [SerializeField]
     GameObject HUDAbout;
@@ -262,6 +264,7 @@ public class SceneManager : MonoBehaviour
         audioManager.PlayStartSound();
 
         HUDGameOver.GetComponent<MoveNormal>().MoveUp();
+        HUDBackground.SetActive(false);
         HUDPlayer.SetActive(false);
         HUDPlayer.transform.localPosition = new Vector3(20f, HUDPlayer.transform.localPosition.y, HUDPlayer.transform.localPosition.z);
         HUDAbout.GetComponent<MoveNormal>().MoveRight();
