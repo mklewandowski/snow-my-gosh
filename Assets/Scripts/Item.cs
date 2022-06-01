@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
         Ghost1,
         Ghost2,
         Ghost3,
+        Yeti,
         Ball,
         Heart,
         Coin,
@@ -50,6 +51,10 @@ public class Item : MonoBehaviour
         else if (itemType == ItemType.Ghost3)
         {
             debrisColor = Color.yellow;
+        }
+        else if (itemType == ItemType.Yeti)
+        {
+            debrisColor = Color.blue;
         }
         else if (itemType == ItemType.Ball)
         {

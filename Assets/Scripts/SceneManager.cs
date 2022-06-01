@@ -66,13 +66,17 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
 	GameObject ItemContainer;
     [SerializeField]
-	GameObject EnemyPrefab;
+	GameObject YetiPrefab;
+    [SerializeField]
+	GameObject SnowBallPrefab;
     [SerializeField]
 	GameObject SpeedPowerupPrefab;
     [SerializeField]
 	GameObject StarPowerupPrefab;
     [SerializeField]
 	GameObject BombPowerupPrefab;
+
+    float spawnTimer = 1f;
 
     void Awake()
     {
@@ -134,7 +138,7 @@ public class SceneManager : MonoBehaviour
         {
             HUDRaceReady.SetActive(false);
             HUDRaceReady.transform.localScale = new Vector3(.1f, .1f, .1f);
-            Globals.ScrollSpeed = new Vector3(0, 0, 6f);
+            Globals.ScrollSpeed = new Vector3(0, 0, 10f);
             Globals.CurrentGameState = Globals.GameState.Playing;
             audioManager.PlayStartMovingSound();
         }
@@ -206,6 +210,38 @@ public class SceneManager : MonoBehaviour
                 BombFlash.SetActive(false);
             }
         }
+
+        Debug.Log(spawnTimer);
+
+        spawnTimer -= Time.deltaTime;
+        if (spawnTimer <= 0)
+        {
+            Debug.Log("spawn");
+            // spawn new things in the 5 slots of the row at z = 60
+            int lanes = 5;
+            for (int x = 0; x < lanes; x++)
+            {
+                float randomVal = Random.Range(0f, 100.0f);
+                if (randomVal < 10f)
+                {
+                    Debug.Log("spawn car");
+                    // make a yeti car
+                    GameObject enemy = (GameObject)Instantiate(YetiPrefab, new Vector3(-4f + x * 2f, -3.6f, 60f), Quaternion.identity, ItemContainer.transform);
+                }
+                else if (randomVal < 20f)
+                {
+                    Debug.Log("spawn snow");
+                    // make a snowball
+                    GameObject enemy = (GameObject)Instantiate(SnowBallPrefab, new Vector3(-4f + x * 2f, -2.9f, 60f), Quaternion.identity, ItemContainer.transform);
+                }
+                else if (randomVal < 30f)
+                {
+                    // make a powerup
+                }
+            }
+            spawnTimer = 3f;
+        }
+
     }
 
     void UpdateShowScore()
@@ -290,47 +326,47 @@ public class SceneManager : MonoBehaviour
 
     public void CreateCourse()
     {
-        int startOffset = 14;
-        int endOffset = 8;
-        float objectZPos = 1f;
-        bool nextPowerupIsSpeed = false;
-        for (int x = 0; x < Globals.finishLineXPos; x++)
-        {
-            if (x > startOffset && x < (Globals.finishLineXPos - endOffset))
-            {
-                if (x % 4 == 0)
-                {
-                    // add nothing, an enemy, or a powerup
-                    float randomVal = Random.Range(0f, 100.0f);
-                    if (randomVal < 25f)
-                    {
-                        // powerup
-                        float powerupRandVal = Random.Range(0f, 100.0f);
-                        GameObject powerupPrefab = SpeedPowerupPrefab;
-                        if (powerupRandVal > 85 && !nextPowerupIsSpeed)
-                        {
-                            powerupPrefab = BombPowerupPrefab;
-                            nextPowerupIsSpeed = true;
-                        }
-                        else if (powerupRandVal > 70 && !nextPowerupIsSpeed)
-                        {
-                            powerupPrefab = StarPowerupPrefab;
-                            nextPowerupIsSpeed = true;
-                        }
-                        else
-                        {
-                            nextPowerupIsSpeed = false;
-                        }
-                        GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(x, Random.Range(-3.1f, 4.1f), objectZPos), Quaternion.identity, ItemContainer.transform);
-                    }
-                    else if (randomVal < 50f)
-                    {
-                        // ghost/ball
-                        GameObject enemy = (GameObject)Instantiate(EnemyPrefab, new Vector3(x, Random.Range(-2.0f, 2.6f), objectZPos), Quaternion.identity, ItemContainer.transform);
-                    }
-                }
-            }
-        }
+        // int startOffset = 14;
+        // int endOffset = 8;
+        // float objectZPos = 1f;
+        // bool nextPowerupIsSpeed = false;
+        // for (int x = 0; x < Globals.finishLineXPos; x++)
+        // {
+        //     if (x > startOffset && x < (Globals.finishLineXPos - endOffset))
+        //     {
+        //         if (x % 4 == 0)
+        //         {
+        //             // add nothing, an enemy, or a powerup
+        //             float randomVal = Random.Range(0f, 100.0f);
+        //             if (randomVal < 25f)
+        //             {
+        //                 // powerup
+        //                 float powerupRandVal = Random.Range(0f, 100.0f);
+        //                 GameObject powerupPrefab = SpeedPowerupPrefab;
+        //                 if (powerupRandVal > 85 && !nextPowerupIsSpeed)
+        //                 {
+        //                     powerupPrefab = BombPowerupPrefab;
+        //                     nextPowerupIsSpeed = true;
+        //                 }
+        //                 else if (powerupRandVal > 70 && !nextPowerupIsSpeed)
+        //                 {
+        //                     powerupPrefab = StarPowerupPrefab;
+        //                     nextPowerupIsSpeed = true;
+        //                 }
+        //                 else
+        //                 {
+        //                     nextPowerupIsSpeed = false;
+        //                 }
+        //                 GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(x, Random.Range(-3.1f, 4.1f), objectZPos), Quaternion.identity, ItemContainer.transform);
+        //             }
+        //             else if (randomVal < 50f)
+        //             {
+        //                 // ghost/ball
+        //                 GameObject enemy = (GameObject)Instantiate(EnemyPrefab, new Vector3(x, Random.Range(-2.0f, 2.6f), objectZPos), Quaternion.identity, ItemContainer.transform);
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     public void EndGame()
