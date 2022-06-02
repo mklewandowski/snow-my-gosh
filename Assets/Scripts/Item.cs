@@ -21,6 +21,8 @@ public class Item : MonoBehaviour
     protected AudioManager audioManager;
     protected SceneManager sceneManager;
 
+    protected float extraSpeed = 0f;
+
     protected bool isActive = true;
 
     void Awake()
@@ -55,10 +57,12 @@ public class Item : MonoBehaviour
         else if (itemType == ItemType.Yeti)
         {
             debrisColor = Color.blue;
+            extraSpeed = Random.Range(5f, 10f);
         }
         else if (itemType == ItemType.Ball)
         {
             debrisColor = Color.white;
+            extraSpeed = Random.Range(10f, 20f);
         }
         else if (itemType == ItemType.Bomb)
         {
@@ -83,7 +87,7 @@ public class Item : MonoBehaviour
     {
         if (Globals.CurrentGameState == Globals.GameState.Ready || Globals.CurrentGameState == Globals.GameState.Playing || Globals.CurrentGameState == Globals.GameState.ShowScore)
         {
-            Vector3 movement = new Vector3 (0, 0, Globals.ScrollSpeed.z * Globals.ScrollDirection.z);
+            Vector3 movement = new Vector3 (0, 0, Globals.ScrollSpeed.z * Globals.ScrollDirection.z + extraSpeed * Globals.ScrollDirection.z);
             this.GetComponent<Rigidbody>().velocity = movement;
         }
     }

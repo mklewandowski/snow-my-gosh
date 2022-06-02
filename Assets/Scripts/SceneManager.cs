@@ -75,6 +75,10 @@ public class SceneManager : MonoBehaviour
 	GameObject StarPowerupPrefab;
     [SerializeField]
 	GameObject BombPowerupPrefab;
+    [SerializeField]
+	GameObject HeartPowerupPrefab;
+    [SerializeField]
+	GameObject CoinPowerupPrefab;
 
     float spawnTimer = 1f;
 
@@ -224,24 +228,32 @@ public class SceneManager : MonoBehaviour
                 float randomVal = Random.Range(0f, 100.0f);
                 if (randomVal < 10f)
                 {
-                    Debug.Log("spawn car");
                     // make a yeti car
                     GameObject enemy = (GameObject)Instantiate(YetiPrefab, new Vector3(-4f + x * 2f, -3.6f, 60f), Quaternion.identity, ItemContainer.transform);
                 }
                 else if (randomVal < 20f)
                 {
-                    Debug.Log("spawn snow");
                     // make a snowball
                     GameObject enemy = (GameObject)Instantiate(SnowBallPrefab, new Vector3(-4f + x * 2f, -2.9f, 60f), Quaternion.identity, ItemContainer.transform);
                 }
                 else if (randomVal < 30f)
                 {
                     // make a powerup
+                    float powerupRandVal = Random.Range(0f, 100.0f);
+                    GameObject powerupPrefab = SpeedPowerupPrefab;
+                    if (powerupRandVal > 85)
+                    {
+                        powerupPrefab = BombPowerupPrefab;
+                    }
+                    else if (powerupRandVal > 70)
+                    {
+                        powerupPrefab = StarPowerupPrefab;
+                    }
+                    GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(-4f + x * 2f, -2f, 60f), Quaternion.identity, ItemContainer.transform);
                 }
             }
             spawnTimer = 3f;
         }
-
     }
 
     void UpdateShowScore()
