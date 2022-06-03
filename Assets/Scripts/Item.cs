@@ -3,13 +3,10 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public enum ItemType {
-        Arrow,
-        Star,
-        Ghost1,
-        Ghost2,
-        Ghost3,
         Yeti,
         Ball,
+        Arrow,
+        Star,
         Heart,
         Coin,
         Bomb
@@ -34,7 +31,7 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (itemType == ItemType.Arrow || itemType == ItemType.Star || itemType == ItemType.Star)
+        if (itemType == ItemType.Arrow || itemType == ItemType.Star || itemType == ItemType.Coin)
         {
             debrisColor = Color.yellow;
         }
@@ -42,22 +39,9 @@ public class Item : MonoBehaviour
         {
             debrisColor = Color.red;
         }
-        else if (itemType == ItemType.Ghost1)
-        {
-            debrisColor = Color.black;
-        }
-        else if (itemType == ItemType.Ghost2)
-        {
-            debrisColor = Color.red;
-        }
-        else if (itemType == ItemType.Ghost3)
-        {
-            debrisColor = Color.yellow;
-        }
         else if (itemType == ItemType.Yeti)
         {
             debrisColor = Color.blue;
-            extraSpeed = Random.Range(5f, 10f);
         }
         else if (itemType == ItemType.Ball)
         {

@@ -81,6 +81,7 @@ public class SceneManager : MonoBehaviour
 	GameObject CoinPowerupPrefab;
 
     float spawnTimer = 1f;
+    float distance = 0;
 
     void Awake()
     {
@@ -215,7 +216,9 @@ public class SceneManager : MonoBehaviour
             }
         }
 
-        Debug.Log(spawnTimer);
+        distance = distance + Time.deltaTime * Globals.ScrollSpeed.z;
+        Debug.Log(distance);
+       // Debug.Log(spawnTimer);
 
         spawnTimer -= Time.deltaTime;
         if (spawnTimer <= 0)
@@ -228,8 +231,8 @@ public class SceneManager : MonoBehaviour
                 float randomVal = Random.Range(0f, 100.0f);
                 if (randomVal < 10f)
                 {
-                    // make a yeti car
-                    GameObject enemy = (GameObject)Instantiate(YetiPrefab, new Vector3(-4f + x * 2f, -3.6f, 60f), Quaternion.identity, ItemContainer.transform);
+                    // make a yeti
+                    GameObject enemy = (GameObject)Instantiate(YetiPrefab, new Vector3(-4f + x * 2f, -3f, 60f), Quaternion.identity, ItemContainer.transform);
                 }
                 else if (randomVal < 20f)
                 {
@@ -249,7 +252,7 @@ public class SceneManager : MonoBehaviour
                     {
                         powerupPrefab = StarPowerupPrefab;
                     }
-                    GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(-4f + x * 2f, -2f, 60f), Quaternion.identity, ItemContainer.transform);
+                    GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(-4f + x * 2f, -3f, 60f), Quaternion.identity, ItemContainer.transform);
                 }
             }
             spawnTimer = 3f;

@@ -13232,11 +13232,13 @@ MonoBehaviour:
   HUDFinalStatsContainer: {fileID: 1804108159}
   HUDHighScore: {fileID: 1296731647}
   ItemContainer: {fileID: 1332100143}
-  YetiPrefab: {fileID: 5170106060142958089, guid: d47538a96610ec949b4ada508be39e85, type: 3}
+  YetiPrefab: {fileID: 6606426093814019360, guid: 447e34129f8aaef42b01f3c7e6ef327e, type: 3}
   SnowBallPrefab: {fileID: 3810516749534826504, guid: 24cae34af9fdc614da633c8fec2ea075, type: 3}
   SpeedPowerupPrefab: {fileID: 138473407635450956, guid: 975ab52edd9cd6d4fbac74ae2bb5b31c, type: 3}
   StarPowerupPrefab: {fileID: 5802488855492581808, guid: 6194cf2f8b8d73a458a4eca25e82273b, type: 3}
   BombPowerupPrefab: {fileID: 6033325941223477379, guid: 09252c599e3808646b8abfefab7721a0, type: 3}
+  HeartPowerupPrefab: {fileID: 0}
+  CoinPowerupPrefab: {fileID: 0}
 --- !u!114 &1786826858
 MonoBehaviour:
   m_ObjectHideFlags: 0
