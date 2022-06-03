@@ -6,15 +6,15 @@ public class Player : MonoBehaviour
 
     Vector3 movement = new Vector3(0, 0, 0);
 
-    float turnSpeed = 400f;
+    float turnSpeed = 450f;
     float desiredXPos = 0f;
-    float xIncrement = 2f;
-    float minX = -4f;
-    float maxX = 4f;
+    float xIncrement = 3f;
+    float minX = -6f;
+    float maxX = 6f;
     float currYRotation = 0f;
     float desiredYRotation = 0f;
     float rotateDir = 1f;
-    float rotateSpeed = 150f;
+    float rotateSpeed = 100f;
 
     void Awake()
     {
@@ -28,15 +28,21 @@ public class Player : MonoBehaviour
         {
             desiredXPos = Mathf.Max(minX, desiredXPos - xIncrement);
             movement.x = turnSpeed * -1f * Time.deltaTime;
-            desiredYRotation = -20f;
-            rotateDir = -1f;
+            if (Mathf.Round(desiredXPos) != Mathf.Round(transform.localPosition.x))
+            {
+                desiredYRotation = -20f;
+                rotateDir = -1f;
+            }
         }
         else if (moveRight)
         {
             desiredXPos = Mathf.Min(maxX, desiredXPos + xIncrement);
             movement.x = turnSpeed * Time.deltaTime;
-            desiredYRotation = 20f;
-            rotateDir = 1f;
+            if (Mathf.Round(desiredXPos) != Mathf.Round(transform.localPosition.x))
+            {
+                desiredYRotation = 20f;
+                rotateDir = 1f;
+            }
         }
         if (movement.x > 0 && transform.localPosition.x >= desiredXPos)
         {
@@ -51,14 +57,13 @@ public class Player : MonoBehaviour
         Camera.main.transform.position = new Vector3(transform.localPosition.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
         this.gameObject.GetComponent<Rigidbody>().velocity = movement;
 
-                // set the rotation of vehicle
+        // set the rotation of vehicle
         if (currYRotation != desiredYRotation)
         {
             currYRotation += rotateDir * Time.deltaTime * rotateSpeed;
             if (rotateDir == 1f)
             {
                 currYRotation = Mathf.Min(desiredYRotation, currYRotation);
-                Debug.Log(currYRotation);
                 if (currYRotation == 20f)
                 {
                     desiredYRotation = 0;

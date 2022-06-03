@@ -224,18 +224,20 @@ public class SceneManager : MonoBehaviour
             Debug.Log("spawn");
             // spawn new things in the 5 slots of the row at z = 60
             int lanes = 5;
+            float startX = -6f;
+            float xIncrement = 3f;
             for (int x = 0; x < lanes; x++)
             {
                 float randomVal = Random.Range(0f, 100.0f);
                 if (randomVal < 10f)
                 {
                     // make a yeti
-                    GameObject enemy = (GameObject)Instantiate(YetiPrefab, new Vector3(-4f + x * 2f, -3f, 60f), Quaternion.identity, ItemContainer.transform);
+                    GameObject enemy = (GameObject)Instantiate(YetiPrefab, new Vector3(startX + x * xIncrement, -3f, 60f), Quaternion.identity, ItemContainer.transform);
                 }
                 else if (randomVal < 20f)
                 {
                     // make a snowball
-                    GameObject enemy = (GameObject)Instantiate(SnowBallPrefab, new Vector3(-4f + x * 2f, -2.9f, 60f), Quaternion.identity, ItemContainer.transform);
+                    GameObject enemy = (GameObject)Instantiate(SnowBallPrefab, new Vector3(startX + x * xIncrement, -2.9f, 60f), Quaternion.identity, ItemContainer.transform);
                 }
                 else if (randomVal < 30f)
                 {
@@ -250,7 +252,7 @@ public class SceneManager : MonoBehaviour
                     {
                         powerupPrefab = StarPowerupPrefab;
                     }
-                    GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(-4f + x * 2f, -3f, 60f), Quaternion.identity, ItemContainer.transform);
+                    GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(startX + x * xIncrement, -3f, 60f), Quaternion.identity, ItemContainer.transform);
                 }
             }
             distanceUntilSpawn = 8f;
