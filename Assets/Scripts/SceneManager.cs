@@ -80,8 +80,8 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
 	GameObject CoinPowerupPrefab;
 
-    float spawnTimer = 1f;
     float distance = 0;
+    float distanceUntilSpawn = 8f;
 
     void Awake()
     {
@@ -217,11 +217,9 @@ public class SceneManager : MonoBehaviour
         }
 
         distance = distance + Time.deltaTime * Globals.ScrollSpeed.z;
-        Debug.Log(distance);
-       // Debug.Log(spawnTimer);
+        distanceUntilSpawn = distanceUntilSpawn - Time.deltaTime * Globals.ScrollSpeed.z;
 
-        spawnTimer -= Time.deltaTime;
-        if (spawnTimer <= 0)
+        if (distanceUntilSpawn <= 0)
         {
             Debug.Log("spawn");
             // spawn new things in the 5 slots of the row at z = 60
@@ -255,7 +253,7 @@ public class SceneManager : MonoBehaviour
                     GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(-4f + x * 2f, -3f, 60f), Quaternion.identity, ItemContainer.transform);
                 }
             }
-            spawnTimer = 3f;
+            distanceUntilSpawn = 8f;
         }
     }
 
