@@ -15,17 +15,30 @@ public class Player : MonoBehaviour
     float desiredYRotation = 0f;
     float rotateDir = 1f;
     float rotateSpeed = 100f;
+    bool movingLeft = false;
+    bool movingRight = false;
 
     void Awake()
     {
         audioManager = this.GetComponent<AudioManager>();
     }
 
-    void Update() {
-        bool moveLeft = Input.GetKeyDown(KeyCode.LeftArrow);
-        bool moveRight = !moveLeft && Input.GetKeyDown(KeyCode.RightArrow);
-        if (moveLeft)
+    bool requestMoveLeft = false;
+    bool requestMoveRight = false;
+    void Update()
+    {
+        if (!requestMoveLeft && !requestMoveRight)
         {
+            requestMoveLeft = Input.GetKeyDown(KeyCode.LeftArrow);
+            requestMoveRight = !requestMoveLeft && Input.GetKeyDown(KeyCode.RightArrow);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (requestMoveLeft && !movingLeft && !movingRight)
+        {
+            movingLeft = true;
             desiredXPos = Mathf.Max(minX, desiredXPos - xIncrement);
             movement.x = turnSpeed * -1f * Time.deltaTime;
             if (Mathf.Round(desiredXPos) != Mathf.Round(transform.localPosition.x))
@@ -34,8 +47,9 @@ public class Player : MonoBehaviour
                 rotateDir = -1f;
             }
         }
-        else if (moveRight)
+        else if (requestMoveRight && !movingLeft && !movingRight)
         {
+            movingRight = true;
             desiredXPos = Mathf.Min(maxX, desiredXPos + xIncrement);
             movement.x = turnSpeed * Time.deltaTime;
             if (Mathf.Round(desiredXPos) != Mathf.Round(transform.localPosition.x))
@@ -44,15 +58,22 @@ public class Player : MonoBehaviour
                 rotateDir = 1f;
             }
         }
+        requestMoveLeft = false;
+        requestMoveRight = false;
+
         if (movement.x > 0 && transform.localPosition.x >= desiredXPos)
         {
             transform.localPosition = new Vector3 (desiredXPos, transform.localPosition.y, transform.localPosition.z);
             movement.x = 0;
+            movingLeft = false;
+            movingRight = false;
         }
         else if (movement.x < 0 && transform.localPosition.x <= desiredXPos)
         {
             transform.localPosition = new Vector3 (desiredXPos, transform.localPosition.y, transform.localPosition.z);
             movement.x = 0;
+            movingLeft = false;
+            movingRight = false;
         }
         Camera.main.transform.position = new Vector3(transform.localPosition.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
         this.gameObject.GetComponent<Rigidbody>().velocity = movement;
