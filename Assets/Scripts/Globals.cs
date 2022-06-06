@@ -30,8 +30,8 @@ public class Globals
     public static bool MusicOn;
 
     // keep track of scoring
-    public static float BestDistance = 0;
-    public static float CurrentDistance = 0;
+    public static int BestDistance = 0;
+    public static int CurrentDistance = 0;
 
     public const string AudioPlayerPrefsKey = "Audio";
     public const string MusicPlayerPrefsKey = "Music";

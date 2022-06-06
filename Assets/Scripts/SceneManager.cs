@@ -44,7 +44,9 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GameObject HUDRaceReady;
     [SerializeField]
-    GameObject HUDSpeed;
+    GameObject HUDDistance;
+    [SerializeField]
+    TextMeshProUGUI HUDDistanceText;
     [SerializeField]
     GameObject InvincibleMessage;
     float invincibleTimer = 0;
@@ -87,7 +89,7 @@ public class SceneManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
 
-        Globals.BestDistance = Globals.LoadFloatFromPlayerPrefs(Globals.BestDistancePlayerPrefsKey);
+        Globals.BestDistance = Globals.LoadIntFromPlayerPrefs(Globals.BestDistancePlayerPrefsKey);
 
         int vehicleType = Globals.LoadIntFromPlayerPrefs(Globals.VehicleTypePlayerPrefsKey);
         Player.GetComponent<VehicleTypeManager>().SetVehicleType(vehicleType);
@@ -141,6 +143,7 @@ public class SceneManager : MonoBehaviour
     {
         if (Input.GetKey ("space") | Input.GetButton ("Fire1") | Input.GetButton ("Fire2"))
         {
+            HUDDistance.SetActive(true);
             HUDRaceReady.SetActive(false);
             HUDRaceReady.transform.localScale = new Vector3(.1f, .1f, .1f);
             Globals.ScrollSpeed = new Vector3(0, 0, 10f);
@@ -218,6 +221,9 @@ public class SceneManager : MonoBehaviour
 
         distance = distance + Time.deltaTime * Globals.ScrollSpeed.z;
         distanceUntilSpawn = distanceUntilSpawn - Time.deltaTime * Globals.ScrollSpeed.z;
+
+        Globals.CurrentDistance = (int)(distance / 10f);
+        HUDDistanceText.text = Globals.CurrentDistance.ToString();
 
         if (distanceUntilSpawn <= 0)
         {
@@ -328,8 +334,8 @@ public class SceneManager : MonoBehaviour
 
         invincibleTimer = 0f;
         Globals.CurrentDistance = 0;
+        HUDDistanceText.text = Globals.CurrentDistance.ToString();
         HUDQuit.SetActive(true);
-        HUDSpeed.SetActive(true);
 
         CreateCourse();
 
@@ -391,7 +397,7 @@ public class SceneManager : MonoBehaviour
         if (Globals.CurrentDistance > Globals.BestDistance || Globals.BestDistance == 0f)
         {
             Globals.BestDistance = Globals.CurrentDistance;
-            Globals.SaveFloatToPlayerPrefs(Globals.BestDistancePlayerPrefsKey, Globals.BestDistance);
+            Globals.SaveIntToPlayerPrefs(Globals.BestDistancePlayerPrefsKey, Globals.BestDistance);
             HUDHighScore.SetActive(true);
         }
         else
@@ -459,9 +465,9 @@ public class SceneManager : MonoBehaviour
         Player.SetActive(false);
 
         HUDQuit.SetActive(false);
-        HUDSpeed.SetActive(false);
         BombFlash.SetActive(false);
         HUDRaceReady.SetActive(false);
+        HUDDistance.SetActive(false);
 
         Globals.ScrollSpeed = new Vector3(0, 0, 0);
         Player.transform.localPosition = new Vector3(Player.transform.localPosition.x, -3f, Player.transform.localPosition.z);
