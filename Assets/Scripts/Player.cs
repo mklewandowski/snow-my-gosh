@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     float desiredYRotation = 0f;
     float rotateDir = 1f;
     float rotateSpeed = 100f;
+    float maxRotation = 15f;
     bool movingLeft = false;
     bool movingRight = false;
 
@@ -43,7 +44,7 @@ public class Player : MonoBehaviour
             movement.x = turnSpeed * -1f * Time.deltaTime;
             if (Mathf.Round(desiredXPos) != Mathf.Round(transform.localPosition.x))
             {
-                desiredYRotation = -20f;
+                desiredYRotation = maxRotation * -1f;
                 rotateDir = -1f;
             }
         }
@@ -54,7 +55,7 @@ public class Player : MonoBehaviour
             movement.x = turnSpeed * Time.deltaTime;
             if (Mathf.Round(desiredXPos) != Mathf.Round(transform.localPosition.x))
             {
-                desiredYRotation = 20f;
+                desiredYRotation = maxRotation;
                 rotateDir = 1f;
             }
         }
@@ -85,7 +86,7 @@ public class Player : MonoBehaviour
             if (rotateDir == 1f)
             {
                 currYRotation = Mathf.Min(desiredYRotation, currYRotation);
-                if (currYRotation == 20f)
+                if (currYRotation == maxRotation)
                 {
                     desiredYRotation = 0;
                     rotateDir = -1f;
@@ -94,7 +95,7 @@ public class Player : MonoBehaviour
             else  if (rotateDir == -1f)
             {
                 currYRotation = Mathf.Max(desiredYRotation, currYRotation);
-                if (currYRotation == -20f)
+                if (currYRotation == maxRotation * -1f)
                 {
                     desiredYRotation = 0;
                     rotateDir = 1f;
