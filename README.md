@@ -1,5 +1,5 @@
 # Snow My Gosh
-Snow My Gosh is an over-the-shoulder voxel art infinite racing game.
+Snow My Gosh is an over-the-shoulder, voxel art, infinite racing game.
 
 ## Gameplay
 Swipe left or right to avoid obstacles and grab coins and power-ups. Travel as far as you can and get the high score.
@@ -35,3 +35,7 @@ Use the following steps to run locally:
 - Sounds created using [Bfxr](https://www.bfxr.net/)
 - Audio edited using [Audacity](https://www.audacityteam.org/)
 - 2D images created and edited using [Paint.NET](https://www.getpaint.net/)
+
+## Credits
+Swipe detection based on Jason Weimann's tutorial:
+https://www.youtube.com/watch?v=jbFYYbu5bdc
