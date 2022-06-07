@@ -46,7 +46,6 @@ public class Item : MonoBehaviour
         else if (itemType == ItemType.Ball)
         {
             debrisColor = Color.white;
-            extraSpeed = Random.Range(10f, 20f);
         }
         else if (itemType == ItemType.Bomb)
         {
@@ -55,6 +54,11 @@ public class Item : MonoBehaviour
 
         GameObject dm = GameObject.Find ("DebrisManager");
         debrisManager = dm.GetComponent<DebrisManager> ();
+    }
+
+    public void SetExtraSpeed(float speed)
+    {
+        extraSpeed = speed;
     }
 
     void Update()

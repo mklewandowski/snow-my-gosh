@@ -281,7 +281,13 @@ public class SceneManager : MonoBehaviour
                 if (laneRandomVal < 20f)
                 {
                     // snowball
-                    GameObject enemy = (GameObject)Instantiate(SnowBallPrefab, new Vector3(startX + x * xIncrement, -2.9f, 64f + 7 * 8f), Quaternion.identity, ItemContainer.transform);
+                    int numSnowballs = Random.Range(1, 5);
+                    float extraSpeed = Random.Range(10f, 20f);
+                    for (int s = 0; s < numSnowballs; s++)
+                    {
+                        GameObject snowBall = (GameObject)Instantiate(SnowBallPrefab, new Vector3(startX + x * xIncrement, -2.9f, 64f + 7 * 8f + (s * 4f)), Quaternion.identity, ItemContainer.transform);
+                        snowBall.GetComponent<Item>().SetExtraSpeed(extraSpeed);
+                    }
                 }
                 else if (laneRandomVal < 25f)
                 {
@@ -300,9 +306,9 @@ public class SceneManager : MonoBehaviour
                         if (randomVal < 20f)
                         {
                             // make a yeti
-                            GameObject enemy = (GameObject)Instantiate(YetiPrefab, new Vector3(startX + x * xIncrement, -2.5f, 64f + s * 8f), Quaternion.identity, ItemContainer.transform);
+                            GameObject enemy = (GameObject)Instantiate(YetiPrefab, new Vector3(startX + x * xIncrement, -2.5f, 64f + s * 8f + Random.Range(-2f, 2f)), Quaternion.identity, ItemContainer.transform);
                         }
-                        else if (randomVal < 40f)
+                        else if (randomVal < 30f)
                         {
                             // make a powerup
                             float powerupRandVal = Random.Range(0f, 100.0f);
@@ -311,7 +317,7 @@ public class SceneManager : MonoBehaviour
                             {
                                 powerupPrefab = HeartPowerupPrefab;
                             }
-                            GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f), Quaternion.identity, ItemContainer.transform);
+                            GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f + Random.Range(-2f, 2f)), Quaternion.identity, ItemContainer.transform);
                         }
                     }
                 }
