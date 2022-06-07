@@ -33,10 +33,14 @@ public class Globals
     public static int BestDistance = 0;
     public static int CurrentDistance = 0;
 
+    // keep track of coins
+    public static int Coins = 0;
+
     public const string AudioPlayerPrefsKey = "Audio";
     public const string MusicPlayerPrefsKey = "Music";
     public const string BestDistancePlayerPrefsKey = "BestDistance";
     public const string VehicleTypePlayerPrefsKey = "VehicleType";
+    public const string CoinsPlayerPrefsKey = "Coins";
 
     public static void SaveIntToPlayerPrefs(string key, int val)
     {

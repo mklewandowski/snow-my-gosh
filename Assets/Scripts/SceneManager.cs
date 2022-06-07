@@ -52,12 +52,21 @@ public class SceneManager : MonoBehaviour
     GameObject HUDDistance;
     [SerializeField]
     TextMeshProUGUI HUDDistanceText;
+    [SerializeField]
+    GameObject HUDItems;
+    [SerializeField]
+    TextMeshProUGUI HUDCoinsText;
+    [SerializeField]
+    GameObject[] HUDHearts;
+    int totalHearts = 0;
     float invincibleTimer = 0;
     float invincibleTimerMax = 4f;
     [SerializeField]
     GameObject BombFlash;
     float bombflashTimer = 0;
     float bombflashTimerMax = .1f;
+    float heartTimer = 0;
+    float heartTimerMax = 1f;
 
     [SerializeField]
     TextMeshProUGUI HUDFinalDistance;
@@ -162,6 +171,7 @@ public class SceneManager : MonoBehaviour
         if (Input.GetKey ("space") | Input.GetButton ("Fire1") | Input.GetButton ("Fire2"))
         {
             HUDDistance.SetActive(true);
+            HUDItems.SetActive(true);
             HUDRaceReady.SetActive(false);
             HUDRaceReady.transform.localScale = new Vector3(.1f, .1f, .1f);
             Globals.ScrollSpeed = new Vector3(0, 0, 15f);
@@ -233,6 +243,19 @@ public class SceneManager : MonoBehaviour
             if (bombflashTimer <= 0)
             {
                 BombFlash.SetActive(false);
+            }
+        }
+
+        if (heartTimer > 0)
+        {
+            heartTimer -= Time.deltaTime;
+            if (heartTimer <= 0)
+            {
+                totalHearts = 0;
+                for (int x = 0; x < HUDHearts.Length; x++)
+                {
+                    HUDHearts[x].SetActive(x < totalHearts);
+                }
             }
         }
 
@@ -340,6 +363,32 @@ public class SceneManager : MonoBehaviour
         bombflashTimer = bombflashTimerMax;
     }
 
+    public void GetHeart()
+    {
+        if (heartTimer > 0)
+        {
+            heartTimer = 0;
+            totalHearts = 0;
+        }
+        totalHearts++;
+        if (totalHearts >= 3)
+        {
+            heartTimer = heartTimerMax;
+            audioManager.PlayBombSound();
+            Bomb();
+        }
+        for (int x = 0; x < HUDHearts.Length; x++)
+        {
+            HUDHearts[x].SetActive(x < totalHearts);
+        }
+    }
+
+    public void GetCoin()
+    {
+        Globals.Coins++;
+        HUDCoinsText.text = Globals.Coins.ToString();
+    }
+
     public void StartGame()
     {
         if (Globals.CurrentGameState != Globals.GameState.TitleScreen && Globals.CurrentGameState != Globals.GameState.Restart)
@@ -366,6 +415,11 @@ public class SceneManager : MonoBehaviour
         Globals.CurrentDistance = 0;
         distance = 0;
         distanceUntilSpawn = 8f;
+        totalHearts = 0;
+        for (int x = 0; x < HUDHearts.Length; x++)
+        {
+            HUDHearts[x].SetActive(false);
+        }
         HUDDistanceText.text = Globals.CurrentDistance.ToString();
         HUDQuit.SetActive(true);
 
@@ -465,6 +519,7 @@ public class SceneManager : MonoBehaviour
         BombFlash.SetActive(false);
         HUDRaceReady.SetActive(false);
         HUDDistance.SetActive(false);
+        HUDItems.SetActive(true);
 
         Globals.ScrollSpeed = new Vector3(0, 0, 0);
         Player.transform.localPosition = new Vector3(Player.transform.localPosition.x, -3f, Player.transform.localPosition.z);

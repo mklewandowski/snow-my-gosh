@@ -30,10 +30,12 @@ public class ItemPowerup : Item
             else if (itemType == ItemType.Heart)
             {
                 audioManager.PlaySpeedUpSound();
+                sceneManager.GetHeart();
             }
             else if (itemType == ItemType.Coin)
             {
                 audioManager.PlaySpeedUpSound();
+                sceneManager.GetCoin();
             }
 
             Destroy(this.gameObject);
