@@ -59,7 +59,7 @@ public class Item : MonoBehaviour
 
     void Update()
     {
-        if (Globals.CurrentGameState == Globals.GameState.Restart)
+        if (Globals.CurrentGameState == Globals.GameState.Restart || this.transform.position.z < -10f)
         {
             Destroy(this.gameObject);
         }
