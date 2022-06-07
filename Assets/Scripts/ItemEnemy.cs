@@ -11,16 +11,17 @@ public class ItemEnemy : Item
 
             audioManager.PlaySmashSound();
 
-            int debrisMax = 15;
-            int debrisAmount = Random.Range(10, debrisMax);
-            debrisManager.StartDebris (debrisAmount, this.transform.position, debrisColor);
-
-            if (!sceneManager.IsInvincible())
+            if (sceneManager.IsInvincible())
             {
-                float newSpeed = Mathf.Max(Globals.minSpeed, Globals.ScrollSpeed.z - 1f);
-                Globals.ScrollSpeed = new Vector3(0, 0, newSpeed);
+                int debrisMax = 15;
+                int debrisAmount = Random.Range(10, debrisMax);
+                debrisManager.StartDebris (debrisAmount, this.transform.position, debrisColor);
+                Destroy(this.gameObject);
             }
-            Destroy(this.gameObject);
+            else
+            {
+                sceneManager.EndGame();
+            }
         }
     }
 

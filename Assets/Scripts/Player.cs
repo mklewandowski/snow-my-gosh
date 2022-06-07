@@ -3,6 +3,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     AudioManager audioManager;
+    protected Color debrisColor = new Color(255f/255f, 106f/255f, 0);
+    protected DebrisManager debrisManager;
 
     Vector3 movement = new Vector3(0, 0, 0);
 
@@ -18,14 +20,16 @@ public class Player : MonoBehaviour
     float maxRotation = 15f;
     bool movingLeft = false;
     bool movingRight = false;
+    bool requestMoveLeft = false;
+    bool requestMoveRight = false;
 
     void Awake()
     {
         audioManager = this.GetComponent<AudioManager>();
+        GameObject dm = GameObject.Find ("DebrisManager");
+        debrisManager = dm.GetComponent<DebrisManager> ();
     }
 
-    bool requestMoveLeft = false;
-    bool requestMoveRight = false;
     void Update()
     {
         if (!requestMoveLeft && !requestMoveRight)
@@ -33,6 +37,24 @@ public class Player : MonoBehaviour
             requestMoveLeft = Input.GetKeyDown(KeyCode.LeftArrow);
             requestMoveRight = !requestMoveLeft && Input.GetKeyDown(KeyCode.RightArrow);
         }
+    }
+
+    public void Die()
+    {
+        this.gameObject.SetActive(false);
+        int debrisAmount = 20;
+        debrisManager.StartDebris (debrisAmount, this.transform.position, debrisColor);
+    }
+
+    public void Reset()
+    {
+        movingLeft = false;
+        movingRight = false;
+        requestMoveLeft = false;
+        requestMoveRight = false;
+        desiredXPos = 0;
+        this.gameObject.SetActive(true);
+        this.transform.localPosition = new Vector3(0, this.transform.localPosition.y, this.transform.localPosition.z);
     }
 
     void FixedUpdate()

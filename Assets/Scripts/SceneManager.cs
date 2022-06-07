@@ -60,6 +60,10 @@ public class SceneManager : MonoBehaviour
     float bombflashTimerMax = .1f;
 
     [SerializeField]
+    TextMeshProUGUI HUDFinalDistance;
+    [SerializeField]
+    TextMeshProUGUI HUDBestDistance;
+    [SerializeField]
     GameObject HUDGameOver;
     [SerializeField]
     GameObject HUDFinalStatsContainer;
@@ -343,6 +347,9 @@ public class SceneManager : MonoBehaviour
 
         audioManager.PlayStartSound();
 
+        Camera.main.transform.position = new Vector3(0, Camera.main.transform.position.y, Camera.main.transform.position.z);
+        Player.GetComponent<Player>().Reset();
+
         HUDGameOver.GetComponent<MoveNormal>().MoveUp();
         HUDBackground.SetActive(false);
         HUDPlayer.SetActive(false);
@@ -357,6 +364,8 @@ public class SceneManager : MonoBehaviour
 
         invincibleTimer = 0f;
         Globals.CurrentDistance = 0;
+        distance = 0;
+        distanceUntilSpawn = 8f;
         HUDDistanceText.text = Globals.CurrentDistance.ToString();
         HUDQuit.SetActive(true);
 
@@ -388,10 +397,14 @@ public class SceneManager : MonoBehaviour
             HUDHighScore.SetActive(false);
         }
 
+        HUDFinalDistance.text = Globals.CurrentDistance.ToString();
+        HUDBestDistance.text = Globals.BestDistance.ToString();
+
         showScoreTimer = 3f;
         Globals.CurrentGameState = Globals.GameState.ShowScore;
 
         BombFlash.SetActive(false);
+        Player.GetComponent<Player>().Die();
         Player.GetComponent<VehicleTypeManager>().RestoreVehicleType();
     }
 

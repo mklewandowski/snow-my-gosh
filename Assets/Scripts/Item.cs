@@ -59,10 +59,8 @@ public class Item : MonoBehaviour
 
     void Update()
     {
-        if (Globals.CurrentGameState == Globals.GameState.ShowScore)
+        if (Globals.CurrentGameState == Globals.GameState.Restart)
         {
-            int debrisAmount = 10;
-            debrisManager.StartDebris (debrisAmount, this.transform.position, debrisColor);
             Destroy(this.gameObject);
         }
     }
