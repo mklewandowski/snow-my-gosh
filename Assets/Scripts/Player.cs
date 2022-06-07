@@ -28,6 +28,16 @@ public class Player : MonoBehaviour
         audioManager = this.GetComponent<AudioManager>();
         GameObject dm = GameObject.Find ("DebrisManager");
         debrisManager = dm.GetComponent<DebrisManager> ();
+        SwipeDetector.OnSwipe += SwipeDetector_OnSwipe;
+    }
+
+    private void SwipeDetector_OnSwipe(SwipeData data)
+    {
+        if (!requestMoveLeft && !requestMoveRight)
+        {
+            requestMoveLeft = data.Direction == SwipeDirection.Left;
+            requestMoveRight = !requestMoveLeft && data.Direction == SwipeDirection.Right;
+        }
     }
 
     void Update()
