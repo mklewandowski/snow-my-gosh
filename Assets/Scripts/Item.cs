@@ -35,7 +35,7 @@ public class Item : MonoBehaviour
         {
             debrisColor = Color.yellow;
         }
-        if (itemType == ItemType.Heart)
+        else if (itemType == ItemType.Heart)
         {
             debrisColor = Color.red;
         }
@@ -71,7 +71,10 @@ public class Item : MonoBehaviour
     {
         if (Globals.CurrentGameState == Globals.GameState.Ready || Globals.CurrentGameState == Globals.GameState.Playing || Globals.CurrentGameState == Globals.GameState.ShowScore)
         {
-            Vector3 movement = new Vector3 (0, 0, Globals.ScrollSpeed.z * Globals.ScrollDirection.z + extraSpeed * Globals.ScrollDirection.z);
+            float speedBump = 0;
+            if (this.transform.localPosition.z < 60f)
+                speedBump = extraSpeed;
+            Vector3 movement = new Vector3 (0, 0, Globals.ScrollSpeed.z * Globals.ScrollDirection.z + speedBump * Globals.ScrollDirection.z);
             this.GetComponent<Rigidbody>().velocity = movement;
         }
     }

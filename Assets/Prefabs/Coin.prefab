@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2748170386226318841
+--- !u!1 &783668708051314064
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6383106012934217410}
-  - component: {fileID: 8089157923121964936}
-  - component: {fileID: 4712960268376441628}
+  - component: {fileID: 8382898716367058603}
+  - component: {fileID: 6665651441681616865}
+  - component: {fileID: 7900611765462100853}
   m_Layer: 0
   m_Name: default
   m_TagString: Untagged
@@ -18,36 +18,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6383106012934217410
+--- !u!4 &8382898716367058603
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2748170386226318841}
-  m_LocalRotation: {x: 0.008726558, y: 0.999962, z: 0, w: 0}
-  m_LocalPosition: {x: -0.1, y: -0.75, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 783668708051314064}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.5, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5829185325059518362}
+  m_Father: {fileID: 8945905627875493875}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 1}
---- !u!33 &8089157923121964936
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6665651441681616865
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2748170386226318841}
-  m_Mesh: {fileID: -2432090755550338912, guid: a300f7c1681ee28479bf1baca0e6ea2d, type: 3}
---- !u!23 &4712960268376441628
+  m_GameObject: {fileID: 783668708051314064}
+  m_Mesh: {fileID: -2432090755550338912, guid: 81e7cdce1df49ed46a6dce2c48e6795f, type: 3}
+--- !u!23 &7900611765462100853
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2748170386226318841}
+  m_GameObject: {fileID: 783668708051314064}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &6606426093814019360
+--- !u!1 &8605795502448942409
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,54 +91,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5829185325059518362}
-  - component: {fileID: 6986683326109422110}
-  - component: {fileID: 2787415785960353317}
-  - component: {fileID: 6789217303275977105}
-  - component: {fileID: 8202013280036185350}
+  - component: {fileID: 8945905627875493875}
+  - component: {fileID: 3732352143371657008}
+  - component: {fileID: 1576501850723076418}
+  - component: {fileID: 5542883564410682830}
+  - component: {fileID: 3908817200147375100}
   m_Layer: 0
-  m_Name: YetiBot
+  m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5829185325059518362
+--- !u!4 &8945905627875493875
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6606426093814019360}
+  m_GameObject: {fileID: 8605795502448942409}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6383106012934217410}
+  - {fileID: 8382898716367058603}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6986683326109422110
+--- !u!65 &3732352143371657008
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6606426093814019360}
+  m_GameObject: {fileID: 8605795502448942409}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.9, y: 1, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &2787415785960353317
+--- !u!54 &1576501850723076418
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6606426093814019360}
+  m_GameObject: {fileID: 8605795502448942409}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -148,35 +148,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6789217303275977105
+--- !u!114 &5542883564410682830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6606426093814019360}
+  m_GameObject: {fileID: 8605795502448942409}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 665d89d5998c72d459dd3cb6ebe2c5bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cb37ac4f2130cf49a3a8b2744ac9c44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topY: 0
-  bottomY: 0
-  offsetY: 0.25
-  moveSpeedMin: 0.25
-  moveSpeedMax: 1
-  moveSpeed: 0.75
-  bounceOn: 1
---- !u!114 &8202013280036185350
+--- !u!114 &3908817200147375100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6606426093814019360}
+  m_GameObject: {fileID: 8605795502448942409}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a48646c9a348e0f42a878eb36bda966c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a415c7cf4e1466458eeb1c25ef6a776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 0
+  itemType: 5

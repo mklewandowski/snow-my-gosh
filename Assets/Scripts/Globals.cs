@@ -5,7 +5,7 @@ public class Globals
     // game scroll speed
     public static Vector3 ScrollSpeed = new Vector3(0, 0, 0);
     public static float minSpeed = 10f;
-    public static float maxSpeed = 30f;
+    public static float maxSpeed = 50f;
     public static float finishLineXPos = 800f;
 
     // moving direction

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class SceneManager : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class SceneManager : MonoBehaviour
     GameObject[] TreesRight;
 
     // titles and messages
+    [SerializeField]
+    GameObject HUDFade;
+    [SerializeField]
+    Image HUDFadeImage;
     [SerializeField]
     GameObject HUDBackground;
     [SerializeField]
@@ -85,6 +90,8 @@ public class SceneManager : MonoBehaviour
     float distance = 0;
     float distanceUntilSpawn = 8f;
 
+    float fadeTimer = .75f;
+
     void Awake()
     {
         Application.targetFrameRate = 60;
@@ -95,15 +102,24 @@ public class SceneManager : MonoBehaviour
         Player.GetComponent<VehicleTypeManager>().SetVehicleType(vehicleType);
         HUDPlayer.GetComponent<VehicleTypeManager>().SetVehicleType(vehicleType);
 
-        HUDTitle.GetComponent<MoveNormal>().MoveRight();
-        HUDButtons.GetComponent<MoveNormal>().MoveUp();
-
         audioManager = this.GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (fadeTimer > 0)
+        {
+            fadeTimer -= Time.deltaTime;
+            HUDFadeImage.color = new Color(0, 0, 0, fadeTimer / .75f);
+            if (fadeTimer <= 0)
+            {
+                HUDFade.SetActive(false);
+                HUDTitle.SetActive(true);
+                HUDTitle.GetComponent<GrowAndShrink>().StartEffect();
+                HUDButtons.GetComponent<MoveNormal>().MoveUp();
+            }
+        }
         if (Globals.CurrentGameState == Globals.GameState.Ready)
         {
             UpdateReady();
@@ -146,7 +162,7 @@ public class SceneManager : MonoBehaviour
             HUDDistance.SetActive(true);
             HUDRaceReady.SetActive(false);
             HUDRaceReady.transform.localScale = new Vector3(.1f, .1f, .1f);
-            Globals.ScrollSpeed = new Vector3(0, 0, 10f);
+            Globals.ScrollSpeed = new Vector3(0, 0, 50f);
             Globals.CurrentGameState = Globals.GameState.Playing;
             audioManager.PlayStartMovingSound();
         }
@@ -154,7 +170,6 @@ public class SceneManager : MonoBehaviour
 
     void UpdatePlaying()
     {
-        // WTD calculate distance and update HUD
         float trackMinZ = -10f;
         for (int i = 0; i < Tracks.Length; i++)
         {
@@ -227,41 +242,53 @@ public class SceneManager : MonoBehaviour
 
         if (distanceUntilSpawn <= 0)
         {
-            Debug.Log("spawn");
             // spawn new things in the 5 slots of the row at z = 60
             int lanes = 5;
+            int laneSlots = 8;
             float startX = -6f;
             float xIncrement = 3f;
             for (int x = 0; x < lanes; x++)
             {
-                float randomVal = Random.Range(0f, 100.0f);
-                if (randomVal < 10f)
+                float laneRandomVal = Random.Range(0f, 100.0f);
+                if (laneRandomVal < 20f)
                 {
-                    // make a yeti
-                    GameObject enemy = (GameObject)Instantiate(YetiPrefab, new Vector3(startX + x * xIncrement, -3f, 60f), Quaternion.identity, ItemContainer.transform);
+                    // snowball
+                    GameObject enemy = (GameObject)Instantiate(SnowBallPrefab, new Vector3(startX + x * xIncrement, -2.9f, 64f + 7 * 8f), Quaternion.identity, ItemContainer.transform);
                 }
-                else if (randomVal < 20f)
+                else if (laneRandomVal < 25f)
                 {
-                    // make a snowball
-                    GameObject enemy = (GameObject)Instantiate(SnowBallPrefab, new Vector3(startX + x * xIncrement, -2.9f, 60f), Quaternion.identity, ItemContainer.transform);
+                    // coin run
+                    for (int s = 0; s < laneSlots; s++)
+                    {
+                        GameObject powerup = (GameObject)Instantiate(CoinPowerupPrefab, new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f), Quaternion.identity, ItemContainer.transform);
+                    }
                 }
-                else if (randomVal < 30f)
+                else
                 {
-                    // make a powerup
-                    float powerupRandVal = Random.Range(0f, 100.0f);
-                    GameObject powerupPrefab = SpeedPowerupPrefab;
-                    if (powerupRandVal > 85)
+                    // random content
+                    for (int s = 0; s < laneSlots; s++)
                     {
-                        powerupPrefab = BombPowerupPrefab;
+                        float randomVal = Random.Range(0f, 100.0f);
+                        if (randomVal < 20f)
+                        {
+                            // make a yeti
+                            GameObject enemy = (GameObject)Instantiate(YetiPrefab, new Vector3(startX + x * xIncrement, -2.5f, 64f + s * 8f), Quaternion.identity, ItemContainer.transform);
+                        }
+                        else if (randomVal < 40f)
+                        {
+                            // make a powerup
+                            float powerupRandVal = Random.Range(0f, 100.0f);
+                            GameObject powerupPrefab = CoinPowerupPrefab;
+                            if (powerupRandVal > 80)
+                            {
+                                powerupPrefab = HeartPowerupPrefab;
+                            }
+                            GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f), Quaternion.identity, ItemContainer.transform);
+                        }
                     }
-                    else if (powerupRandVal > 70)
-                    {
-                        powerupPrefab = StarPowerupPrefab;
-                    }
-                    GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(startX + x * xIncrement, -3f, 60f), Quaternion.identity, ItemContainer.transform);
                 }
             }
-            distanceUntilSpawn = 8f;
+            distanceUntilSpawn = 64f;
         }
     }
 

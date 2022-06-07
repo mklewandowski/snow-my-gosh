@@ -27,6 +27,14 @@ public class ItemPowerup : Item
                 audioManager.PlayBombSound();
                 sceneManager.Bomb();
             }
+            else if (itemType == ItemType.Heart)
+            {
+                audioManager.PlaySpeedUpSound();
+            }
+            else if (itemType == ItemType.Coin)
+            {
+                audioManager.PlaySpeedUpSound();
+            }
 
             Destroy(this.gameObject);
         }
