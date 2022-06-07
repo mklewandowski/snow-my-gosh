@@ -479,6 +479,7 @@ public class SceneManager : MonoBehaviour
     {
         audioManager.PlayMenuSound();
 
+        HUDBackground.SetActive(true);
         HUDGameOver.GetComponent<MoveNormal>().MoveUp();
         HUDPlayer.SetActive(true);
         HUDPlayer.GetComponent<MoveNormal>().MoveLeft();
