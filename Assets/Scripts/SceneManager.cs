@@ -109,6 +109,9 @@ public class SceneManager : MonoBehaviour
 
         Globals.BestDistance = Globals.LoadIntFromPlayerPrefs(Globals.BestDistancePlayerPrefsKey);
 
+        Globals.Coins = Globals.LoadIntFromPlayerPrefs(Globals.CoinsPlayerPrefsKey);
+        HUDCoinsText.text = Globals.Coins.ToString();
+
         int vehicleType = Globals.LoadIntFromPlayerPrefs(Globals.VehicleTypePlayerPrefsKey);
         Player.GetComponent<VehicleTypeManager>().SetVehicleType(vehicleType);
         HUDPlayer.GetComponent<VehicleTypeManager>().SetVehicleType(vehicleType);
@@ -450,6 +453,8 @@ public class SceneManager : MonoBehaviour
         {
             HUDHighScore.SetActive(false);
         }
+
+        Globals.SaveIntToPlayerPrefs(Globals.CoinsPlayerPrefsKey, Globals.Coins);
 
         HUDFinalDistance.text = Globals.CurrentDistance.ToString();
         HUDBestDistance.text = Globals.BestDistance.ToString();
