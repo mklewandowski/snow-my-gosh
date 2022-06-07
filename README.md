@@ -1,5 +1,10 @@
-# snow-my-gosh
+# Snow My Gosh
+Snow My Gosh is an over-the-shoulder voxel art infinite racing game.
 
+## Gameplay
+Swipe left or right to avoid obstacles and grab coins and power-ups. Travel as far as you can and get the high score.
+
+![Snow My Gosh gameplay](https://github.com/mklewandowski/snow-my-gosh/blob/main/Assets/Images/snow-my-gosh-gameplay.gif?raw=true)
 
 ## Voxel Art
 
