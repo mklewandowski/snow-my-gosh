@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ebf4885086a433c448d0347fe97b0e3d
+guid: bc35f63915c535a4f8bfe7bcd00f45ba
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - 8BIT WONDER
+  - Snowstorm Bold
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

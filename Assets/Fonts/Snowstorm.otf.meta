@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 922433d3231fd49479fb77aee23f2634
+guid: 37c18fafe6dbd364694a65c8198e5d4c
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Pixel Intv
+  - Snowstorm
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
