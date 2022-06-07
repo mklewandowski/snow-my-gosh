@@ -15,8 +15,6 @@ public class ItemEnemy : Item
             int debrisAmount = Random.Range(10, debrisMax);
             debrisManager.StartDebris (debrisAmount, this.transform.position, debrisColor);
 
-            // Camera.main.GetComponent<CameraShake>().StartShake();
-
             if (!sceneManager.IsInvincible())
             {
                 float newSpeed = Mathf.Max(Globals.minSpeed, Globals.ScrollSpeed.z - 1f);

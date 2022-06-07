@@ -52,8 +52,6 @@ public class SceneManager : MonoBehaviour
     GameObject HUDDistance;
     [SerializeField]
     TextMeshProUGUI HUDDistanceText;
-    [SerializeField]
-    GameObject InvincibleMessage;
     float invincibleTimer = 0;
     float invincibleTimerMax = 4f;
     [SerializeField]
@@ -313,8 +311,6 @@ public class SceneManager : MonoBehaviour
 
     public void Invincible()
     {
-        InvincibleMessage.SetActive(true);
-        InvincibleMessage.GetComponent<WaitAndHide>().StartEffect();
         invincibleTimer = invincibleTimerMax;
         Player.GetComponent<VehicleTypeManager>().ChangeToInvincible();
     }
