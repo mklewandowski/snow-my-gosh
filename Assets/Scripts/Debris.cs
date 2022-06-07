@@ -32,9 +32,9 @@ public class Debris : MonoBehaviour
 
         // give it some physics
         Vector3 movementVector = new Vector3(0, 0, 0);
-        movementVector.x += Random.Range(-5f, 5f) * Time.deltaTime * 100f;
-        movementVector.y += Random.Range(-2, 4f) * Time.deltaTime * 100f;
-        movementVector.z += Random.Range(-4f, 4f) * Time.deltaTime * 100f;
+        movementVector.x += Random.Range(-5f, 5f) * Time.deltaTime * 200f;
+        movementVector.y += Random.Range(-2, 4f) * Time.deltaTime * 200f;
+        movementVector.z += Random.Range(-4f, 4f) * Time.deltaTime * 200f;
         this.gameObject.GetComponent<Rigidbody>().velocity = movementVector;
 
         this.gameObject.SetActive (true);
