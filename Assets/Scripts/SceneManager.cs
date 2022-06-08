@@ -429,6 +429,7 @@ public class SceneManager : MonoBehaviour
         {
             HUDHearts[x].SetActive(false);
         }
+        HUDDistance.SetActive(false);
         HUDDistanceText.text = Globals.CurrentDistance.ToString();
         HUDQuit.SetActive(true);
 
