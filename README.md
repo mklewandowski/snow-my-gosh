@@ -1,8 +1,8 @@
 # Snow My Gosh
-Snow My Gosh is an over-the-shoulder, voxel art, infinite racing game.
+Snow My Gosh is an over-the-shoulder, voxel art, infinite driving game. Snow My Gosh is inspired by old school car games like [Pole Position](https://en.wikipedia.org/wiki/Pole_Position) and [Night Driver](https://en.wikipedia.org/wiki/Night_Driver_(video_game)) as well as minimalist winter games like Vlambeer's [Yeti Hunter](https://www.youtube.com/watch?v=3WHGufXjaRA) and Bob Whitehead's [Skiiing](https://en.wikipedia.org/wiki/Skiing_(Atari_2600)). I also manage to bring up Yeti and/or Bigfoot in conversation about once a week so I figured it was time to stick a Yeti-like creature in a game.
 
 ## Gameplay
-Swipe left or right to avoid obstacles and grab coins and power-ups. Travel as far as you can and get the high score.
+Swipe left or right to move. Avoid Abominable Snowbots and Ice Boulders. Collect Hearts to launch power-ups. Collect Coins to unlock new vehicles.
 
 ![Snow My Gosh gameplay](https://github.com/mklewandowski/snow-my-gosh/blob/main/Assets/Images/snow-my-gosh-gameplay.gif?raw=true)
 
