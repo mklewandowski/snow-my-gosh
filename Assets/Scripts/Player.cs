@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
 
     private void SwipeDetector_OnSwipe(SwipeData data)
     {
+        if (Globals.CurrentGameState != Globals.GameState.Playing)
+            return;
         if (!requestMoveLeft && !requestMoveRight)
         {
             requestMoveLeft = data.Direction == SwipeDirection.Left;
@@ -44,6 +46,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (Globals.CurrentGameState != Globals.GameState.Playing)
+            return;
         if (!requestMoveLeft && !requestMoveRight)
         {
             requestMoveLeft = Input.GetKeyDown(KeyCode.LeftArrow);
