@@ -28,7 +28,7 @@ public class Smoke : MonoBehaviour
             float scrollSpeed = Globals.CurrentGameState == Globals.GameState.Playing
                 ? Globals.ScrollSpeed.z * Globals.ScrollDirection.z
                 : 0f;
-            Vector3 movement = new Vector3 (0, 0, scrollSpeed + smokeSpeed);
+            Vector3 movement = new Vector3 (0, 0, scrollSpeed / 5f + smokeSpeed);
             this.GetComponent<Rigidbody>().velocity = movement;
             transform.Rotate(new Vector3(rotation, 0, 0));
         }
