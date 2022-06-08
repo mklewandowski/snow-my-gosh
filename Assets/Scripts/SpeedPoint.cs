@@ -36,6 +36,7 @@ public class SpeedPoint : MonoBehaviour
         if (player != null && Globals.CurrentGameState == Globals.GameState.Playing)
         {
             audioManager.PlaySpeedUpSound();
+            audioManager.PlayEngineSound();
             sceneManager.SpeedUp();
         }
     }

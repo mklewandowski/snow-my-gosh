@@ -14,6 +14,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     AudioClip SpeedUpSound;
     [SerializeField]
+    AudioClip EngineSound;
+    [SerializeField]
     AudioClip InvincibleSound;
     [SerializeField]
     AudioClip SmashSound;
@@ -70,7 +72,13 @@ public class AudioManager : MonoBehaviour
     public void PlaySpeedUpSound()
     {
         if (Globals.AudioOn)
-            audioSource.PlayOneShot(SpeedUpSound, .7f);
+            audioSource.PlayOneShot(SpeedUpSound, 1f);
+    }
+
+    public void PlayEngineSound()
+    {
+        if (Globals.AudioOn)
+            audioSource.PlayOneShot(EngineSound, .7f);
     }
 
     public void PlayInvincibleSound()

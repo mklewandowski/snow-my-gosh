@@ -102,6 +102,11 @@ public class SceneManager : MonoBehaviour
     int[] speedPointWaves = new int[] { 2, 6, 10, 16, 22, 28, 36, 42, 50 };
     int waveNum = 0;
 
+    [SerializeField]
+    GameObject SpeedLines;
+    float speedLineTimer = 0;
+    float speedLineTimerMax = 1f;
+
     float distance = 0;
     float distanceUntilSpawn = 8f;
 
@@ -266,6 +271,15 @@ public class SceneManager : MonoBehaviour
             }
         }
 
+        if (speedLineTimer > 0)
+        {
+            speedLineTimer -= Time.deltaTime;
+            if (speedLineTimer <= 0)
+            {
+                SpeedLines.SetActive(false);
+            }
+        }
+
         distance = distance + Time.deltaTime * Globals.ScrollSpeed.z;
         distanceUntilSpawn = distanceUntilSpawn - Time.deltaTime * Globals.ScrollSpeed.z;
 
@@ -379,6 +393,8 @@ public class SceneManager : MonoBehaviour
         float newSpeed = Mathf.Min(Globals.maxSpeed, Globals.ScrollSpeed.z + 4f);
         Globals.ScrollSpeed = new Vector3(0, 0, newSpeed);
         smokeManager.SpeedUp();
+        speedLineTimer = speedLineTimerMax;
+        SpeedLines.SetActive(true);
     }
 
     public void Invincible()
@@ -507,6 +523,7 @@ public class SceneManager : MonoBehaviour
         Globals.CurrentGameState = Globals.GameState.ShowScore;
 
         BombFlash.SetActive(false);
+        SpeedLines.SetActive(false);
         Player.GetComponent<Player>().Die();
         Player.GetComponent<VehicleTypeManager>().RestoreVehicleType();
     }
