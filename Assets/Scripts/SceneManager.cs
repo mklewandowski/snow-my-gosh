@@ -99,7 +99,7 @@ public class SceneManager : MonoBehaviour
 	GameObject CoinPowerupPrefab;
     [SerializeField]
 	GameObject SpeedPointPrefab;
-    int[] speedPointWaves = new int[] { 2, 5, 8, 12, 16, 20, 25};
+    int[] speedPointWaves = new int[] { 2, 6, 10, 16, 22, 28, 36, 42, 50 };
     int waveNum = 0;
 
     float distance = 0;
@@ -376,7 +376,7 @@ public class SceneManager : MonoBehaviour
 
     public void SpeedUp()
     {
-        float newSpeed = Mathf.Min(Globals.maxSpeed, Globals.ScrollSpeed.z + 5f);
+        float newSpeed = Mathf.Min(Globals.maxSpeed, Globals.ScrollSpeed.z + 4f);
         Globals.ScrollSpeed = new Vector3(0, 0, newSpeed);
         smokeManager.SpeedUp();
     }
