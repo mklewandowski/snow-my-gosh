@@ -97,6 +97,10 @@ public class SceneManager : MonoBehaviour
 	GameObject HeartPowerupPrefab;
     [SerializeField]
 	GameObject CoinPowerupPrefab;
+    [SerializeField]
+	GameObject SpeedPointPrefab;
+    int[] speedPointWaves = new int[] { 2, 5, 8, 12, 16, 20, 25};
+    int waveNum = 0;
 
     float distance = 0;
     float distanceUntilSpawn = 8f;
@@ -270,59 +274,91 @@ public class SceneManager : MonoBehaviour
 
         if (distanceUntilSpawn <= 0)
         {
-            // spawn new things in the 5 slots of the row at z = 60
-            int lanes = 5;
-            int laneSlots = 8;
-            float startX = -6f;
-            float xIncrement = 3f;
-            for (int x = 0; x < lanes; x++)
+            waveNum++;
+            bool exists = false;
+            for (int a = 0; a < speedPointWaves.Length; a++)
             {
-                float laneRandomVal = Random.Range(0f, 100.0f);
-                if (laneRandomVal < 20f)
-                {
-                    // snowball
-                    int numSnowballs = Random.Range(1, 5);
-                    float extraSpeed = Random.Range(10f, 20f);
-                    for (int s = 0; s < numSnowballs; s++)
-                    {
-                        GameObject snowBall = (GameObject)Instantiate(SnowBallPrefab, new Vector3(startX + x * xIncrement, -2.9f, 64f + 7 * 8f + (s * 4f)), Quaternion.identity, ItemContainer.transform);
-                        snowBall.GetComponent<Item>().SetExtraSpeed(extraSpeed);
-                    }
-                }
-                else if (laneRandomVal < 25f)
-                {
-                    // coin run
-                    for (int s = 0; s < laneSlots; s++)
-                    {
-                        GameObject powerup = (GameObject)Instantiate(CoinPowerupPrefab, new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f), Quaternion.identity, ItemContainer.transform);
-                    }
-                }
-                else
-                {
-                    // random content
-                    for (int s = 0; s < laneSlots; s++)
-                    {
-                        float randomVal = Random.Range(0f, 100.0f);
-                        if (randomVal < 20f)
-                        {
-                            // make a yeti
-                            GameObject enemy = (GameObject)Instantiate(YetiPrefab, new Vector3(startX + x * xIncrement, -2.5f, 64f + s * 8f + Random.Range(-2f, 2f)), Quaternion.identity, ItemContainer.transform);
-                        }
-                        else if (randomVal < 30f)
-                        {
-                            // make a powerup
-                            float powerupRandVal = Random.Range(0f, 100.0f);
-                            GameObject powerupPrefab = CoinPowerupPrefab;
-                            if (powerupRandVal > 80)
-                            {
-                                powerupPrefab = HeartPowerupPrefab;
-                            }
-                            GameObject powerup = (GameObject)Instantiate(powerupPrefab, new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f + Random.Range(-2f, 2f)), Quaternion.identity, ItemContainer.transform);
-                        }
-                    }
-                }
+                if (speedPointWaves[a] == waveNum)
+                    exists = true;
             }
-            distanceUntilSpawn = 64f;
+            if (exists)
+            {
+                // spawn a speed point
+                GameObject speedPoint = (GameObject)Instantiate(SpeedPointPrefab,
+                    new Vector3(0, 0.2f, 64f),
+                    Quaternion.identity,
+                    ItemContainer.transform);
+                distanceUntilSpawn = 16f;
+            }
+            else
+            {
+                // spawn new things in the 5 slots of the row at z = 60
+                int lanes = 5;
+                int laneSlots = 8;
+                float startX = -6f;
+                float xIncrement = 3f;
+                for (int x = 0; x < lanes; x++)
+                {
+                    float laneRandomVal = Random.Range(0f, 100.0f);
+                    if (laneRandomVal < 20f)
+                    {
+                        // snowball
+                        int numSnowballs = Random.Range(1, 5);
+                        float extraSpeed = Random.Range(10f, 20f);
+                        for (int s = 0; s < numSnowballs; s++)
+                        {
+                            GameObject snowBall = (GameObject)Instantiate(SnowBallPrefab,
+                                new Vector3(startX + x * xIncrement, -2.9f, 64f + 7 * 8f + (s * 4f)),
+                                Quaternion.identity,
+                                ItemContainer.transform);
+                            snowBall.GetComponent<Item>().SetExtraSpeed(extraSpeed);
+                        }
+                    }
+                    else if (laneRandomVal < 25f)
+                    {
+                        // coin run
+                        for (int s = 0; s < laneSlots; s++)
+                        {
+                            GameObject powerup = (GameObject)Instantiate(CoinPowerupPrefab,
+                                new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f),
+                                Quaternion.identity,
+                                ItemContainer.transform);
+                        }
+                    }
+                    else
+                    {
+                        // random content
+                        for (int s = 0; s < laneSlots; s++)
+                        {
+                            float randomVal = Random.Range(0f, 100.0f);
+                            if (randomVal < 20f)
+                            {
+                                // make a yeti
+                                GameObject enemy = (GameObject)Instantiate(YetiPrefab,
+                                    new Vector3(startX + x * xIncrement, -2.5f, 64f + s * 8f + Random.Range(-2f, 2f)),
+                                    Quaternion.identity,
+                                    ItemContainer.transform);
+                            }
+                            else if (randomVal < 30f)
+                            {
+                                // make a powerup
+                                float powerupRandVal = Random.Range(0f, 100.0f);
+                                GameObject powerupPrefab = CoinPowerupPrefab;
+                                if (powerupRandVal > 80)
+                                {
+                                    powerupPrefab = HeartPowerupPrefab;
+                                }
+                                GameObject powerup = (GameObject)Instantiate(powerupPrefab,
+                                    new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f + Random.Range(-2f, 2f)),
+                                    Quaternion.identity,
+                                    ItemContainer.transform);
+                            }
+                        }
+                    }
+                }
+                distanceUntilSpawn = 64f;
+            }
+
         }
     }
 
@@ -340,7 +376,7 @@ public class SceneManager : MonoBehaviour
 
     public void SpeedUp()
     {
-        float newSpeed = Mathf.Min(Globals.maxSpeed, Globals.ScrollSpeed.z + 1f);
+        float newSpeed = Mathf.Min(Globals.maxSpeed, Globals.ScrollSpeed.z + 5f);
         Globals.ScrollSpeed = new Vector3(0, 0, newSpeed);
         smokeManager.SpeedUp();
     }
@@ -423,6 +459,7 @@ public class SceneManager : MonoBehaviour
         invincibleTimer = 0f;
         Globals.CurrentDistance = 0;
         distance = 0;
+        waveNum = 0;
         distanceUntilSpawn = 8f;
         totalHearts = 0;
         for (int x = 0; x < HUDHearts.Length; x++)

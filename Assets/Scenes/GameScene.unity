@@ -13154,6 +13154,7 @@ MonoBehaviour:
   BombPowerupPrefab: {fileID: 6033325941223477379, guid: 09252c599e3808646b8abfefab7721a0, type: 3}
   HeartPowerupPrefab: {fileID: 4239040191334888971, guid: 7559425cdba247f479da359a930de131, type: 3}
   CoinPowerupPrefab: {fileID: 8605795502448942409, guid: 0959966dc3037ee48947bedc1234b794, type: 3}
+  SpeedPointPrefab: {fileID: 65613365066309184, guid: 2fff0426a72494b4cb9fb88de9b58136, type: 3}
 --- !u!114 &1786826858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15405,7 +15406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2056936805
 Transform:
   m_ObjectHideFlags: 0
