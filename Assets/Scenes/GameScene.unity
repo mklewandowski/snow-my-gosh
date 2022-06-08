@@ -10544,7 +10544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1433098665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13191,6 +13191,12 @@ MonoBehaviour:
   InvincibleSound: {fileID: 8300000, guid: 328191db0f7cf3a419b95b7fc8ba52b1, type: 3}
   SmashSound: {fileID: 8300000, guid: 2dfbbf78f1ed2b94aba49ca832b90453, type: 3}
   BombSound: {fileID: 8300000, guid: 7615b663527335f44be41e877c8bf66d, type: 3}
+  CoinSound: {fileID: 8300000, guid: 7eda0eb96ba9d324590c3e0f00260ced, type: 3}
+  HeartSound: {fileID: 8300000, guid: c3b971afa2db0be40999c25af428aa01, type: 3}
+  SwipeSound:
+  - {fileID: 8300000, guid: c6b4368245249ea4da01b64c5e870366, type: 3}
+  - {fileID: 8300000, guid: e79e93299c2708b4dbca7883df1344f4, type: 3}
+  - {fileID: 8300000, guid: d4d58125d9ed7f94fbace17a0c258663, type: 3}
 --- !u!114 &1786826860
 MonoBehaviour:
   m_ObjectHideFlags: 0

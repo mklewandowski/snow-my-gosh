@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        audioManager = this.GetComponent<AudioManager>();
+        audioManager = GameObject.Find("SceneManager").GetComponent<AudioManager>();
         GameObject dm = GameObject.Find ("DebrisManager");
         debrisManager = dm.GetComponent<DebrisManager> ();
         SwipeDetector.OnSwipe += SwipeDetector_OnSwipe;
@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
         {
             requestMoveLeft = data.Direction == SwipeDirection.Left;
             requestMoveRight = !requestMoveLeft && data.Direction == SwipeDirection.Right;
+            if ((requestMoveLeft || requestMoveRight) && !movingLeft && !movingRight)
+                audioManager.PlaySwipeSound();
         }
     }
 
@@ -46,6 +48,8 @@ public class Player : MonoBehaviour
         {
             requestMoveLeft = Input.GetKeyDown(KeyCode.LeftArrow);
             requestMoveRight = !requestMoveLeft && Input.GetKeyDown(KeyCode.RightArrow);
+            if ((requestMoveLeft || requestMoveRight) && !movingLeft && !movingRight)
+                audioManager.PlaySwipeSound();
         }
     }
 

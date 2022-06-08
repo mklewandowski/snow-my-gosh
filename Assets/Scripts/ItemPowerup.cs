@@ -29,12 +29,12 @@ public class ItemPowerup : Item
             }
             else if (itemType == ItemType.Heart)
             {
-                audioManager.PlaySpeedUpSound();
+                audioManager.PlayHeartSound();
                 sceneManager.GetHeart();
             }
             else if (itemType == ItemType.Coin)
             {
-                audioManager.PlaySpeedUpSound();
+                audioManager.PlayCoinSound();
                 sceneManager.GetCoin();
             }
 

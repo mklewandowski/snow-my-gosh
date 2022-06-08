@@ -19,6 +19,12 @@ public class AudioManager : MonoBehaviour
     AudioClip SmashSound;
     [SerializeField]
     AudioClip BombSound;
+    [SerializeField]
+    AudioClip CoinSound;
+    [SerializeField]
+    AudioClip HeartSound;
+    [SerializeField]
+    AudioClip[] SwipeSound;
 
     void Awake()
     {
@@ -79,10 +85,29 @@ public class AudioManager : MonoBehaviour
             audioSource.PlayOneShot(SmashSound, 1f);
     }
 
+    public void PlayCoinSound()
+    {
+        if (Globals.AudioOn)
+            audioSource.PlayOneShot(CoinSound, .5f);
+    }
+
+    public void PlayHeartSound()
+    {
+        if (Globals.AudioOn)
+            audioSource.PlayOneShot(HeartSound, 1f);
+    }
+
     public void PlayBombSound()
     {
         if (Globals.AudioOn)
             audioSource.PlayOneShot(BombSound, 1f);
+    }
+
+    public void PlaySwipeSound()
+    {
+        int num = Random.Range(0, SwipeSound.Length);
+        if (Globals.AudioOn)
+            audioSource.PlayOneShot(SwipeSound[num], 1f);
     }
 
 }
