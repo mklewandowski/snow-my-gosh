@@ -7659,10 +7659,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Default: {fileID: 1673786050}
+  DefaultRenderer: {fileID: 1731328246}
   Invincible: {fileID: 1345820788}
   InvincibleRenderer: {fileID: 1345820787}
   InvincibleMaterial: {fileID: 2100000, guid: 83d3cf0f383ab46478b135ca918cc935, type: 2}
   WhiteMaterial: {fileID: 2100000, guid: 18b5bb728ab0577438e2e4d4c5fa37c3, type: 2}
+  GhostMaterial: {fileID: 2100000, guid: a3cfe8c11b438f946a8ff590de7cf9aa, type: 2}
 --- !u!65 &844741201
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13940,10 +13942,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Default: {fileID: 386244189}
+  DefaultRenderer: {fileID: 0}
   Invincible: {fileID: 333233097}
   InvincibleRenderer: {fileID: 333233095}
   InvincibleMaterial: {fileID: 2100000, guid: 83d3cf0f383ab46478b135ca918cc935, type: 2}
   WhiteMaterial: {fileID: 2100000, guid: 18b5bb728ab0577438e2e4d4c5fa37c3, type: 2}
+  GhostMaterial: {fileID: 0}
 --- !u!114 &1469776757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16210,6 +16214,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
+--- !u!23 &1731328246 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: af1f058aa618ac24b951c1b478cdf511, type: 3}
+  m_PrefabInstance: {fileID: 1477433315}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1746775088
 GameObject:
   m_ObjectHideFlags: 0

@@ -73,6 +73,8 @@ public class SceneManager : MonoBehaviour
     int totalHearts = 0;
     float invincibleTimer = 0;
     float invincibleTimerMax = 6f;
+    float ghostTimer = 0;
+    float ghostTimerMax = 6f;
     [SerializeField]
     GameObject BombFlash;
     float bombflashTimer = 0;
@@ -258,6 +260,19 @@ public class SceneManager : MonoBehaviour
             if (invincibleTimer <= 0)
             {
                 Player.GetComponent<VehicleTypeManager>().RestoreVehicleType();
+            }
+        }
+        if (ghostTimer > 0)
+        {
+            ghostTimer -= Time.deltaTime;
+            if (ghostTimer < 1f)
+            {
+                bool flash = (Mathf.Floor(ghostTimer * 10f)) % 2 == 0;
+                Player.GetComponent<VehicleTypeManager>().GhostFlash(flash);
+            }
+            if (ghostTimer <= 0)
+            {
+                Player.GetComponent<VehicleTypeManager>().EndGhost();
             }
         }
 
@@ -477,8 +492,24 @@ public class SceneManager : MonoBehaviour
         return invincibleTimer / invincibleTimerMax;
     }
 
+    public void Ghost()
+    {
+        ghostTimer = ghostTimerMax;
+        Player.GetComponent<VehicleTypeManager>().ChangeToGhost();
+    }
+
+    public bool IsGhost()
+    {
+        return ghostTimer > 0;
+    }
+    public float GhostPercent()
+    {
+        return ghostTimer / ghostTimerMax;
+    }
+
     public void Bomb()
     {
+        audioManager.PlayBombSound();
         ItemEnemy[] enemies = GameObject.FindObjectsOfType<ItemEnemy>(true);
         for (int i = 0; i < enemies.Length; i++)
         {
@@ -500,15 +531,18 @@ public class SceneManager : MonoBehaviour
         if (totalHearts >= 3)
         {
             heartTimer = heartTimerMax;
-            int randVal = Random.Range(0, 2);
+            int randVal = Random.Range(0, 3);
             if (randVal == 0)
             {
-                audioManager.PlayBombSound();
                 Bomb();
             }
             else if (randVal == 1)
             {
                 Invincible();
+            }
+            else if (randVal == 2)
+            {
+                Ghost();
             }
         }
         for (int x = 0; x < HUDHearts.Length; x++)
@@ -546,6 +580,7 @@ public class SceneManager : MonoBehaviour
         Player.SetActive(true);
 
         invincibleTimer = 0f;
+        ghostTimer = 0f;
         Globals.CurrentDistance = 0;
         distance = 0;
         waveNum = 0;

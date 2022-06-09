@@ -4,6 +4,9 @@ public class VehicleTypeManager : MonoBehaviour
 {
     [SerializeField]
     GameObject Default;
+    [SerializeField]
+    MeshRenderer DefaultRenderer;
+    Collider collider;
 
     [SerializeField]
     GameObject Invincible;
@@ -11,11 +14,18 @@ public class VehicleTypeManager : MonoBehaviour
     MeshRenderer InvincibleRenderer;
 
     [SerializeField]
-    Material InvincibleMaterial;
+    Material DefaultMaterial;
     [SerializeField]
-    Material WhiteMaterial;
+    Material FlashMaterial;
+    [SerializeField]
+    Material GhostMaterial;
 
     Globals.VehicleType currentVehicleType = Globals.VehicleType.Default;
+
+    void Awake()
+    {
+        collider = this.GetComponent<Collider>();
+    }
 
     public void SetVehicleType(int c)
     {
@@ -46,11 +56,32 @@ public class VehicleTypeManager : MonoBehaviour
         currVehicle.GetComponent<ShrinkAndHide>().StartEffect();
     }
 
+    public void ChangeToGhost()
+    {
+        GhostFlash(false);
+        collider.enabled = false;
+    }
+
+    public void EndGhost()
+    {
+        collider.enabled = true;
+        Material[] materialArray = DefaultRenderer.materials; // WTD expand for more vehicles
+        materialArray[0] = DefaultMaterial;
+        DefaultRenderer.materials = materialArray;
+    }
+
     public void InvincibleFlash(bool flash)
     {
         Material[] materialArray = InvincibleRenderer.materials;
-        materialArray[0] = flash ? WhiteMaterial : InvincibleMaterial;
+        materialArray[0] = flash ? FlashMaterial : DefaultMaterial;
         InvincibleRenderer.materials = materialArray;
+    }
+
+    public void GhostFlash(bool flash)
+    {
+        Material[] materialArray = DefaultRenderer.materials; // WTD expand for more vehicles
+        materialArray[0] = flash ? DefaultMaterial : GhostMaterial;
+        DefaultRenderer.materials = materialArray;
     }
 
     public void RestoreVehicleType()
