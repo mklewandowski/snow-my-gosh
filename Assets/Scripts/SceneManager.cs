@@ -72,7 +72,7 @@ public class SceneManager : MonoBehaviour
     GameObject[] HUDHearts;
     int totalHearts = 0;
     float invincibleTimer = 0;
-    float invincibleTimerMax = 4f;
+    float invincibleTimerMax = 6f;
     [SerializeField]
     GameObject BombFlash;
     float bombflashTimer = 0;
@@ -425,7 +425,7 @@ public class SceneManager : MonoBehaviour
                             {
                                 float powerupRandVal = Random.Range(0f, 100.0f);
                                 GameObject powerupPrefab = CoinPowerupPrefab;
-                                if (powerupRandVal > 80)
+                                if (powerupRandVal > 70)
                                 {
                                     powerupPrefab = HeartPowerupPrefab;
                                 }
@@ -500,8 +500,16 @@ public class SceneManager : MonoBehaviour
         if (totalHearts >= 3)
         {
             heartTimer = heartTimerMax;
-            audioManager.PlayBombSound();
-            Bomb();
+            int randVal = Random.Range(0, 2);
+            if (randVal == 0)
+            {
+                audioManager.PlayBombSound();
+                Bomb();
+            }
+            else if (randVal == 1)
+            {
+                Invincible();
+            }
         }
         for (int x = 0; x < HUDHearts.Length; x++)
         {
