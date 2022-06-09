@@ -48,9 +48,9 @@ public class SmokeManager : MonoBehaviour
         for (int x = 0; x < smokePool.Length; x++)
         {
             Vector3 position = this.transform.position;
-            position.x = position.x + Random.Range(0, -.4f);
-            position.y = position.y + Random.Range(-.18f, .18f);
-            position.z = position.z + Random.Range(-.18f, .18f);
+            position.x = position.x + Random.Range(0, -.3f);
+            position.y = position.y + Random.Range(-.12f, .12f);
+            position.z = position.z + Random.Range(-.12f, .12f);
 
             int randVal = Random.Range(0, 2);
             Color color = speedTimer <= 0
