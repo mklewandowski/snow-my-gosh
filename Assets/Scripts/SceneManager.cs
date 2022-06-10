@@ -83,6 +83,22 @@ public class SceneManager : MonoBehaviour
     float heartTimerMax = 1f;
     float bigifyTimer = 0;
     float bigifyTimerMax = 6f;
+    [SerializeField]
+    GameObject HUDPowerUpImage;
+    float powerUpImageTimer = 0;
+    float powerUpImageTimerMax = 2f;
+    [SerializeField]
+    Sprite PowerUpImageStar;
+    [SerializeField]
+    Sprite PowerUpImageGhost;
+    [SerializeField]
+    Sprite PowerUpImageBig;
+    [SerializeField]
+    Sprite PowerUpImageBomb;
+    [SerializeField]
+    Sprite PowerUpImageFire;
+    [SerializeField]
+    Sprite PowerUpImageRacer;
 
     [SerializeField]
     TextMeshProUGUI HUDFinalDistance;
@@ -312,6 +328,15 @@ public class SceneManager : MonoBehaviour
                 {
                     HUDHearts[x].SetActive(x < totalHearts);
                 }
+            }
+        }
+
+        if (powerUpImageTimer > 0)
+        {
+            powerUpImageTimer -= Time.deltaTime;
+            if (powerUpImageTimer <= 0)
+            {
+                HUDPowerUpImage.GetComponent<MoveNormal>().MoveDown();
             }
         }
 
@@ -551,20 +576,26 @@ public class SceneManager : MonoBehaviour
                 randVal = 0;
             if (randVal == 0)
             {
+                HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpImageBomb;
                 Bomb();
             }
             else if (randVal == 1)
             {
+                HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpImageStar;
                 Invincible();
             }
             else if (randVal == 2)
             {
+                HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpImageGhost;
                 Ghost();
             }
             else if (randVal == 3)
             {
+                HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpImageBig;
                 Bigify();
             }
+            powerUpImageTimer = powerUpImageTimerMax;
+            HUDPowerUpImage.GetComponent<MoveNormal>().MoveUp();
         }
         for (int x = 0; x < HUDHearts.Length; x++)
         {
