@@ -12,6 +12,14 @@ public class VehicleTypeManager : MonoBehaviour
     GameObject Invincible;
     [SerializeField]
     MeshRenderer InvincibleRenderer;
+    [SerializeField]
+    GameObject StarRacer;
+    [SerializeField]
+    MeshRenderer StarRacerRenderer;
+    [SerializeField]
+    GameObject Plane;
+    [SerializeField]
+    MeshRenderer PlaneRenderer;
 
     [SerializeField]
     Material DefaultMaterial;
@@ -42,7 +50,7 @@ public class VehicleTypeManager : MonoBehaviour
 
     public void ChangeToInvincible()
     {
-        InvincibleFlash(false);
+        MorphFlash(false);
         if (Invincible.activeSelf && !Invincible.GetComponent<ShrinkAndHide>().IsShrinking())
             return;
 
@@ -50,6 +58,38 @@ public class VehicleTypeManager : MonoBehaviour
         Invincible.transform.localScale = new Vector3(.1f, .1f, .1f);
         Invincible.SetActive(true);
         Invincible.GetComponent<GrowAndShrink>().StartEffect();
+
+        GameObject currVehicle = GetCurrentVehicle();
+        currVehicle.GetComponent<GrowAndShrink>().StopEffect();
+        currVehicle.GetComponent<ShrinkAndHide>().StartEffect();
+    }
+
+    public void ChangeToStarRacer()
+    {
+        MorphFlash(false);
+        if (StarRacer.activeSelf && !StarRacer.GetComponent<ShrinkAndHide>().IsShrinking())
+            return;
+
+        StarRacer.GetComponent<ShrinkAndHide>().StopEffect();
+        StarRacer.transform.localScale = new Vector3(.1f, .1f, .1f);
+        StarRacer.SetActive(true);
+        StarRacer.GetComponent<GrowAndShrink>().StartEffect();
+
+        GameObject currVehicle = GetCurrentVehicle();
+        currVehicle.GetComponent<GrowAndShrink>().StopEffect();
+        currVehicle.GetComponent<ShrinkAndHide>().StartEffect();
+    }
+
+    public void ChangeToPlane()
+    {
+        MorphFlash(false);
+        if (Plane.activeSelf && !Plane.GetComponent<ShrinkAndHide>().IsShrinking())
+            return;
+
+        Plane.GetComponent<ShrinkAndHide>().StopEffect();
+        Plane.transform.localScale = new Vector3(.1f, .1f, .1f);
+        Plane.SetActive(true);
+        Plane.GetComponent<GrowAndShrink>().StartEffect();
 
         GameObject currVehicle = GetCurrentVehicle();
         currVehicle.GetComponent<GrowAndShrink>().StopEffect();
@@ -80,11 +120,16 @@ public class VehicleTypeManager : MonoBehaviour
         this.GetComponent<Bigify>().EndBigify();
     }
 
-    public void InvincibleFlash(bool flash)
+    public void MorphFlash(bool flash)
     {
-        Material[] materialArray = InvincibleRenderer.materials;
+        MeshRenderer powerupRenderer = InvincibleRenderer;
+        if (StarRacer.activeSelf)
+            powerupRenderer = StarRacerRenderer;
+        if (Plane.activeSelf)
+            powerupRenderer = PlaneRenderer;
+        Material[] materialArray = powerupRenderer.materials;
         materialArray[0] = flash ? FlashMaterial : DefaultMaterial;
-        InvincibleRenderer.materials = materialArray;
+        powerupRenderer.materials = materialArray;
     }
 
     public void GhostFlash(bool flash)
@@ -103,7 +148,7 @@ public class VehicleTypeManager : MonoBehaviour
 
     public void RestoreVehicleType()
     {
-        if (!Invincible.activeSelf)
+        if (!Invincible.activeSelf && !StarRacer.activeSelf && !Plane.activeSelf)
             return;
 
         GameObject currVehicle = GetCurrentVehicle();
@@ -112,8 +157,14 @@ public class VehicleTypeManager : MonoBehaviour
         currVehicle.SetActive(true);
         currVehicle.GetComponent<GrowAndShrink>().StartEffect();
 
-        Invincible.GetComponent<GrowAndShrink>().StopEffect();
-        Invincible.GetComponent<ShrinkAndHide>().StartEffect();
+        GameObject powerupGameObject = Invincible;
+        if (StarRacer.activeSelf)
+            powerupGameObject = StarRacer;
+        if (Plane.activeSelf)
+            powerupGameObject = Plane;
+
+        powerupGameObject.GetComponent<GrowAndShrink>().StopEffect();
+        powerupGameObject.GetComponent<ShrinkAndHide>().StartEffect();
     }
 
     GameObject GetCurrentVehicle()

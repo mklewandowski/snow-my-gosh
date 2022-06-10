@@ -13,9 +13,12 @@ public class SmokeManager : MonoBehaviour
 
     float smokeTimer = 0f;
     float smokeTimerMax = .05f;
+    float resumeTimer = 0f;
 
     float speedTimer = 0f;
     float speedTimerMax = 1f;
+
+    bool inUse = true;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +32,15 @@ public class SmokeManager : MonoBehaviour
 
     void Update()
     {
+        if (resumeTimer > 0)
+        {
+            resumeTimer -= Time.deltaTime;
+            if (resumeTimer < 0)
+            {
+                inUse = true;
+            }
+        }
+
         smokeTimer -= Time.deltaTime;
         if (smokeTimer <= 0)
         {
@@ -44,6 +56,7 @@ public class SmokeManager : MonoBehaviour
 
     public void StartSmoke(int amount)
     {
+        if (!inUse) return;
         int count = 0;
         for (int x = 0; x < smokePool.Length; x++)
         {
@@ -78,5 +91,15 @@ public class SmokeManager : MonoBehaviour
         {
             smokeScripts[x].StopUse();
         }
+    }
+
+    public void PauseSmoke()
+    {
+        inUse = false;
+    }
+
+    public void ResumeSmoke(float delay)
+    {
+        resumeTimer = delay;
     }
 }

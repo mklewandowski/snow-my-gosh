@@ -70,23 +70,10 @@ public class SceneManager : MonoBehaviour
     TextMeshProUGUI HUDCoinsText;
     [SerializeField]
     GameObject[] HUDHearts;
-    int totalHearts = 0;
-    float invincibleTimer = 0;
-    float invincibleTimerMax = 6f;
-    float ghostTimer = 0;
-    float ghostTimerMax = 6f;
     [SerializeField]
     GameObject BombFlash;
-    float bombflashTimer = 0;
-    float bombflashTimerMax = .1f;
-    float heartTimer = 0;
-    float heartTimerMax = 1f;
-    float bigifyTimer = 0;
-    float bigifyTimerMax = 6f;
     [SerializeField]
     GameObject HUDPowerUpImage;
-    float powerUpImageTimer = 0;
-    float powerUpImageTimerMax = 2f;
     [SerializeField]
     Sprite PowerUpImageStar;
     [SerializeField]
@@ -101,6 +88,24 @@ public class SceneManager : MonoBehaviour
     Sprite PowerUpImageRacer;
     [SerializeField]
     Sprite PowerUpFlyby;
+    int totalHearts = 0;
+    float invincibleTimer = 0;
+    float invincibleTimerMax = 6f;
+    float ghostTimer = 0;
+    float ghostTimerMax = 6f;
+    float starRacerTimer = 0;
+    float starRacerTimerMax = 6f;
+    float previousSpeed;
+    float planeTimer = 0;
+    float planeTimerMax = 6f;
+    float bombflashTimer = 0;
+    float bombflashTimerMax = .1f;
+    float heartTimer = 0;
+    float heartTimerMax = 1f;
+    float bigifyTimer = 0;
+    float bigifyTimerMax = 6f;
+    float powerUpImageTimer = 0;
+    float powerUpImageTimerMax = 2f;
 
     [SerializeField]
     TextMeshProUGUI HUDFinalDistance;
@@ -275,11 +280,43 @@ public class SceneManager : MonoBehaviour
             if (invincibleTimer < 1f)
             {
                 bool flash = (Mathf.Floor(invincibleTimer * 10f)) % 2 == 0;
-                Player.GetComponent<VehicleTypeManager>().InvincibleFlash(flash);
+                Player.GetComponent<VehicleTypeManager>().MorphFlash(flash);
             }
             if (invincibleTimer <= 0)
             {
                 Player.GetComponent<VehicleTypeManager>().RestoreVehicleType();
+            }
+        }
+
+        if (starRacerTimer > 0)
+        {
+            starRacerTimer -= Time.deltaTime;
+            if (starRacerTimer < 1f)
+            {
+                bool flash = (Mathf.Floor(starRacerTimer * 10f)) % 2 == 0;
+                Player.GetComponent<VehicleTypeManager>().MorphFlash(flash);
+            }
+            if (starRacerTimer <= 0)
+            {
+                SpeedLines.SetActive(false);
+                Globals.ScrollSpeed = new Vector3(0, 0, previousSpeed);
+                Player.GetComponent<VehicleTypeManager>().RestoreVehicleType();
+            }
+        }
+
+        if (planeTimer > 0)
+        {
+            planeTimer -= Time.deltaTime;
+            if (planeTimer < 1f)
+            {
+                bool flash = (Mathf.Floor(planeTimer * 10f)) % 2 == 0;
+                Player.GetComponent<VehicleTypeManager>().MorphFlash(flash);
+            }
+            if (planeTimer <= 0)
+            {
+                Player.GetComponent<VehicleTypeManager>().RestoreVehicleType();
+                Player.GetComponent<MoveNormal>().MoveDown();
+                smokeManager.ResumeSmoke(2f);
             }
         }
 
@@ -345,7 +382,7 @@ public class SceneManager : MonoBehaviour
         if (speedLineTimer > 0)
         {
             speedLineTimer -= Time.deltaTime;
-            if (speedLineTimer <= 0)
+            if (speedLineTimer <= 0 && starRacerTimer <= 0)
             {
                 SpeedLines.SetActive(false);
             }
@@ -527,9 +564,32 @@ public class SceneManager : MonoBehaviour
         Player.GetComponent<VehicleTypeManager>().ChangeToInvincible();
     }
 
+    public void StarRacer()
+    {
+        if (starRacerTimer > 0) return;
+        previousSpeed = Globals.ScrollSpeed.z;
+        Globals.ScrollSpeed = new Vector3(0, 0, Globals.maxSpeed);
+        starRacerTimer = starRacerTimerMax;
+        Player.GetComponent<VehicleTypeManager>().ChangeToStarRacer();
+        SpeedLines.SetActive(true);
+    }
+
+    public void Plane()
+    {
+        planeTimer = planeTimerMax;
+        Player.GetComponent<VehicleTypeManager>().ChangeToPlane();
+        Player.GetComponent<MoveNormal>().MoveUp();
+        smokeManager.PauseSmoke();
+    }
+
+    public bool IsPlane()
+    {
+        return planeTimer > 0;
+    }
+
     public bool IsInvincible()
     {
-        return invincibleTimer > 0 || bigifyTimer > 0;
+        return invincibleTimer > 0 || bigifyTimer > 0 || starRacerTimer > 0;
     }
 
     public void Ghost()
@@ -573,8 +633,8 @@ public class SceneManager : MonoBehaviour
         if (totalHearts >= 3)
         {
             heartTimer = heartTimerMax;
-            int randVal = Random.Range(0, 4);
-            if (IsInvincible() || IsGhost())
+            int randVal = Random.Range(0, 6);
+            if (IsInvincible() || IsGhost() || IsPlane())
                 randVal = 0;
             if (randVal == 0)
             {
@@ -595,6 +655,16 @@ public class SceneManager : MonoBehaviour
             {
                 HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpImageBig;
                 Bigify();
+            }
+            else if (randVal == 4)
+            {
+                HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpImageRacer;
+                StarRacer();
+            }
+            else if (randVal == 5)
+            {
+                HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpFlyby;
+                Plane();
             }
             powerUpImageTimer = powerUpImageTimerMax;
             HUDPowerUpImage.GetComponent<MoveNormal>().MoveUp();
