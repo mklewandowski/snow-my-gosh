@@ -99,6 +99,8 @@ public class SceneManager : MonoBehaviour
     Sprite PowerUpImageFire;
     [SerializeField]
     Sprite PowerUpImageRacer;
+    [SerializeField]
+    Sprite PowerUpFlyby;
 
     [SerializeField]
     TextMeshProUGUI HUDFinalDistance;

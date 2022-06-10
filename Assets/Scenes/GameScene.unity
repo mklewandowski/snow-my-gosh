@@ -16807,6 +16807,7 @@ MonoBehaviour:
   PowerUpImageBomb: {fileID: 21300000, guid: c3a51da57c7f4b44899ccc9af40d6010, type: 3}
   PowerUpImageFire: {fileID: 21300000, guid: fd23265ca236b8645a98b523479d7c99, type: 3}
   PowerUpImageRacer: {fileID: 21300000, guid: 36a3080fcf129434f9631576eb5782c0, type: 3}
+  PowerUpFlyby: {fileID: 21300000, guid: 87568996cb757b14bbc15f3d9608ee41, type: 3}
   HUDFinalDistance: {fileID: 1514503583}
   HUDBestDistance: {fileID: 1056600321}
   HUDGameOver: {fileID: 1569890393}
