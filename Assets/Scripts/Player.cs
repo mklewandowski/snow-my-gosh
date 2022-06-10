@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
         requestMoveRight = false;
         desiredXPos = 0;
         this.gameObject.SetActive(true);
-        this.transform.localPosition = new Vector3(0, this.transform.localPosition.y, this.transform.localPosition.z);
+        this.transform.localPosition = new Vector3(0, -3.05f, this.transform.localPosition.z);
     }
 
     void FixedUpdate()

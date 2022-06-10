@@ -15,7 +15,7 @@ public class SpeedPoint : MonoBehaviour
 
     void Update()
     {
-        if (Globals.CurrentGameState == Globals.GameState.Restart || this.transform.position.z < -10f)
+        if (Globals.CurrentGameState == Globals.GameState.Restart || Globals.CurrentGameState == Globals.GameState.Ready || this.transform.position.z < -10f)
         {
             Destroy(this.gameObject);
         }
