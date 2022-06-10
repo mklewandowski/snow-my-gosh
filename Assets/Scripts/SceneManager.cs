@@ -759,6 +759,7 @@ public class SceneManager : MonoBehaviour
     {
         audioManager.PlayMenuSound();
 
+        HUDButtons.GetComponent<MoveNormal>().MoveDown();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveUp();
         HUDPlayer.GetComponent<MoveNormal>().MoveRight();
         HUDAbout.GetComponent<MoveNormal>().MoveRight();
@@ -789,6 +790,7 @@ public class SceneManager : MonoBehaviour
     {
         audioManager.PlayMenuSound();
 
+        HUDButtons.GetComponent<MoveNormal>().MoveUp();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveDown();
         HUDPlayer.GetComponent<MoveNormal>().MoveLeft();
 

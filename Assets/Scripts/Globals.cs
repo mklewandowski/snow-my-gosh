@@ -22,6 +22,20 @@ public class Globals
 
     public enum VehicleType {
         Default,
+        Blizzard,
+        PineTree,
+        EggNog,
+        FrozenLake,
+        Cardinal,
+        Cocoa,
+        CandyCane,
+        NorthStar,
+        Sweater,
+        Gingerbread,
+        Tinsel,
+        Santa,
+        Misletoe,
+        Icicle,
         Invincible
     }
 
@@ -67,6 +81,40 @@ public class Globals
         string name = "";
         if (type == Globals.VehicleType.Default)
             name = "Snow My Gosh";
+        else if (type == Globals.VehicleType.Blizzard)
+            name = "Blizzard";
+        else if (type == Globals.VehicleType.PineTree)
+            name = "Pine Tree";
+        else if (type == Globals.VehicleType.EggNog)
+            name = "Egg Nog";
+        else if (type == Globals.VehicleType.FrozenLake)
+            name = "Frozen Lake";
+        else if (type == Globals.VehicleType.Cardinal)
+            name = "Winter Cardinal";
+        else if (type == Globals.VehicleType.Cocoa)
+            name = "Hot Cocoa";
+        else if (type == Globals.VehicleType.CandyCane)
+            name = "Candy Cane";
+        else if (type == Globals.VehicleType.NorthStar)
+            name = "North Star";
+        else if (type == Globals.VehicleType.Sweater)
+            name = "Ugly Sweater";
+        else if (type == Globals.VehicleType.Gingerbread)
+            name = "Gingerbread";
+        else if (type == Globals.VehicleType.Tinsel)
+            name = "Tinsel";
+        else if (type == Globals.VehicleType.Santa)
+            name = "Santa's Helper";
+        else if (type == Globals.VehicleType.Misletoe)
+            name = "Misletoe";
+        else if (type == Globals.VehicleType.Icicle)
+            name = "Icicle";
+        else if (type == Globals.VehicleType.Default)
+            name = "ffff";
+        else if (type == Globals.VehicleType.Default)
+            name = "ffff";
+        else if (type == Globals.VehicleType.Default)
+            name = "ffff";
         return name;
     }
 }

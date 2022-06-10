@@ -3,11 +3,12 @@ using UnityEngine;
 public class VehicleTypeManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject Default;
+    GameObject[] Vehicles;
     [SerializeField]
-    MeshRenderer DefaultRenderer;
+    MeshRenderer[] VehicleRenderers;
     Collider carCollider;
 
+    // special cases for powerups
     [SerializeField]
     GameObject Invincible;
     [SerializeField]
@@ -55,7 +56,10 @@ public class VehicleTypeManager : MonoBehaviour
         if (vehicleType != Globals.VehicleType.Invincible)
             currentVehicleType = vehicleType;
 
-        Default.SetActive(vehicleType == Globals.VehicleType.Default);
+        for (int x = 0; x < Vehicles.Length; x++)
+        {
+            Vehicles[x].SetActive(x == c);
+        }
 
         if (Invincible != null) Invincible.SetActive(vehicleType == Globals.VehicleType.Invincible);
 
@@ -120,9 +124,9 @@ public class VehicleTypeManager : MonoBehaviour
     public void EndGhost()
     {
         carCollider.enabled = true;
-        Material[] materialArray = DefaultRenderer.materials; // WTD expand for more vehicles
+        Material[] materialArray = VehicleRenderers[(int)currentVehicleType].materials;
         materialArray[0] = DefaultMaterial;
-        DefaultRenderer.materials = materialArray;
+        VehicleRenderers[(int)currentVehicleType].materials = materialArray;
     }
 
     public void Bigify()
@@ -149,16 +153,16 @@ public class VehicleTypeManager : MonoBehaviour
 
     public void GhostFlash(bool flash)
     {
-        Material[] materialArray = DefaultRenderer.materials; // WTD expand for more vehicles
+        Material[] materialArray = VehicleRenderers[(int)currentVehicleType].materials;
         materialArray[0] = flash ? DefaultMaterial : GhostMaterial;
-        DefaultRenderer.materials = materialArray;
+        VehicleRenderers[(int)currentVehicleType].materials = materialArray;
     }
 
     public void BigifyFlash(bool flash)
     {
-        Material[] materialArray = DefaultRenderer.materials; // WTD expand for more vehicles
+        Material[] materialArray = VehicleRenderers[(int)currentVehicleType].materials;
         materialArray[0] = flash ? FlashMaterial : DefaultMaterial;
-        DefaultRenderer.materials = materialArray;
+        VehicleRenderers[(int)currentVehicleType].materials = materialArray;
     }
 
     public void RestoreVehicleType()
@@ -184,10 +188,7 @@ public class VehicleTypeManager : MonoBehaviour
 
     GameObject GetCurrentVehicle()
     {
-        GameObject currVehicle = Default;
-        if (currentVehicleType == Globals.VehicleType.Default)
-            currVehicle = Default;
-
+        GameObject currVehicle = Vehicles[(int)currentVehicleType];
         return currVehicle;
     }
 
