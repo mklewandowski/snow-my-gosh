@@ -6,7 +6,7 @@ public class VehicleTypeManager : MonoBehaviour
     GameObject Default;
     [SerializeField]
     MeshRenderer DefaultRenderer;
-    Collider collider;
+    Collider carCollider;
 
     [SerializeField]
     GameObject Invincible;
@@ -24,7 +24,7 @@ public class VehicleTypeManager : MonoBehaviour
 
     void Awake()
     {
-        collider = this.GetComponent<Collider>();
+        carCollider = this.GetComponent<Collider>();
     }
 
     public void SetVehicleType(int c)
@@ -59,15 +59,25 @@ public class VehicleTypeManager : MonoBehaviour
     public void ChangeToGhost()
     {
         GhostFlash(false);
-        collider.enabled = false;
+        carCollider.enabled = false;
     }
 
     public void EndGhost()
     {
-        collider.enabled = true;
+        carCollider.enabled = true;
         Material[] materialArray = DefaultRenderer.materials; // WTD expand for more vehicles
         materialArray[0] = DefaultMaterial;
         DefaultRenderer.materials = materialArray;
+    }
+
+    public void Bigify()
+    {
+        this.GetComponent<Bigify>().StartBigify();
+    }
+
+    public void EndBigify()
+    {
+        this.GetComponent<Bigify>().EndBigify();
     }
 
     public void InvincibleFlash(bool flash)
@@ -81,6 +91,13 @@ public class VehicleTypeManager : MonoBehaviour
     {
         Material[] materialArray = DefaultRenderer.materials; // WTD expand for more vehicles
         materialArray[0] = flash ? DefaultMaterial : GhostMaterial;
+        DefaultRenderer.materials = materialArray;
+    }
+
+    public void BigifyFlash(bool flash)
+    {
+        Material[] materialArray = DefaultRenderer.materials; // WTD expand for more vehicles
+        materialArray[0] = flash ? FlashMaterial : DefaultMaterial;
         DefaultRenderer.materials = materialArray;
     }
 

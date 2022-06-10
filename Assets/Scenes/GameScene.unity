@@ -7593,6 +7593,7 @@ GameObject:
   - component: {fileID: 844741199}
   - component: {fileID: 844741200}
   - component: {fileID: 844741201}
+  - component: {fileID: 844741202}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -7662,8 +7663,8 @@ MonoBehaviour:
   DefaultRenderer: {fileID: 1731328246}
   Invincible: {fileID: 1345820788}
   InvincibleRenderer: {fileID: 1345820787}
-  InvincibleMaterial: {fileID: 2100000, guid: 83d3cf0f383ab46478b135ca918cc935, type: 2}
-  WhiteMaterial: {fileID: 2100000, guid: 18b5bb728ab0577438e2e4d4c5fa37c3, type: 2}
+  DefaultMaterial: {fileID: 2100000, guid: 83d3cf0f383ab46478b135ca918cc935, type: 2}
+  FlashMaterial: {fileID: 2100000, guid: 18b5bb728ab0577438e2e4d4c5fa37c3, type: 2}
   GhostMaterial: {fileID: 2100000, guid: a3cfe8c11b438f946a8ff590de7cf9aa, type: 2}
 --- !u!65 &844741201
 BoxCollider:
@@ -7677,7 +7678,25 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 1}
+  m_Center: {x: 0, y: 0, z: 0.7}
+--- !u!114 &844741202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844741195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b55985926ce3a4ea3fcad4961dfdef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrowTo: 2
+  ShrinkTo: 1
+  Rate: 5
+  OriginY: -3.05
+  BigifyY: -2.45
+  SmokeOrigin: {fileID: 1512461355}
 --- !u!1 &846447164
 GameObject:
   m_ObjectHideFlags: 0
@@ -13945,8 +13964,8 @@ MonoBehaviour:
   DefaultRenderer: {fileID: 0}
   Invincible: {fileID: 333233097}
   InvincibleRenderer: {fileID: 333233095}
-  InvincibleMaterial: {fileID: 2100000, guid: 83d3cf0f383ab46478b135ca918cc935, type: 2}
-  WhiteMaterial: {fileID: 2100000, guid: 18b5bb728ab0577438e2e4d4c5fa37c3, type: 2}
+  DefaultMaterial: {fileID: 0}
+  FlashMaterial: {fileID: 0}
   GhostMaterial: {fileID: 0}
 --- !u!114 &1469776757
 MonoBehaviour:

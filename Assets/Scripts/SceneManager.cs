@@ -81,6 +81,8 @@ public class SceneManager : MonoBehaviour
     float bombflashTimerMax = .1f;
     float heartTimer = 0;
     float heartTimerMax = 1f;
+    float bigifyTimer = 0;
+    float bigifyTimerMax = 6f;
 
     [SerializeField]
     TextMeshProUGUI HUDFinalDistance;
@@ -262,6 +264,7 @@ public class SceneManager : MonoBehaviour
                 Player.GetComponent<VehicleTypeManager>().RestoreVehicleType();
             }
         }
+
         if (ghostTimer > 0)
         {
             ghostTimer -= Time.deltaTime;
@@ -273,6 +276,20 @@ public class SceneManager : MonoBehaviour
             if (ghostTimer <= 0)
             {
                 Player.GetComponent<VehicleTypeManager>().EndGhost();
+            }
+        }
+
+        if (bigifyTimer > 0)
+        {
+            bigifyTimer -= Time.deltaTime;
+            if (bigifyTimer < 1f)
+            {
+                bool flash = (Mathf.Floor(bigifyTimer * 10f)) % 2 == 0;
+                Player.GetComponent<VehicleTypeManager>().BigifyFlash(flash);
+            }
+            if (bigifyTimer <= 0)
+            {
+                Player.GetComponent<VehicleTypeManager>().EndBigify();
             }
         }
 
@@ -485,11 +502,7 @@ public class SceneManager : MonoBehaviour
 
     public bool IsInvincible()
     {
-        return invincibleTimer > 0;
-    }
-    public float InvinciblePercent()
-    {
-        return invincibleTimer / invincibleTimerMax;
+        return invincibleTimer > 0 || bigifyTimer > 0;
     }
 
     public void Ghost()
@@ -502,9 +515,11 @@ public class SceneManager : MonoBehaviour
     {
         return ghostTimer > 0;
     }
-    public float GhostPercent()
+
+    public void Bigify()
     {
-        return ghostTimer / ghostTimerMax;
+        bigifyTimer = bigifyTimerMax;
+        Player.GetComponent<VehicleTypeManager>().Bigify();
     }
 
     public void Bomb()
@@ -531,7 +546,9 @@ public class SceneManager : MonoBehaviour
         if (totalHearts >= 3)
         {
             heartTimer = heartTimerMax;
-            int randVal = Random.Range(0, 3);
+            int randVal = Random.Range(0, 4);
+            if (IsInvincible() || IsGhost())
+                randVal = 0;
             if (randVal == 0)
             {
                 Bomb();
@@ -543,6 +560,10 @@ public class SceneManager : MonoBehaviour
             else if (randVal == 2)
             {
                 Ghost();
+            }
+            else if (randVal == 3)
+            {
+                Bigify();
             }
         }
         for (int x = 0; x < HUDHearts.Length; x++)
