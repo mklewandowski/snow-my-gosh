@@ -66,12 +66,14 @@ public class Player : MonoBehaviour
 
     public void Reset()
     {
+        this.GetComponent<Collider>().enabled = true;
         movingLeft = false;
         movingRight = false;
         requestMoveLeft = false;
         requestMoveRight = false;
         desiredXPos = 0;
         this.gameObject.SetActive(true);
+        this.transform.localScale = new Vector3(1f, 1f, 1f);
         this.transform.localPosition = new Vector3(0, -3.05f, this.transform.localPosition.z);
     }
 

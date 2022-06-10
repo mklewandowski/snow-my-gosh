@@ -127,12 +127,6 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
 	GameObject SnowBallPrefab;
     [SerializeField]
-	GameObject SpeedPowerupPrefab;
-    [SerializeField]
-	GameObject StarPowerupPrefab;
-    [SerializeField]
-	GameObject BombPowerupPrefab;
-    [SerializeField]
 	GameObject HeartPowerupPrefab;
     [SerializeField]
 	GameObject CoinPowerupPrefab;
@@ -317,6 +311,7 @@ public class SceneManager : MonoBehaviour
                 Player.GetComponent<VehicleTypeManager>().RestoreVehicleType();
                 Player.GetComponent<MoveNormal>().MoveDown();
                 smokeManager.ResumeSmoke(2f);
+                Player.GetComponent<VehicleTypeManager>().ResumeCollision(2f);
             }
         }
 
@@ -558,13 +553,13 @@ public class SceneManager : MonoBehaviour
         SpeedLines.SetActive(true);
     }
 
-    public void Invincible()
+    public void StartInvincible()
     {
         invincibleTimer = invincibleTimerMax;
         Player.GetComponent<VehicleTypeManager>().ChangeToInvincible();
     }
 
-    public void StarRacer()
+    public void StartStarRacer()
     {
         if (starRacerTimer > 0) return;
         previousSpeed = Globals.ScrollSpeed.z;
@@ -574,7 +569,7 @@ public class SceneManager : MonoBehaviour
         SpeedLines.SetActive(true);
     }
 
-    public void Plane()
+    public void StartPlane()
     {
         planeTimer = planeTimerMax;
         Player.GetComponent<VehicleTypeManager>().ChangeToPlane();
@@ -592,7 +587,7 @@ public class SceneManager : MonoBehaviour
         return invincibleTimer > 0 || bigifyTimer > 0 || starRacerTimer > 0;
     }
 
-    public void Ghost()
+    public void StartGhost()
     {
         ghostTimer = ghostTimerMax;
         Player.GetComponent<VehicleTypeManager>().ChangeToGhost();
@@ -603,13 +598,13 @@ public class SceneManager : MonoBehaviour
         return ghostTimer > 0;
     }
 
-    public void Bigify()
+    public void StartBigify()
     {
         bigifyTimer = bigifyTimerMax;
         Player.GetComponent<VehicleTypeManager>().Bigify();
     }
 
-    public void Bomb()
+    public void StartBomb()
     {
         audioManager.PlayBombSound();
         ItemEnemy[] enemies = GameObject.FindObjectsOfType<ItemEnemy>(true);
@@ -639,32 +634,32 @@ public class SceneManager : MonoBehaviour
             if (randVal == 0)
             {
                 HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpImageBomb;
-                Bomb();
+                StartBomb();
             }
             else if (randVal == 1)
             {
                 HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpImageStar;
-                Invincible();
+                StartInvincible();
             }
             else if (randVal == 2)
             {
                 HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpImageGhost;
-                Ghost();
+                StartGhost();
             }
             else if (randVal == 3)
             {
                 HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpImageBig;
-                Bigify();
+                StartBigify();
             }
             else if (randVal == 4)
             {
                 HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpImageRacer;
-                StarRacer();
+                StartStarRacer();
             }
             else if (randVal == 5)
             {
                 HUDPowerUpImage.GetComponent<Image>().sprite = PowerUpFlyby;
-                Plane();
+                StartPlane();
             }
             powerUpImageTimer = powerUpImageTimerMax;
             HUDPowerUpImage.GetComponent<MoveNormal>().MoveUp();
@@ -703,8 +698,6 @@ public class SceneManager : MonoBehaviour
         Level.SetActive(true);
         Player.SetActive(true);
 
-        invincibleTimer = 0f;
-        ghostTimer = 0f;
         Globals.CurrentDistance = 0;
         distance = 0;
         waveNum = 0;
@@ -714,21 +707,23 @@ public class SceneManager : MonoBehaviour
         {
             HUDHearts[x].SetActive(false);
         }
+        invincibleTimer = 0f;
+        starRacerTimer = 0f;
+        planeTimer = 0f;
+        ghostTimer = 0f;
+        bigifyTimer = 0f;
+        bombflashTimer = 0f;
+        heartTimer = 0f;
+        powerUpImageTimer = 0f;
+        speedLineTimer = 0f;
         HUDDistance.SetActive(false);
         HUDDistanceText.text = Globals.CurrentDistance.ToString();
         HUDQuit.SetActive(true);
-
-        CreateCourse();
 
         HUDRaceReady.SetActive(true);
         HUDRaceReady.GetComponent<GrowAndShrink>().StartEffect();
 
         Globals.CurrentGameState = Globals.GameState.Ready;
-    }
-
-    public void CreateCourse()
-    {
-        // WTD fill in with default content if wanted
     }
 
     public void EndGame()
@@ -812,12 +807,15 @@ public class SceneManager : MonoBehaviour
         HUDButtons.GetComponent<MoveNormal>().MoveUp();
         Level.SetActive(false);
         Player.SetActive(false);
+        Player.GetComponent<VehicleTypeManager>().EndGhost();
 
         HUDQuit.SetActive(false);
         BombFlash.SetActive(false);
+        SpeedLines.SetActive(false);
         HUDRaceReady.SetActive(false);
         HUDDistance.SetActive(false);
         HUDItems.SetActive(true);
+        HUDPowerUpImage.transform.localPosition = new Vector3(HUDPowerUpImage.transform.localPosition.x, -750f, HUDPowerUpImage.transform.localPosition.z);
 
         Globals.ScrollSpeed = new Vector3(0, 0, 0);
         Player.transform.localPosition = new Vector3(Player.transform.localPosition.x, -3f, Player.transform.localPosition.z);

@@ -5,13 +5,10 @@ public class Item : MonoBehaviour
     public enum ItemType {
         Yeti,
         Ball,
-        Arrow,
-        Star,
         Heart,
-        Coin,
-        Bomb
+        Coin
     }
-    public ItemType itemType = ItemType.Arrow;
+    public ItemType itemType = ItemType.Coin;
     protected Color debrisColor;
     protected DebrisManager debrisManager;
 
@@ -31,7 +28,7 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (itemType == ItemType.Arrow || itemType == ItemType.Star || itemType == ItemType.Coin)
+        if (itemType == ItemType.Coin)
         {
             debrisColor = Color.yellow;
         }
@@ -46,10 +43,6 @@ public class Item : MonoBehaviour
         else if (itemType == ItemType.Ball)
         {
             debrisColor = Color.white;
-        }
-        else if (itemType == ItemType.Bomb)
-        {
-            debrisColor = Color.black;
         }
 
         GameObject dm = GameObject.Find ("DebrisManager");

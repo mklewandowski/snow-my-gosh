@@ -12,22 +12,7 @@ public class ItemPowerup : Item
             int debrisAmount = Random.Range(10, 15);
             debrisManager.StartDebris (debrisAmount, this.transform.position, debrisColor);
 
-            if (itemType == ItemType.Arrow)
-            {
-                audioManager.PlaySpeedUpSound();
-                sceneManager.SpeedUp();
-            }
-            else if (itemType == ItemType.Star)
-            {
-                audioManager.PlayInvincibleSound();
-                sceneManager.Invincible();
-            }
-            else if (itemType == ItemType.Bomb)
-            {
-                audioManager.PlayBombSound();
-                sceneManager.Bomb();
-            }
-            else if (itemType == ItemType.Heart)
+            if (itemType == ItemType.Heart)
             {
                 audioManager.PlayHeartSound();
                 sceneManager.GetHeart();

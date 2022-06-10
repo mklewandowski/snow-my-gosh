@@ -30,9 +30,23 @@ public class VehicleTypeManager : MonoBehaviour
 
     Globals.VehicleType currentVehicleType = Globals.VehicleType.Default;
 
+    float resumeCollisionTimer = 0;
+
     void Awake()
     {
         carCollider = this.GetComponent<Collider>();
+    }
+
+    void Update()
+    {
+        if (resumeCollisionTimer > 0)
+        {
+            resumeCollisionTimer -= Time.deltaTime;
+            if (resumeCollisionTimer <= 0)
+            {
+                carCollider.enabled = true;
+            }
+        }
     }
 
     public void SetVehicleType(int c)
@@ -94,6 +108,7 @@ public class VehicleTypeManager : MonoBehaviour
         GameObject currVehicle = GetCurrentVehicle();
         currVehicle.GetComponent<GrowAndShrink>().StopEffect();
         currVehicle.GetComponent<ShrinkAndHide>().StartEffect();
+        carCollider.enabled = false;
     }
 
     public void ChangeToGhost()
@@ -174,5 +189,10 @@ public class VehicleTypeManager : MonoBehaviour
             currVehicle = Default;
 
         return currVehicle;
+    }
+
+    public void ResumeCollision(float delay)
+    {
+        resumeCollisionTimer = delay;
     }
 }
