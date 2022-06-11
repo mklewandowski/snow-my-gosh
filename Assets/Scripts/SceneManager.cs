@@ -35,6 +35,10 @@ public class SceneManager : MonoBehaviour
     GameObject[] TreesLeft;
     [SerializeField]
     GameObject[] TreesRight;
+    [SerializeField]
+    GameObject[] TreesLeftFar;
+    [SerializeField]
+    GameObject[] TreesRightFar;
 
     // titles and messages
     [SerializeField]
@@ -208,6 +212,14 @@ public class SceneManager : MonoBehaviour
             {
                 TreesRight[i].GetComponent<Rigidbody>().velocity = treeMovement;
             }
+            for (int i = 0; i < TreesLeftFar.Length; i++)
+            {
+                TreesLeftFar[i].GetComponent<Rigidbody>().velocity = treeMovement;
+            }
+            for (int i = 0; i < TreesRightFar.Length; i++)
+            {
+                TreesRightFar[i].GetComponent<Rigidbody>().velocity = treeMovement;
+            }
         }
     }
 
@@ -264,6 +276,30 @@ public class SceneManager : MonoBehaviour
                         TreesRight[i].transform.localPosition.x,
                         TreesRight[i].transform.localPosition.y,
                         TreesRight[abutIndex].transform.localPosition.z + treeOffsetZ
+                    );
+            }
+        }
+        for (int i = 0; i < TreesLeftFar.Length; i++)
+        {
+            if (TreesLeftFar[i].transform.localPosition.z < treeMinZ)
+            {
+                int abutIndex = i == 0 ? TreesLeftFar.Length - 1 : i - 1;
+                TreesLeftFar[i].transform.localPosition = new Vector3(
+                        TreesLeftFar[i].transform.localPosition.x,
+                        TreesLeftFar[i].transform.localPosition.y,
+                        TreesLeftFar[abutIndex].transform.localPosition.z + treeOffsetZ
+                    );
+            }
+        }
+        for (int i = 0; i < TreesRightFar.Length; i++)
+        {
+            if (TreesRightFar[i].transform.localPosition.z < treeMinZ)
+            {
+                int abutIndex = i == 0 ? TreesRightFar.Length - 1 : i - 1;
+                TreesRightFar[i].transform.localPosition = new Vector3(
+                        TreesRightFar[i].transform.localPosition.x,
+                        TreesRightFar[i].transform.localPosition.y,
+                        TreesRightFar[abutIndex].transform.localPosition.z + treeOffsetZ
                     );
             }
         }
