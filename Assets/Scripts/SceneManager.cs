@@ -237,6 +237,24 @@ public class SceneManager : MonoBehaviour
         }
     }
 
+    void UpdateTrees(GameObject[] trees)
+    {
+        float treeMinZ = -4f;
+        float treeOffsetZ = 4f;
+        for (int i = 0; i < trees.Length; i++)
+        {
+            if (trees[i].transform.localPosition.z < treeMinZ)
+            {
+                int abutIndex = i == 0 ? trees.Length - 1 : i - 1;
+                trees[i].transform.localPosition = new Vector3(
+                        trees[i].transform.localPosition.x,
+                        trees[i].transform.localPosition.y,
+                        trees[abutIndex].transform.localPosition.z + treeOffsetZ
+                    );
+            }
+        }
+    }
+
     void UpdatePlaying()
     {
         float trackMinZ = -10f;
@@ -253,56 +271,11 @@ public class SceneManager : MonoBehaviour
                     );
             }
         }
-        float treeMinZ = -4f;
-        float treeOffsetZ = 4f;
-        for (int i = 0; i < TreesLeft.Length; i++)
-        {
-            if (TreesLeft[i].transform.localPosition.z < treeMinZ)
-            {
-                int abutIndex = i == 0 ? TreesLeft.Length - 1 : i - 1;
-                TreesLeft[i].transform.localPosition = new Vector3(
-                        TreesLeft[i].transform.localPosition.x,
-                        TreesLeft[i].transform.localPosition.y,
-                        TreesLeft[abutIndex].transform.localPosition.z + treeOffsetZ
-                    );
-            }
-        }
-        for (int i = 0; i < TreesRight.Length; i++)
-        {
-            if (TreesRight[i].transform.localPosition.z < treeMinZ)
-            {
-                int abutIndex = i == 0 ? TreesRight.Length - 1 : i - 1;
-                TreesRight[i].transform.localPosition = new Vector3(
-                        TreesRight[i].transform.localPosition.x,
-                        TreesRight[i].transform.localPosition.y,
-                        TreesRight[abutIndex].transform.localPosition.z + treeOffsetZ
-                    );
-            }
-        }
-        for (int i = 0; i < TreesLeftFar.Length; i++)
-        {
-            if (TreesLeftFar[i].transform.localPosition.z < treeMinZ)
-            {
-                int abutIndex = i == 0 ? TreesLeftFar.Length - 1 : i - 1;
-                TreesLeftFar[i].transform.localPosition = new Vector3(
-                        TreesLeftFar[i].transform.localPosition.x,
-                        TreesLeftFar[i].transform.localPosition.y,
-                        TreesLeftFar[abutIndex].transform.localPosition.z + treeOffsetZ
-                    );
-            }
-        }
-        for (int i = 0; i < TreesRightFar.Length; i++)
-        {
-            if (TreesRightFar[i].transform.localPosition.z < treeMinZ)
-            {
-                int abutIndex = i == 0 ? TreesRightFar.Length - 1 : i - 1;
-                TreesRightFar[i].transform.localPosition = new Vector3(
-                        TreesRightFar[i].transform.localPosition.x,
-                        TreesRightFar[i].transform.localPosition.y,
-                        TreesRightFar[abutIndex].transform.localPosition.z + treeOffsetZ
-                    );
-            }
-        }
+
+        UpdateTrees(TreesLeft);
+        UpdateTrees(TreesRight);
+        UpdateTrees(TreesLeftFar);
+        UpdateTrees(TreesRightFar);
 
         if (invincibleTimer > 0)
         {
