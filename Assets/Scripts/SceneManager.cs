@@ -179,11 +179,7 @@ public class SceneManager : MonoBehaviour
                 HUDButtons.GetComponent<MoveNormal>().MoveUp();
             }
         }
-        if (Globals.CurrentGameState == Globals.GameState.Ready)
-        {
-            UpdateReady();
-        }
-        else if (Globals.CurrentGameState == Globals.GameState.Playing)
+        if (Globals.CurrentGameState == Globals.GameState.Playing)
         {
             UpdatePlaying();
         }
@@ -222,18 +218,15 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    void UpdateReady()
+    public void StartMoving()
     {
-        if (Input.GetKey ("space") | Input.GetButton ("Fire1") | Input.GetButton ("Fire2"))
-        {
-            HUDDistance.SetActive(true);
-            HUDHeartContainer.SetActive(true);
-            HUDRaceReady.SetActive(false);
-            HUDRaceReady.transform.localScale = new Vector3(.1f, .1f, .1f);
-            Globals.ScrollSpeed = new Vector3(0, 0, 15f);
-            Globals.CurrentGameState = Globals.GameState.Playing;
-            audioManager.PlayStartMovingSound();
-        }
+        HUDDistance.SetActive(true);
+        HUDHeartContainer.SetActive(true);
+        HUDRaceReady.SetActive(false);
+        HUDRaceReady.transform.localScale = new Vector3(.1f, .1f, .1f);
+        Globals.ScrollSpeed = new Vector3(0, 0, 15f);
+        Globals.CurrentGameState = Globals.GameState.Playing;
+        audioManager.PlayStartMovingSound();
     }
 
     void UpdateTrees(GameObject[] trees)
