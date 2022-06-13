@@ -134,7 +134,7 @@ public class SceneManager : MonoBehaviour
 	GameObject CoinPowerupPrefab;
     [SerializeField]
 	GameObject SpeedPointPrefab;
-    int[] speedPointWaves = new int[] { 2, 6, 12, 20, 30, 42, 56, 72, 90, 110 };
+    int[] speedPointWaves = new int[] { 2, 6, 12, 20, 30, 42, 56, 72, 90, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200 };
     int waveNum = 0;
 
     [SerializeField]
