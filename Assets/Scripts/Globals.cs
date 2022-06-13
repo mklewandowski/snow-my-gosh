@@ -43,6 +43,12 @@ public class Globals
         CandyCaneBerry,
         SnowCat,
         SnowWagon,
+        MoonlessMidnight,
+        SkiTrip,
+        SnowMan,
+        Penguin,
+        TenBelow,
+        GiftWrapped,
         Invincible
     }
 
@@ -130,6 +136,18 @@ public class Globals
             name = "Snow Cat";
         else if (type == Globals.VehicleType.SnowWagon)
             name = "Snow Wagon";
+        else if (type == Globals.VehicleType.MoonlessMidnight)
+            name = "Moonless Midnight";
+        else if (type == Globals.VehicleType.SkiTrip)
+            name = "Ski Trip";
+        else if (type == Globals.VehicleType.SnowMan)
+            name = "Snow Man";
+        else if (type == Globals.VehicleType.Penguin)
+            name = "Penguin";
+        else if (type == Globals.VehicleType.TenBelow)
+            name = "10 Below";
+        else if (type == Globals.VehicleType.GiftWrapped)
+            name = "Gift Wrapped";
         return name;
     }
 }
