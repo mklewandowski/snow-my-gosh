@@ -20967,14 +20967,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MenuSound: {fileID: 8300000, guid: 49dd0086c27ceed439f37089f9d6af8e, type: 3}
   StartSound: {fileID: 8300000, guid: 3f1c790142799314d9cfe4c9c64db2a6, type: 3}
-  StartMovingSound: {fileID: 8300000, guid: 3f1c790142799314d9cfe4c9c64db2a6, type: 3}
+  StartMovingSound: {fileID: 8300000, guid: 5b1c70309cb32f54ab452ae2e154bb82, type: 3}
   SpeedUpSound: {fileID: 8300000, guid: f9ac3f20cd675f1499c4f88bb8c974b6, type: 3}
   EngineSound: {fileID: 8300000, guid: bd54d88eadfbb9b4aa022fb22bb1fd1b, type: 3}
-  InvincibleSound: {fileID: 8300000, guid: 328191db0f7cf3a419b95b7fc8ba52b1, type: 3}
   SmashSound: {fileID: 8300000, guid: 2dfbbf78f1ed2b94aba49ca832b90453, type: 3}
+  DieSound: {fileID: 8300000, guid: ee1bd6801cb53c746983a82716e4bdbe, type: 3}
   BombSound: {fileID: 8300000, guid: 7615b663527335f44be41e877c8bf66d, type: 3}
   CoinSound: {fileID: 8300000, guid: 7eda0eb96ba9d324590c3e0f00260ced, type: 3}
-  HeartSound: {fileID: 8300000, guid: c3b971afa2db0be40999c25af428aa01, type: 3}
+  HeartSound: {fileID: 8300000, guid: 30b4edafd67ad4a469057c6e4440e98f, type: 3}
+  PowerUpSound: {fileID: 8300000, guid: c3b971afa2db0be40999c25af428aa01, type: 3}
   SwipeSound:
   - {fileID: 8300000, guid: c6b4368245249ea4da01b64c5e870366, type: 3}
   - {fileID: 8300000, guid: e79e93299c2708b4dbca7883df1344f4, type: 3}

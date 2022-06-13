@@ -16,15 +16,17 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     AudioClip EngineSound;
     [SerializeField]
-    AudioClip InvincibleSound;
-    [SerializeField]
     AudioClip SmashSound;
+    [SerializeField]
+    AudioClip DieSound;
     [SerializeField]
     AudioClip BombSound;
     [SerializeField]
     AudioClip CoinSound;
     [SerializeField]
     AudioClip HeartSound;
+    [SerializeField]
+    AudioClip PowerUpSound;
     [SerializeField]
     AudioClip[] SwipeSound;
 
@@ -81,16 +83,22 @@ public class AudioManager : MonoBehaviour
             audioSource.PlayOneShot(EngineSound, .7f);
     }
 
-    public void PlayInvincibleSound()
+    public void PlayPowerupSound()
     {
         if (Globals.AudioOn)
-            audioSource.PlayOneShot(InvincibleSound, 1f);
+            audioSource.PlayOneShot(PowerUpSound, 1f);
     }
 
     public void PlaySmashSound()
     {
         if (Globals.AudioOn)
             audioSource.PlayOneShot(SmashSound, 1f);
+    }
+
+    public void PlayDieSound()
+    {
+        if (Globals.AudioOn)
+            audioSource.PlayOneShot(DieSound, 1f);
     }
 
     public void PlayCoinSound()
@@ -102,7 +110,7 @@ public class AudioManager : MonoBehaviour
     public void PlayHeartSound()
     {
         if (Globals.AudioOn)
-            audioSource.PlayOneShot(HeartSound, 1f);
+            audioSource.PlayOneShot(HeartSound, .5f);
     }
 
     public void PlayBombSound()

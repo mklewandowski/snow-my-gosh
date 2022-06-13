@@ -14,7 +14,6 @@ public class ItemPowerup : Item
 
             if (itemType == ItemType.Heart)
             {
-                audioManager.PlayHeartSound();
                 sceneManager.GetHeart();
             }
             else if (itemType == ItemType.Coin)

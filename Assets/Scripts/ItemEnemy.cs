@@ -13,6 +13,7 @@ public class ItemEnemy : Item
 
             if (sceneManager.IsInvincible())
             {
+                audioManager.PlaySmashSound();
                 int debrisMax = 15;
                 int debrisAmount = Random.Range(10, debrisMax);
                 debrisManager.StartDebris (debrisAmount, this.transform.position, debrisColor);
@@ -20,6 +21,7 @@ public class ItemEnemy : Item
             }
             else
             {
+                audioManager.PlayDieSound();
                 sceneManager.EndGame();
             }
         }

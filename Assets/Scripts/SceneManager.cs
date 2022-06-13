@@ -633,6 +633,7 @@ public class SceneManager : MonoBehaviour
         totalHearts++;
         if (totalHearts >= 3)
         {
+            audioManager.PlayPowerupSound();
             heartTimer = heartTimerMax;
             int randVal = Random.Range(0, 6);
             if (IsInvincible() || IsGhost() || IsPlane())
@@ -669,6 +670,10 @@ public class SceneManager : MonoBehaviour
             }
             powerUpImageTimer = powerUpImageTimerMax;
             HUDPowerUpImage.GetComponent<MoveNormal>().MoveUp();
+        }
+        else
+        {
+            audioManager.PlayHeartSound();
         }
         for (int x = 0; x < HUDHearts.Length; x++)
         {
