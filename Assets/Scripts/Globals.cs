@@ -85,6 +85,7 @@ public class Globals
 
     public static void UnlockVehicle(int vehicleNum)
     {
+        VehicleUnlockStates[vehicleNum] = 1;
         SaveIntToPlayerPrefs(VehicleUnlockPlayerPrefsKey + vehicleNum.ToString(), 1);
     }
 
