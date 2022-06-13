@@ -48,8 +48,6 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GameObject HUDBackground;
     [SerializeField]
-    GameObject HUDPlayer;
-    [SerializeField]
     GameObject HUDAbout;
     [SerializeField]
     GameObject HUDSettings;
@@ -160,7 +158,6 @@ public class SceneManager : MonoBehaviour
 
         int vehicleType = Globals.LoadIntFromPlayerPrefs(Globals.VehicleTypePlayerPrefsKey);
         Player.GetComponent<VehicleTypeManager>().SetVehicleType(vehicleType);
-        HUDPlayer.GetComponent<VehicleTypeManager>().SetVehicleType(vehicleType);
 
         audioManager = this.GetComponent<AudioManager>();
     }
@@ -697,8 +694,6 @@ public class SceneManager : MonoBehaviour
 
         HUDGameOver.GetComponent<MoveNormal>().MoveUp();
         HUDBackground.SetActive(false);
-        HUDPlayer.SetActive(false);
-        HUDPlayer.transform.localPosition = new Vector3(20f, HUDPlayer.transform.localPosition.y, HUDPlayer.transform.localPosition.z);
         HUDAbout.GetComponent<MoveNormal>().MoveRight();
         HUDSettings.GetComponent<MoveNormal>().MoveRight();
         HUDTitle.GetComponent<MoveNormal>().MoveLeft();
@@ -770,7 +765,6 @@ public class SceneManager : MonoBehaviour
 
         HUDButtons.GetComponent<MoveNormal>().MoveDown();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveUp();
-        HUDPlayer.GetComponent<MoveNormal>().MoveRight();
         HUDAbout.GetComponent<MoveNormal>().MoveRight();
         HUDSettings.GetComponent<MoveNormal>().MoveRight();
         HUDFinalStatsContainer.GetComponent<MoveNormal>().MoveRight();
@@ -781,7 +775,6 @@ public class SceneManager : MonoBehaviour
 
         HUDAbout.GetComponent<MoveNormal>().MoveLeft();
         HUDSettings.GetComponent<MoveNormal>().MoveRight();
-        HUDPlayer.GetComponent<MoveNormal>().MoveRight();
         HUDFinalStatsContainer.GetComponent<MoveNormal>().MoveRight();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveDown();
     }
@@ -791,7 +784,6 @@ public class SceneManager : MonoBehaviour
 
         HUDSettings.GetComponent<MoveNormal>().MoveLeft();
         HUDAbout.GetComponent<MoveNormal>().MoveRight();
-        HUDPlayer.GetComponent<MoveNormal>().MoveRight();
         HUDFinalStatsContainer.GetComponent<MoveNormal>().MoveRight();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveDown();
     }
@@ -801,9 +793,7 @@ public class SceneManager : MonoBehaviour
 
         HUDButtons.GetComponent<MoveNormal>().MoveUp();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveDown();
-        HUDPlayer.GetComponent<MoveNormal>().MoveLeft();
 
-        HUDPlayer.GetComponent<VehicleTypeManager>().SetVehicleType(currentVehicleIndex);
         Player.GetComponent<VehicleTypeManager>().SetVehicleType(currentVehicleIndex);
     }
     public void SelectQuitButton()
@@ -812,8 +802,6 @@ public class SceneManager : MonoBehaviour
 
         HUDBackground.SetActive(true);
         HUDGameOver.GetComponent<MoveNormal>().MoveUp();
-        HUDPlayer.SetActive(true);
-        HUDPlayer.GetComponent<MoveNormal>().MoveLeft();
         HUDTitle.GetComponent<MoveNormal>().MoveRight();
         HUDButtons.GetComponent<MoveNormal>().MoveUp();
         Level.SetActive(false);

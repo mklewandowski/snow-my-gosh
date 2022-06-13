@@ -19,7 +19,7 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     float minX = 0;
     float maxX = 0;
-    int maxItems = 15;
+    int maxItems = 22;
     int currentVehicle = 0;
     float vehicleInstanceXInterval = 250f;
     private float lastDragPos;

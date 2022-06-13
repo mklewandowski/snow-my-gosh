@@ -36,6 +36,13 @@ public class Globals
         Santa,
         Misletoe,
         Icicle,
+        CandyCaneMint,
+        Reindeer,
+        Elf,
+        WinterSunset,
+        CandyCaneBerry,
+        SnowCat,
+        SnowWagon,
         Invincible
     }
 
@@ -109,12 +116,20 @@ public class Globals
             name = "Misletoe";
         else if (type == Globals.VehicleType.Icicle)
             name = "Icicle";
-        else if (type == Globals.VehicleType.Default)
-            name = "ffff";
-        else if (type == Globals.VehicleType.Default)
-            name = "ffff";
-        else if (type == Globals.VehicleType.Default)
-            name = "ffff";
+        else if (type == Globals.VehicleType.CandyCaneMint)
+            name = "Mint Candy Cane";
+        else if (type == Globals.VehicleType.Reindeer)
+            name = "Reindeer";
+        else if (type == Globals.VehicleType.Elf)
+            name = "Elf";
+        else if (type == Globals.VehicleType.WinterSunset)
+            name = "Winter Sunset";
+        else if (type == Globals.VehicleType.CandyCaneBerry)
+            name = "Strawberry Candy Cane";
+        else if (type == Globals.VehicleType.SnowCat)
+            name = "Snow Cat";
+        else if (type == Globals.VehicleType.SnowWagon)
+            name = "Snow Wagon";
         return name;
     }
 }
