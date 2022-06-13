@@ -192,6 +192,11 @@ public class VehicleTypeManager : MonoBehaviour
         return currVehicle;
     }
 
+    public Globals.VehicleType GetCurrentVehicleType()
+    {
+        return currentVehicleType;
+    }
+
     public void ResumeCollision(float delay)
     {
         resumeCollisionTimer = delay;

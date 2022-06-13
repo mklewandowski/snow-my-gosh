@@ -150,4 +150,66 @@ public class Globals
             name = "Gift Wrapped";
         return name;
     }
+
+    public static Color GetVehicleDebrisColorFromType(VehicleType type)
+    {
+        if (type == Globals.VehicleType.Default)
+            return (new Color(255f/255f, 106f/255f, 0));
+        else if (type == Globals.VehicleType.Blizzard)
+            return Color.white;
+        else if (type == Globals.VehicleType.PineTree)
+            return (new Color(0/255f, 87f/255f, 0));
+        else if (type == Globals.VehicleType.EggNog)
+            return (new Color(255f/255f, 209f/255f, 169f/255f));
+        else if (type == Globals.VehicleType.FrozenLake)
+            return (new Color(53f/255f, 255f/255f, 255f/255f));
+        else if (type == Globals.VehicleType.Cardinal)
+            return Color.red;
+        else if (type == Globals.VehicleType.Cocoa)
+            return (new Color(106f/255f, 52f/255f, 0f/255f));
+        else if (type == Globals.VehicleType.CandyCane)
+            return Color.red;
+        else if (type == Globals.VehicleType.NorthStar)
+            return Color.yellow;
+        else if (type == Globals.VehicleType.Sweater)
+            return (new Color(255f/255f, 0/255f, 226f/255f));
+        else if (type == Globals.VehicleType.Gingerbread)
+            return (new Color(158f/255f, 105f/255f, 0/255f));
+        else if (type == Globals.VehicleType.Tinsel)
+            return (new Color(195f/255f, 192f/255f, 207f/255f));
+        else if (type == Globals.VehicleType.Santa)
+            return Color.red;
+        else if (type == Globals.VehicleType.Misletoe)
+            return (new Color(0/255f, 157f/255f, 56f/255f));
+        else if (type == Globals.VehicleType.Icicle)
+            return (new Color(158f/255f, 255f/255f, 255f/255f));
+        else if (type == Globals.VehicleType.CandyCaneMint)
+            return (new Color(0/255f, 255f/255f, 56f/255f));
+        else if (type == Globals.VehicleType.Reindeer)
+            return (new Color(158f/255f, 105f/255f, 56f/255f));
+        else if (type == Globals.VehicleType.Elf)
+            return (new Color(0/255f, 174f/255f, 0/255f));
+        else if (type == Globals.VehicleType.WinterSunset)
+            return (new Color(205f/255f, 51f/255f, 108f/255f));
+        else if (type == Globals.VehicleType.CandyCaneBerry)
+            return (new Color(255f/255f, 0/255f, 0));
+        else if (type == Globals.VehicleType.SnowCat)
+            return (new Color(255f/255f, 106f/255f, 255f/255f));
+        else if (type == Globals.VehicleType.SnowWagon)
+            return (new Color(255f/255f, 106f/255f, 0));
+        else if (type == Globals.VehicleType.MoonlessMidnight)
+            return (new Color(0, 0, 0));
+        else if (type == Globals.VehicleType.SkiTrip)
+            return (new Color(158f/255f, 0/255f, 226f/255f));
+        else if (type == Globals.VehicleType.SnowMan)
+            return Color.white;
+        else if (type == Globals.VehicleType.Penguin)
+            return (new Color(0, 0, 0));
+        else if (type == Globals.VehicleType.TenBelow)
+            return Color.white;
+        else if (type == Globals.VehicleType.GiftWrapped)
+            return (new Color(0/255f, 157f/255f, 0/255f));
+        else
+            return (new Color(255f/255f, 106f/255f, 0));
+    }
 }

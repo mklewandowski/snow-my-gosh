@@ -3,8 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     AudioManager audioManager;
-    protected Color debrisColor = new Color(255f/255f, 106f/255f, 0);
-    protected DebrisManager debrisManager;
+    DebrisManager debrisManager;
 
     Vector3 movement = new Vector3(0, 0, 0);
 
@@ -60,7 +59,8 @@ public class Player : MonoBehaviour
     public void Die()
     {
         this.gameObject.SetActive(false);
-        int debrisAmount = 20;
+        int debrisAmount = 50;
+        Color debrisColor = Globals.GetVehicleDebrisColorFromType(this.GetComponent<VehicleTypeManager>().GetCurrentVehicleType());
         debrisManager.StartDebris (debrisAmount, this.transform.position, debrisColor);
     }
 
