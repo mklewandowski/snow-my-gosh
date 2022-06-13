@@ -67,7 +67,7 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI HUDDistanceText;
     [SerializeField]
-    GameObject HUDItems;
+    GameObject HUDHeartContainer;
     [SerializeField]
     TextMeshProUGUI HUDCoinsText;
     [SerializeField]
@@ -151,10 +151,12 @@ public class SceneManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
 
+        Globals.LoadVehicleUnlockStatesFromPlayerPrefs();
+
         Globals.BestDistance = Globals.LoadIntFromPlayerPrefs(Globals.BestDistancePlayerPrefsKey);
 
         Globals.Coins = Globals.LoadIntFromPlayerPrefs(Globals.CoinsPlayerPrefsKey);
-        HUDCoinsText.text = Globals.Coins.ToString();
+        UpdateCoins();
 
         int vehicleType = Globals.LoadIntFromPlayerPrefs(Globals.VehicleTypePlayerPrefsKey);
         Player.GetComponent<VehicleTypeManager>().SetVehicleType(vehicleType);
@@ -225,7 +227,7 @@ public class SceneManager : MonoBehaviour
         if (Input.GetKey ("space") | Input.GetButton ("Fire1") | Input.GetButton ("Fire2"))
         {
             HUDDistance.SetActive(true);
-            HUDItems.SetActive(true);
+            HUDHeartContainer.SetActive(true);
             HUDRaceReady.SetActive(false);
             HUDRaceReady.transform.localScale = new Vector3(.1f, .1f, .1f);
             Globals.ScrollSpeed = new Vector3(0, 0, 15f);
@@ -687,6 +689,11 @@ public class SceneManager : MonoBehaviour
         HUDCoinsText.text = Globals.Coins.ToString();
     }
 
+    public void UpdateCoins()
+    {
+        HUDCoinsText.text = Globals.Coins.ToString();
+    }
+
     public void StartGame()
     {
         if (Globals.CurrentGameState != Globals.GameState.TitleScreen && Globals.CurrentGameState != Globals.GameState.Restart)
@@ -801,6 +808,15 @@ public class SceneManager : MonoBehaviour
 
         Player.GetComponent<VehicleTypeManager>().SetVehicleType(currentVehicleIndex);
     }
+    public void SelectBuyVehicleButton(int currentVehicleIndex)
+    {
+        audioManager.PlayStartSound();
+
+        Globals.Coins = Globals.Coins - 100;
+        Globals.SaveIntToPlayerPrefs(Globals.CoinsPlayerPrefsKey, Globals.Coins);
+        UpdateCoins();
+        Globals.UnlockVehicle(currentVehicleIndex);
+    }
     public void SelectQuitButton()
     {
         audioManager.PlayMenuSound();
@@ -818,7 +834,7 @@ public class SceneManager : MonoBehaviour
         SpeedLines.SetActive(false);
         HUDRaceReady.SetActive(false);
         HUDDistance.SetActive(false);
-        HUDItems.SetActive(true);
+        HUDHeartContainer.SetActive(false);
         HUDPowerUpImage.transform.localPosition = new Vector3(HUDPowerUpImage.transform.localPosition.x, -750f, HUDPowerUpImage.transform.localPosition.z);
 
         Globals.ScrollSpeed = new Vector3(0, 0, 0);

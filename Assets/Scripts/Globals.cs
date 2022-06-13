@@ -63,11 +63,30 @@ public class Globals
     // keep track of coins
     public static int Coins = 0;
 
+    public static int MaxVehicles = 40;
+    public static int[] VehicleUnlockStates = new int[MaxVehicles];
+
     public const string AudioPlayerPrefsKey = "Audio";
     public const string MusicPlayerPrefsKey = "Music";
     public const string BestDistancePlayerPrefsKey = "BestDistance";
     public const string VehicleTypePlayerPrefsKey = "VehicleType";
     public const string CoinsPlayerPrefsKey = "Coins";
+    public const string VehicleUnlockPlayerPrefsKey = "Vehicle";
+
+    public static void LoadVehicleUnlockStatesFromPlayerPrefs()
+    {
+        for (int x = 0; x < MaxVehicles; x++)
+        {
+            int unlock = LoadIntFromPlayerPrefs(VehicleUnlockPlayerPrefsKey + x.ToString());
+            VehicleUnlockStates[x] = unlock;
+        }
+        VehicleUnlockStates[0] = 1;
+    }
+
+    public static void UnlockVehicle(int vehicleNum)
+    {
+        SaveIntToPlayerPrefs(VehicleUnlockPlayerPrefsKey + vehicleNum.ToString(), 1);
+    }
 
     public static void SaveIntToPlayerPrefs(string key, int val)
     {
