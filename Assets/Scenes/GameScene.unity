@@ -2628,7 +2628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &274073820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2649,7 +2649,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2c3891b82a11a5442a1d4f72cfc9adb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4ea85295c66d07347b2487b79fe2b213, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2685,7 +2685,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 8062.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &274073823
 MonoBehaviour:
@@ -2699,7 +2699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e77fb6be522ae48b0ff5c1b64a5aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VehicleType: 0
+  VehicleType: 32
 --- !u!1 &284757553
 GameObject:
   m_ObjectHideFlags: 0
@@ -6177,7 +6177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &593774999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6198,7 +6198,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2c3891b82a11a5442a1d4f72cfc9adb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f3434fb39a3b873478e5a39cf1e39bd5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6234,7 +6234,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 7562.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &593775002
 MonoBehaviour:
@@ -6248,7 +6248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e77fb6be522ae48b0ff5c1b64a5aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VehicleType: 0
+  VehicleType: 30
 --- !u!23 &603229234 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: c1aa1cf3a295df94ab472caaf3826be6, type: 3}
@@ -8783,7 +8783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &815870142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8804,7 +8804,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2c3891b82a11a5442a1d4f72cfc9adb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aef3865c278f683458aa2c4e4dbc3292, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8840,7 +8840,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 8562.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &815870145
 MonoBehaviour:
@@ -8854,7 +8854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e77fb6be522ae48b0ff5c1b64a5aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VehicleType: 0
+  VehicleType: 34
 --- !u!1 &820048718
 GameObject:
   m_ObjectHideFlags: 0
@@ -12296,7 +12296,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &987434794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12317,7 +12317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2c3891b82a11a5442a1d4f72cfc9adb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c330b19fe68d21b4ca37ad4f57783147, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12353,7 +12353,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 8812.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &987434797
 MonoBehaviour:
@@ -12367,7 +12367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e77fb6be522ae48b0ff5c1b64a5aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VehicleType: 0
+  VehicleType: 35
 --- !u!1 &993973740
 GameObject:
   m_ObjectHideFlags: 0
@@ -19488,7 +19488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1553588015
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19507,7 +19507,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 7062.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1553588016
 MonoBehaviour:
@@ -19529,7 +19529,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2c3891b82a11a5442a1d4f72cfc9adb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ee5d551d1df178d4989677a3d01eba4a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19559,7 +19559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e77fb6be522ae48b0ff5c1b64a5aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VehicleType: 0
+  VehicleType: 28
 --- !u!1 &1553590748
 GameObject:
   m_ObjectHideFlags: 0
@@ -20072,7 +20072,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 9062.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1579868000
 MonoBehaviour:
@@ -20345,7 +20345,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 9562.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1591131705
 MonoBehaviour:
@@ -20378,7 +20378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1593967991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20399,7 +20399,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2c3891b82a11a5442a1d4f72cfc9adb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c66632847d3e5747a3625b86875a814, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -20435,7 +20435,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 8312.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1593967994
 MonoBehaviour:
@@ -20449,7 +20449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e77fb6be522ae48b0ff5c1b64a5aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VehicleType: 0
+  VehicleType: 33
 --- !u!23 &1594321831 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: 45e3fddb1bb9d8c4c898af63f1673ef0, type: 3}
@@ -22860,7 +22860,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 9312.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1810667004
 MonoBehaviour:
@@ -23048,6 +23048,14 @@ MonoBehaviour:
   - {fileID: 367045018}
   - {fileID: 391747183}
   - {fileID: 972887861}
+  - {fileID: 1553588014}
+  - {fileID: 2014360668}
+  - {fileID: 593774998}
+  - {fileID: 1977977093}
+  - {fileID: 274073819}
+  - {fileID: 1593967990}
+  - {fileID: 815870141}
+  - {fileID: 987434793}
   CurrentVehicle: {fileID: 1575768147}
   VehicleName: {fileID: 1027311381}
   SelectButton: {fileID: 878695269}
@@ -23630,7 +23638,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 9812.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1848001964
 MonoBehaviour:
@@ -25128,7 +25136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1977977094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25149,7 +25157,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2c3891b82a11a5442a1d4f72cfc9adb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: efc98a2c94da25a4b82be9e25d9b69c7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25185,7 +25193,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 7812.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1977977097
 MonoBehaviour:
@@ -25199,7 +25207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e77fb6be522ae48b0ff5c1b64a5aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VehicleType: 0
+  VehicleType: 31
 --- !u!54 &1987520970
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -25531,7 +25539,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2014360669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25550,7 +25558,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 7312.5, y: 0}
-  m_SizeDelta: {x: 200, y: 109}
+  m_SizeDelta: {x: 200, y: 137.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2014360670
 MonoBehaviour:
@@ -25572,7 +25580,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2c3891b82a11a5442a1d4f72cfc9adb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4c86385d1916b14a893e449d52134d8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25602,7 +25610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e77fb6be522ae48b0ff5c1b64a5aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VehicleType: 0
+  VehicleType: 29
 --- !u!54 &2020680684
 Rigidbody:
   m_ObjectHideFlags: 0
