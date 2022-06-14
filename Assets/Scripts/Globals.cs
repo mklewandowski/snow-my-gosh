@@ -49,6 +49,14 @@ public class Globals
         Penguin,
         TenBelow,
         GiftWrapped,
+        SwissMiss,
+        WinterBlueJay,
+        GaudyLights,
+        MoonBoots,
+        MoonBoots2,
+        CocoaMarshmellow,
+        CoolMintCandyCane,
+        BigPresent,
         Invincible
     }
 
@@ -143,7 +151,7 @@ public class Globals
         else if (type == Globals.VehicleType.Icicle)
             name = "Icicle";
         else if (type == Globals.VehicleType.CandyCaneMint)
-            name = "Mint Candy Cane";
+            name = "Spearmint Candy Cane";
         else if (type == Globals.VehicleType.Reindeer)
             name = "Reindeer";
         else if (type == Globals.VehicleType.Elf)
@@ -168,7 +176,23 @@ public class Globals
             name = "10 Below";
         else if (type == Globals.VehicleType.GiftWrapped)
             name = "Gift Wrapped";
-        return name;
+        else if (type == Globals.VehicleType.SwissMiss)
+            name = "Miss Swiss";
+        else if (type == Globals.VehicleType.WinterBlueJay)
+            name = "Winter Bluejay";
+        else if (type == Globals.VehicleType.GaudyLights)
+            name = "Gaudy Lights";
+        else if (type == Globals.VehicleType.MoonBoots)
+            name = "Flashy Moon Boots";
+        else if (type == Globals.VehicleType.MoonBoots2)
+            name = "Fancy Moon Boots";
+        else if (type == Globals.VehicleType.CocoaMarshmellow)
+            name = "Marshmallow Cocoa";
+        else if (type == Globals.VehicleType.CoolMintCandyCane)
+            name = "Cool Mint Candycane";
+        else if (type == Globals.VehicleType.BigPresent)
+            name = "Under the Tree";
+            return name;
     }
 
     public static Color GetVehicleDebrisColorFromType(VehicleType type)
@@ -229,6 +253,22 @@ public class Globals
             return Color.white;
         else if (type == Globals.VehicleType.GiftWrapped)
             return (new Color(0/255f, 157f/255f, 0/255f));
+        else if (type == Globals.VehicleType.SwissMiss)
+            return Color.red;
+        else if (type == Globals.VehicleType.WinterBlueJay)
+            return Color.blue;
+        else if (type == Globals.VehicleType.GaudyLights)
+            return (new Color(255f/255f, 0/255f, 226f/255f));
+        else if (type == Globals.VehicleType.MoonBoots)
+            return Color.white;
+        else if (type == Globals.VehicleType.MoonBoots2)
+            return (new Color(255f/255f, 209f/255f, 169f/255f));
+        else if (type == Globals.VehicleType.CocoaMarshmellow)
+            return (new Color(106f/255f, 52f/255f, 0f/255f));
+        else if (type == Globals.VehicleType.CoolMintCandyCane)
+            return Color.blue;
+        else if (type == Globals.VehicleType.BigPresent)
+            return Color.yellow;
         else
             return (new Color(255f/255f, 106f/255f, 0));
     }
