@@ -57,6 +57,10 @@ public class Globals
         CocoaMarshmellow,
         CoolMintCandyCane,
         BigPresent,
+        Plaid,
+        Moon,
+        Plaid2,
+        Yeti,
         Invincible
     }
 
@@ -192,7 +196,15 @@ public class Globals
             name = "Cool Mint Candycane";
         else if (type == Globals.VehicleType.BigPresent)
             name = "Under the Tree";
-            return name;
+        else if (type == Globals.VehicleType.Plaid)
+            name = "Christmas Morning Plaid";
+        else if (type == Globals.VehicleType.Moon)
+            name = "December Moonlight";
+        else if (type == Globals.VehicleType.Plaid2)
+            name = "Pine Needle Plaid";
+        else if (type == Globals.VehicleType.Yeti)
+            name = "Yeti-Mobile";
+        return name;
     }
 
     public static Color GetVehicleDebrisColorFromType(VehicleType type)
@@ -269,6 +281,14 @@ public class Globals
             return Color.blue;
         else if (type == Globals.VehicleType.BigPresent)
             return Color.yellow;
+        else if (type == Globals.VehicleType.Plaid)
+            return Color.red;
+        else if (type == Globals.VehicleType.Moon)
+            return Color.black;
+        else if (type == Globals.VehicleType.Plaid2)
+            return (new Color(0/255f, 87f/255f, 0));
+        else if (type == Globals.VehicleType.Yeti)
+            return Color.white;
         else
             return (new Color(255f/255f, 106f/255f, 0));
     }
