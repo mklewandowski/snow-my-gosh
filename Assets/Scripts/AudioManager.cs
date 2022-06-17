@@ -10,6 +10,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     AudioClip StartSound;
     [SerializeField]
+    AudioClip BuyCarSound;
+    [SerializeField]
     AudioClip SpeedUpSound;
     [SerializeField]
     AudioClip EngineSound;
@@ -61,6 +63,12 @@ public class AudioManager : MonoBehaviour
     {
         if (Globals.AudioOn)
             audioSource.PlayOneShot(StartSound, 1f);
+    }
+
+    public void PlayBuyCarSound()
+    {
+        if (Globals.AudioOn)
+            audioSource.PlayOneShot(BuyCarSound, 1f);
     }
 
     public void PlaySpeedUpSound()

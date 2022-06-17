@@ -22873,8 +22873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MenuSound: {fileID: 8300000, guid: 49dd0086c27ceed439f37089f9d6af8e, type: 3}
   StartSound: {fileID: 8300000, guid: 3f1c790142799314d9cfe4c9c64db2a6, type: 3}
-  StartMovingSound: {fileID: 8300000, guid: 312d0c4feff3aa142bb9079002175cc5, type: 3}
-  TakeOffSound: {fileID: 8300000, guid: e9e6abafb6598204fb2a36f3e94eef8b, type: 3}
+  BuyCarSound: {fileID: 8300000, guid: b04d765d1a700a645a2249ebcf5daae0, type: 3}
   SpeedUpSound: {fileID: 8300000, guid: f9ac3f20cd675f1499c4f88bb8c974b6, type: 3}
   EngineSound: {fileID: 8300000, guid: bd54d88eadfbb9b4aa022fb22bb1fd1b, type: 3}
   SmashSound: {fileID: 8300000, guid: 2dfbbf78f1ed2b94aba49ca832b90453, type: 3}

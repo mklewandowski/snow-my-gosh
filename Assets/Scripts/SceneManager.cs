@@ -804,7 +804,7 @@ public class SceneManager : MonoBehaviour
     }
     public void SelectBuyVehicleButton(int currentVehicleIndex)
     {
-        audioManager.PlayStartSound();
+        audioManager.PlayBuyCarSound();
 
         Globals.Coins = Globals.Coins - 100;
         Globals.SaveIntToPlayerPrefs(Globals.CoinsPlayerPrefsKey, Globals.Coins);
