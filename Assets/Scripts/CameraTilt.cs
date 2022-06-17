@@ -1,0 +1,77 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraTilt : MonoBehaviour
+{
+    enum JuicyState {
+        Normal,
+        TiltTo,
+        Wait,
+        TiltBack,
+    };
+    JuicyState state = JuicyState.Normal;
+    float tiltTo = 18f;
+    float initialTilt = 20f;
+    float moveTo = -7.6f;
+    float initialMove = -8f;
+    float waitTimer = 0f;
+    float waitTimerMax = .2f;
+    float speedStart = 8f;
+    float speedEnd = 15f;
+
+    AudioManager audioManager;
+
+    void Awake()
+    {
+        audioManager = GameObject.Find("SceneManager").GetComponent<AudioManager>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (state == JuicyState.TiltTo)
+        {
+            float newTilt = Mathf.Max(tiltTo, this.transform.eulerAngles.x - Time.deltaTime * speedStart);
+            this.transform.eulerAngles = new Vector3 (newTilt, 0, 0);
+            float newPos = Mathf.Min(moveTo, this.transform.localPosition.z + Time.deltaTime * speedStart / 5f);
+            this.transform.localPosition = new Vector3 (0, 0, newPos);
+            if (newTilt == tiltTo)
+            {
+                waitTimer = waitTimerMax;
+                state =  JuicyState.Wait;
+            }
+        }
+        else if (state == JuicyState.Wait)
+        {
+            waitTimer -= Time.deltaTime;
+            if (waitTimer <= 0)
+            {
+                state =  JuicyState.TiltBack;
+                audioManager.PlaySpeedUpSound();
+                audioManager.PlayEngineSound();
+            }
+        }
+        else if (state == JuicyState.TiltBack)
+        {
+            float newTilt = Mathf.Min(initialTilt, this.transform.eulerAngles.x + Time.deltaTime * speedEnd);
+            this.transform.eulerAngles = new Vector3 (newTilt, 0, 0);
+            float newPos = Mathf.Max(initialMove, this.transform.localPosition.z - Time.deltaTime * speedEnd / 5f);
+            this.transform.localPosition = new Vector3 (0, 0, newPos);
+            if (newTilt == initialTilt)
+            {
+                state =  JuicyState.Normal;
+            }
+        }
+    }
+
+    public void StartEffect()
+    {
+        state = JuicyState.TiltTo;
+    }
+
+    public void StopEffect()
+    {
+        state = JuicyState.Normal;
+    }
+}

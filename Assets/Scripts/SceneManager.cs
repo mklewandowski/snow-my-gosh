@@ -226,7 +226,8 @@ public class SceneManager : MonoBehaviour
         HUDRaceReady.transform.localScale = new Vector3(.1f, .1f, .1f);
         Globals.ScrollSpeed = new Vector3(0, 0, 15f);
         Globals.CurrentGameState = Globals.GameState.Playing;
-        audioManager.PlayStartMovingSound();
+        Camera.main.GetComponent<CameraTilt>().StartEffect();
+        audioManager.PlayStartSound();
     }
 
     void UpdateTrees(GameObject[] trees)

@@ -7120,6 +7120,8 @@ GameObject:
   - component: {fileID: 683329877}
   - component: {fileID: 683329876}
   - component: {fileID: 683329875}
+  - component: {fileID: 683329879}
+  - component: {fileID: 683329878}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7193,6 +7195,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
+--- !u!114 &683329878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683329874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff83b9308642114086e1c552849b3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &683329879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683329874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff83b9308642114086e1c552849b3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &684679933
 GameObject:
   m_ObjectHideFlags: 0
@@ -22847,7 +22873,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MenuSound: {fileID: 8300000, guid: 49dd0086c27ceed439f37089f9d6af8e, type: 3}
   StartSound: {fileID: 8300000, guid: 3f1c790142799314d9cfe4c9c64db2a6, type: 3}
-  StartMovingSound: {fileID: 8300000, guid: 5b1c70309cb32f54ab452ae2e154bb82, type: 3}
+  StartMovingSound: {fileID: 8300000, guid: 312d0c4feff3aa142bb9079002175cc5, type: 3}
+  TakeOffSound: {fileID: 8300000, guid: e9e6abafb6598204fb2a36f3e94eef8b, type: 3}
   SpeedUpSound: {fileID: 8300000, guid: f9ac3f20cd675f1499c4f88bb8c974b6, type: 3}
   EngineSound: {fileID: 8300000, guid: bd54d88eadfbb9b4aa022fb22bb1fd1b, type: 3}
   SmashSound: {fileID: 8300000, guid: 2dfbbf78f1ed2b94aba49ca832b90453, type: 3}
