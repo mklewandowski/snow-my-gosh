@@ -57,6 +57,8 @@ public class SceneManager : MonoBehaviour
     GameObject HUDButtons;
     [SerializeField]
     GameObject HUDSelectVehicle;
+    [SerializeField]
+    GameObject HUDSnow;
 
     [SerializeField]
     GameObject HUDQuit;
@@ -704,6 +706,7 @@ public class SceneManager : MonoBehaviour
         Player.GetComponent<Player>().Reset();
 
         HUDGameOver.GetComponent<MoveNormal>().MoveUp();
+        HUDSnow.SetActive(false);
         HUDBackground.SetActive(false);
         HUDAbout.GetComponent<MoveNormal>().MoveRight();
         HUDSettings.GetComponent<MoveNormal>().MoveRight();
@@ -821,6 +824,7 @@ public class SceneManager : MonoBehaviour
         audioManager.PlayMenuSound();
 
         HUDBackground.SetActive(true);
+        HUDSnow.SetActive(true);
         HUDGameOver.GetComponent<MoveNormal>().MoveUp();
         HUDTitle.GetComponent<MoveNormal>().MoveRight();
         HUDButtons.GetComponent<MoveNormal>().MoveUp();

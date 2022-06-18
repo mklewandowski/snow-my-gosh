@@ -14,6 +14,8 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     [SerializeField]
     TextMeshProUGUI VehicleName;
     [SerializeField]
+    TextMeshProUGUI VehicleNameBack;
+    [SerializeField]
     GameObject SelectButton;
     [SerializeField]
     GameObject BuyButton;
@@ -21,6 +23,8 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     GameObject NotEnoughCoins;
     [SerializeField]
     GameObject ForSale;
+    [SerializeField]
+    GameObject ForSaleBack;
 
     [SerializeField]
     Transform DragContainer;
@@ -72,11 +76,13 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             BuyButton.SetActive(!unlocked && enoughCoins);
             NotEnoughCoins.SetActive(!unlocked && !enoughCoins);
             ForSale.SetActive(!unlocked);
+            ForSaleBack.SetActive(!unlocked);
             Vehicles[currentVehicle].SetActive(true);
             currentVehicle = newVehicleIndex;
             Vehicles[currentVehicle].SetActive(false);
             CurrentVehicle.sprite = Vehicles[currentVehicle].GetComponent<Image>().sprite;
             VehicleName.text = Globals.GetVehicleNameFromType(Vehicles[currentVehicle].GetComponent<CharacterSelectVehicle>().VehicleType);
+            VehicleNameBack.text = VehicleName.text;
         }
     }
 
@@ -97,5 +103,6 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         BuyButton.SetActive(false);
         NotEnoughCoins.SetActive(false);
         ForSale.SetActive(false);
+        ForSaleBack.SetActive(false);
     }
 }
