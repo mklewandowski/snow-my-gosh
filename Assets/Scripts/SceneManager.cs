@@ -229,7 +229,7 @@ public class SceneManager : MonoBehaviour
         Globals.ScrollSpeed = new Vector3(0, 0, 15f);
         Globals.CurrentGameState = Globals.GameState.Playing;
         Camera.main.GetComponent<CameraTilt>().StartEffect();
-        audioManager.PlayStartSound();
+        audioManager.PlayStartMovingSound();
     }
 
     public void StartSpeedLines(float timerMax)
