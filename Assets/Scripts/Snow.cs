@@ -15,10 +15,9 @@ public class Snow : MonoBehaviour
         movingDownEndPos = Screen.height / -2f - 25f;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        if (InUse)
+        if (InUse && Globals.CurrentGameState == Globals.GameState.TitleScreen)
         {
             float newY = transform.localPosition.y + movingDownVelocity * Time.deltaTime;
             float newX = transform.localPosition.x + movingHorizontalVelocity * Time.deltaTime;

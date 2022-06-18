@@ -16,7 +16,6 @@ public class SnowManager : MonoBehaviour
     void Awake()
     {
         startPosY = Screen.height + 100f;
-        Debug.Log(startPosY);
         for (int x = 0; x < snowPool.Length; x++)
         {
             snowPool[x] = (GameObject)Instantiate (SnowPrefab, new Vector3 (100f, 100f, 100f), Quaternion.identity, SnowContainer.transform);
