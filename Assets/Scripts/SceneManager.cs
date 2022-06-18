@@ -230,6 +230,12 @@ public class SceneManager : MonoBehaviour
         audioManager.PlayStartSound();
     }
 
+    public void StartSpeedLines(float timerMax)
+    {
+        speedLineTimer = timerMax;
+        SpeedLines.SetActive(true);
+    }
+
     void UpdateTrees(GameObject[] trees)
     {
         float treeMinZ = -4f;
@@ -551,8 +557,7 @@ public class SceneManager : MonoBehaviour
         float newSpeed = Mathf.Min(Globals.maxSpeed, Globals.ScrollSpeed.z + 3f);
         Globals.ScrollSpeed = new Vector3(0, 0, newSpeed);
         smokeManager.SpeedUp();
-        speedLineTimer = speedLineTimerMax;
-        SpeedLines.SetActive(true);
+        StartSpeedLines(speedLineTimerMax);
     }
 
     public void StartInvincible()

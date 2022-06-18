@@ -21,10 +21,12 @@ public class CameraTilt : MonoBehaviour
     float speedEnd = 15f;
 
     AudioManager audioManager;
+    SceneManager sceneManager;
 
     void Awake()
     {
         audioManager = GameObject.Find("SceneManager").GetComponent<AudioManager>();
+        sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
     }
 
     // Update is called once per frame
@@ -50,6 +52,7 @@ public class CameraTilt : MonoBehaviour
                 state =  JuicyState.TiltBack;
                 audioManager.PlaySpeedUpSound();
                 audioManager.PlayEngineSound();
+                sceneManager.StartSpeedLines(.75f);
             }
         }
         else if (state == JuicyState.TiltBack)
