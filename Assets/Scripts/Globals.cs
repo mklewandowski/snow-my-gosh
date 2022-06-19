@@ -214,7 +214,7 @@ public class Globals
         else if (type == Globals.VehicleType.Blizzard)
             return Color.white;
         else if (type == Globals.VehicleType.PineTree)
-            return (new Color(0/255f, 87f/255f, 0));
+            return (new Color(0f, 87f/255f, 0));
         else if (type == Globals.VehicleType.EggNog)
             return (new Color(255f/255f, 209f/255f, 169f/255f));
         else if (type == Globals.VehicleType.FrozenLake)
@@ -228,27 +228,27 @@ public class Globals
         else if (type == Globals.VehicleType.NorthStar)
             return Color.yellow;
         else if (type == Globals.VehicleType.Sweater)
-            return (new Color(255f/255f, 0/255f, 226f/255f));
+            return (new Color(255f/255f, 0f, 226f/255f));
         else if (type == Globals.VehicleType.Gingerbread)
-            return (new Color(158f/255f, 105f/255f, 0/255f));
+            return (new Color(158f/255f, 105f/255f, 0f));
         else if (type == Globals.VehicleType.Tinsel)
             return (new Color(195f/255f, 192f/255f, 207f/255f));
         else if (type == Globals.VehicleType.Santa)
             return Color.red;
         else if (type == Globals.VehicleType.Misletoe)
-            return (new Color(0/255f, 157f/255f, 56f/255f));
+            return (new Color(0f, 157f/255f, 56f/255f));
         else if (type == Globals.VehicleType.Icicle)
             return (new Color(158f/255f, 255f/255f, 255f/255f));
         else if (type == Globals.VehicleType.CandyCaneMint)
-            return (new Color(0/255f, 255f/255f, 56f/255f));
+            return (new Color(0f, 255f/255f, 56f/255f));
         else if (type == Globals.VehicleType.Reindeer)
             return (new Color(158f/255f, 105f/255f, 56f/255f));
         else if (type == Globals.VehicleType.Elf)
-            return (new Color(0/255f, 174f/255f, 0/255f));
+            return (new Color(0f, 174f/255f, 0f));
         else if (type == Globals.VehicleType.WinterSunset)
             return (new Color(205f/255f, 51f/255f, 108f/255f));
         else if (type == Globals.VehicleType.CandyCaneBerry)
-            return (new Color(255f/255f, 0/255f, 0));
+            return (new Color(255f/255f, 0f, 0));
         else if (type == Globals.VehicleType.SnowCat)
             return (new Color(255f/255f, 106f/255f, 0));
         else if (type == Globals.VehicleType.SnowWagon)
@@ -256,7 +256,7 @@ public class Globals
         else if (type == Globals.VehicleType.MoonlessMidnight)
             return (new Color(0, 0, 0));
         else if (type == Globals.VehicleType.SkiTrip)
-            return (new Color(158f/255f, 0/255f, 226f/255f));
+            return (new Color(158f/255f, 0f, 226f/255f));
         else if (type == Globals.VehicleType.SnowMan)
             return Color.white;
         else if (type == Globals.VehicleType.Penguin)
@@ -264,7 +264,7 @@ public class Globals
         else if (type == Globals.VehicleType.TenBelow)
             return Color.white;
         else if (type == Globals.VehicleType.GiftWrapped)
-            return (new Color(0, 157f/255f, 0/255f));
+            return (new Color(0, 157f/255f, 0));
         else if (type == Globals.VehicleType.SwissMiss)
             return Color.red;
         else if (type == Globals.VehicleType.WinterBlueJay)
@@ -278,7 +278,7 @@ public class Globals
         else if (type == Globals.VehicleType.CocoaMarshmellow)
             return (new Color(106f/255f, 52f/255f, 0));
         else if (type == Globals.VehicleType.CoolMintCandyCane)
-            return Color.blue;
+            return (new Color(0, 157f/255f, 255f/255f));
         else if (type == Globals.VehicleType.BigPresent)
             return Color.yellow;
         else if (type == Globals.VehicleType.Plaid)
@@ -286,7 +286,7 @@ public class Globals
         else if (type == Globals.VehicleType.Moon)
             return Color.black;
         else if (type == Globals.VehicleType.Plaid2)
-            return (new Color(0/255f, 87f/255f, 0));
+            return (new Color(0, 87f/255f, 0));
         else if (type == Globals.VehicleType.Yeti)
             return Color.white;
         else
