@@ -9465,7 +9465,7 @@ MonoBehaviour:
   - {fileID: 1329764087}
   - {fileID: 2079169522}
   - {fileID: 1422309612}
-  - {fileID: 1422309612}
+  - {fileID: 935155706}
   - {fileID: 881856867}
   - {fileID: 1705596337}
   - {fileID: 857653977}
@@ -11339,6 +11339,11 @@ MonoBehaviour:
   ShrinkTo: 1
   Rate: 5
   JuiceTime: 0
+--- !u!23 &935155706 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: 3f966de19aecf7947a7edaec6a5d7cee, type: 3}
+  m_PrefabInstance: {fileID: 935155701}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &940528908
 PrefabInstance:
   m_ObjectHideFlags: 0
