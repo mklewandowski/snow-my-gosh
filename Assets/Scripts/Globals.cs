@@ -222,7 +222,7 @@ public class Globals
         else if (type == Globals.VehicleType.Cardinal)
             return Color.red;
         else if (type == Globals.VehicleType.Cocoa)
-            return (new Color(106f/255f, 52f/255f, 0f/255f));
+            return (new Color(106f/255f, 52f/255f, 0));
         else if (type == Globals.VehicleType.CandyCane)
             return Color.red;
         else if (type == Globals.VehicleType.NorthStar)
@@ -250,7 +250,7 @@ public class Globals
         else if (type == Globals.VehicleType.CandyCaneBerry)
             return (new Color(255f/255f, 0/255f, 0));
         else if (type == Globals.VehicleType.SnowCat)
-            return (new Color(255f/255f, 106f/255f, 255f/255f));
+            return (new Color(255f/255f, 106f/255f, 0));
         else if (type == Globals.VehicleType.SnowWagon)
             return (new Color(255f/255f, 106f/255f, 0));
         else if (type == Globals.VehicleType.MoonlessMidnight)
@@ -264,19 +264,19 @@ public class Globals
         else if (type == Globals.VehicleType.TenBelow)
             return Color.white;
         else if (type == Globals.VehicleType.GiftWrapped)
-            return (new Color(0/255f, 157f/255f, 0/255f));
+            return (new Color(0, 157f/255f, 0/255f));
         else if (type == Globals.VehicleType.SwissMiss)
             return Color.red;
         else if (type == Globals.VehicleType.WinterBlueJay)
             return Color.blue;
         else if (type == Globals.VehicleType.GaudyLights)
-            return (new Color(255f/255f, 0/255f, 226f/255f));
+            return (new Color(255f/255f, 0, 226f/255f));
         else if (type == Globals.VehicleType.MoonBoots)
             return Color.white;
         else if (type == Globals.VehicleType.MoonBoots2)
             return (new Color(255f/255f, 209f/255f, 169f/255f));
         else if (type == Globals.VehicleType.CocoaMarshmellow)
-            return (new Color(106f/255f, 52f/255f, 0f/255f));
+            return (new Color(106f/255f, 52f/255f, 0));
         else if (type == Globals.VehicleType.CoolMintCandyCane)
             return Color.blue;
         else if (type == Globals.VehicleType.BigPresent)
