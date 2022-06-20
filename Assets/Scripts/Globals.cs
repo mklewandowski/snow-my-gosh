@@ -248,7 +248,7 @@ public class Globals
         else if (type == Globals.VehicleType.WinterSunset)
             return (new Color(205f/255f, 51f/255f, 108f/255f));
         else if (type == Globals.VehicleType.CandyCaneBerry)
-            return (new Color(255f/255f, 0f, 0));
+            return (new Color(255f/255f, 0f, 255f/255f));
         else if (type == Globals.VehicleType.SnowCat)
             return (new Color(255f/255f, 106f/255f, 0));
         else if (type == Globals.VehicleType.SnowWagon)
