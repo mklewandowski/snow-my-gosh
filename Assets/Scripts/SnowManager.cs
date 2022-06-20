@@ -12,6 +12,7 @@ public class SnowManager : MonoBehaviour
     Snow[] snowScripts = new Snow[1000];
     float startPosY;
     float snowTimer = 0;
+    float snowTimerMax = .6f;
 
     void Awake()
     {
@@ -30,7 +31,7 @@ public class SnowManager : MonoBehaviour
         {
             // make snow
             StartSnow(40);
-            snowTimer = .6f;
+            snowTimer = snowTimerMax;
         }
     }
 

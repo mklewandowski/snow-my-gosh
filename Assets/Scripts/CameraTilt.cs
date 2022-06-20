@@ -19,6 +19,7 @@ public class CameraTilt : MonoBehaviour
     float waitTimerMax = .2f;
     float speedStart = 8f;
     float speedEnd = 15f;
+    float cameraToCarSpeedRatio = 5f;
 
     AudioManager audioManager;
     SceneManager sceneManager;
@@ -36,7 +37,7 @@ public class CameraTilt : MonoBehaviour
         {
             float newTilt = Mathf.Max(tiltTo, this.transform.eulerAngles.x - Time.deltaTime * speedStart);
             this.transform.eulerAngles = new Vector3 (newTilt, 0, 0);
-            float newPos = Mathf.Min(moveTo, this.transform.localPosition.z + Time.deltaTime * speedStart / 5f);
+            float newPos = Mathf.Min(moveTo, this.transform.localPosition.z + Time.deltaTime * speedStart / cameraToCarSpeedRatio);
             this.transform.localPosition = new Vector3 (0, 0, newPos);
             if (newTilt == tiltTo)
             {
@@ -59,7 +60,7 @@ public class CameraTilt : MonoBehaviour
         {
             float newTilt = Mathf.Min(initialTilt, this.transform.eulerAngles.x + Time.deltaTime * speedEnd);
             this.transform.eulerAngles = new Vector3 (newTilt, 0, 0);
-            float newPos = Mathf.Max(initialMove, this.transform.localPosition.z - Time.deltaTime * speedEnd / 5f);
+            float newPos = Mathf.Max(initialMove, this.transform.localPosition.z - Time.deltaTime * speedEnd / cameraToCarSpeedRatio);
             this.transform.localPosition = new Vector3 (0, 0, newPos);
             if (newTilt == initialTilt)
             {

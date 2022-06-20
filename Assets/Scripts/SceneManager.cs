@@ -169,19 +169,11 @@ public class SceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (fadeTimer > 0)
+        if (Globals.CurrentGameState == Globals.GameState.TitleScreen)
         {
-            fadeTimer -= Time.deltaTime;
-            HUDFadeImage.color = new Color(0, 0, 0, fadeTimer / .75f);
-            if (fadeTimer <= 0)
-            {
-                HUDFade.SetActive(false);
-                HUDTitle.SetActive(true);
-                HUDTitle.GetComponent<GrowAndShrink>().StartEffect();
-                HUDButtons.GetComponent<MoveNormal>().MoveUp();
-            }
+            UpdateTitle();
         }
-        if (Globals.CurrentGameState == Globals.GameState.Playing)
+        else if (Globals.CurrentGameState == Globals.GameState.Playing)
         {
             UpdatePlaying();
         }
@@ -220,38 +212,18 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void StartMoving()
+    void UpdateTitle()
     {
-        HUDDistance.SetActive(true);
-        HUDHeartContainer.SetActive(true);
-        HUDRaceReady.SetActive(false);
-        HUDRaceReady.transform.localScale = new Vector3(.1f, .1f, .1f);
-        Globals.ScrollSpeed = new Vector3(0, 0, 15f);
-        Globals.CurrentGameState = Globals.GameState.Playing;
-        Camera.main.GetComponent<CameraTilt>().StartEffect();
-        audioManager.PlayStartMovingSound();
-    }
-
-    public void StartSpeedLines(float timerMax)
-    {
-        speedLineTimer = timerMax;
-        SpeedLines.SetActive(true);
-    }
-
-    void UpdateTrees(GameObject[] trees)
-    {
-        float treeMinZ = -4f;
-        float treeOffsetZ = 4f;
-        for (int i = 0; i < trees.Length; i++)
+        if (fadeTimer > 0)
         {
-            if (trees[i].transform.localPosition.z < treeMinZ)
+            fadeTimer -= Time.deltaTime;
+            HUDFadeImage.color = new Color(0, 0, 0, fadeTimer / .75f);
+            if (fadeTimer <= 0)
             {
-                int abutIndex = i == 0 ? trees.Length - 1 : i - 1;
-                trees[i].transform.localPosition = new Vector3(
-                        trees[i].transform.localPosition.x,
-                        trees[i].transform.localPosition.y,
-                        trees[abutIndex].transform.localPosition.z + treeOffsetZ
-                    );
+                HUDFade.SetActive(false);
+                HUDTitle.SetActive(true);
+                HUDTitle.GetComponent<GrowAndShrink>().StartEffect();
+                HUDButtons.GetComponent<MoveNormal>().MoveUp();
             }
         }
     }
@@ -401,143 +373,166 @@ public class SceneManager : MonoBehaviour
 
         if (distanceUntilSpawn <= 0)
         {
-            waveNum++;
-            bool exists = false;
-            for (int a = 0; a < speedPointWaves.Length; a++)
+            SpawnWave();
+        }
+    }
+
+    void SpawnWave()
+    {
+        waveNum++;
+        bool spawnSpeedPoint = false;
+        for (int a = 0; a < speedPointWaves.Length; a++)
+        {
+            if (speedPointWaves[a] == waveNum)
+                spawnSpeedPoint = true;
+        }
+        if (spawnSpeedPoint)
+        {
+            // spawn a speed point
+            GameObject speedPoint = (GameObject)Instantiate(SpeedPointPrefab,
+                new Vector3(0, 0.2f, 64f),
+                Quaternion.identity,
+                ItemContainer.transform);
+            distanceUntilSpawn = 16f;
+        }
+        else
+        {
+            // spawn new items in the 5 slots of the row at z = 64
+            int lanes = 5;
+            int laneSlots = 8;
+            float startX = -6f;
+            float xIncrement = 3f;
+
+            int maxCoinRuns = 2;
+            int maxSnowBalls = 3;
+            int maxYetiPerLaneSlot = 4;
+
+            LaneTypes[] laneTypes = new LaneTypes[lanes];
+            int coinRuns = 0;
+            int snowBalls = 0;
+            for (int x = 0; x < laneTypes.Length; x++)
             {
-                if (speedPointWaves[a] == waveNum)
-                    exists = true;
+                LaneTypes laneType = LaneTypes.Random;
+                float minRange = snowBalls >= maxSnowBalls ? 5f : 0f;
+                float maxRange = coinRuns >= maxCoinRuns ? 95f : 100f;
+                float laneRandomVal = Random.Range(minRange, maxRange);
+                if (laneRandomVal < 20f) // 20% change of snowball
+                {
+                    snowBalls++;
+                    maxYetiPerLaneSlot--;
+                    laneType = LaneTypes.SnowBall;
+                }
+                else if (laneRandomVal > 95f) // 5% chance of coin run
+                {
+                    coinRuns++;
+                    laneType = LaneTypes.CoinRun;
+                }
+                laneTypes[x] = laneType;
             }
-            if (exists)
+
+            // Knuth shuffle algorithm
+            for (int i = 0; i < laneTypes.Length; i++ )
             {
-                // spawn a speed point
-                GameObject speedPoint = (GameObject)Instantiate(SpeedPointPrefab,
-                    new Vector3(0, 0.2f, 64f),
-                    Quaternion.identity,
-                    ItemContainer.transform);
-                distanceUntilSpawn = 16f;
+                LaneTypes tmp = laneTypes[i];
+                int r = Random.Range(i, laneTypes.Length);
+                laneTypes[i] = laneTypes[r];
+                laneTypes[r] = tmp;
             }
-            else
+
+            for (int x = 0; x < lanes; x++)
             {
-                // spawn new things in the 5 slots of the row at z = 64
-                int lanes = 5;
-                int laneSlots = 8;
-                float startX = -6f;
-                float xIncrement = 3f;
-
-                int maxCoinRuns = 2;
-                int maxSnowBalls = 3;
-                int maxYetiPerLaneSlot = 4;
-
-                LaneTypes[] laneTypes = new LaneTypes[lanes];
-                int coinRuns = 0;
-                int snowBalls = 0;
-                for (int x = 0; x < laneTypes.Length; x++)
+                if (laneTypes[x] == LaneTypes.SnowBall)
                 {
-                    LaneTypes laneType = LaneTypes.Random;
-                    float minRange = snowBalls >= maxSnowBalls ? 5f : 0f;
-                    float maxRange = coinRuns >= maxCoinRuns ? 95f : 100f;
-                    float laneRandomVal = Random.Range(minRange, maxRange);
-                    if (laneRandomVal < 20f) // 20% change of snowball
+                    int numSnowballs = Random.Range(1, 5);
+                    float extraSpeed = Random.Range(10f, 20f);
+                    for (int s = 0; s < numSnowballs; s++)
                     {
-                        snowBalls++;
-                        maxYetiPerLaneSlot--;
-                        laneType = LaneTypes.SnowBall;
+                        GameObject snowBall = (GameObject)Instantiate(SnowBallPrefab,
+                            new Vector3(startX + x * xIncrement, -2.9f, 64f + 7 * 8f + (s * 4f)),
+                            Quaternion.identity, ItemContainer.transform);
+                        snowBall.GetComponent<Item>().SetExtraSpeed(extraSpeed);
                     }
-                    else if (laneRandomVal > 95f) // 5% chance of coin run
+                }
+                else if (laneTypes[x] == LaneTypes.CoinRun)
+                {
+                    for (int s = 0; s < laneSlots; s++)
                     {
-                        coinRuns++;
-                        laneType = LaneTypes.CoinRun;
+                        GameObject powerup = (GameObject)Instantiate(CoinPowerupPrefab,
+                            new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f),
+                            Quaternion.identity, ItemContainer.transform);
                     }
-                    laneTypes[x] = laneType;
                 }
-
-                // Knuth shuffle algorithm
-                for (int i = 0; i < laneTypes.Length; i++ )
+                else
                 {
-                    LaneTypes tmp = laneTypes[i];
-                    int r = Random.Range(i, laneTypes.Length);
-                    laneTypes[i] = laneTypes[r];
-                    laneTypes[r] = tmp;
-                }
-
-                for (int x = 0; x < lanes; x++)
-                {
-                    if (laneTypes[x] == LaneTypes.SnowBall)
+                    // random content
+                    LaneSlotTypes[] laneSlotTypes = new LaneSlotTypes[laneSlots];
+                    int yeti = 0;
+                    for (int ls = 0; ls < laneSlotTypes.Length; ls++)
                     {
-                        int numSnowballs = Random.Range(1, 5);
-                        float extraSpeed = Random.Range(10f, 20f);
-                        for (int s = 0; s < numSnowballs; s++)
+                        LaneSlotTypes laneSlotType = LaneSlotTypes.Empty;
+                        float minRange = yeti >= maxYetiPerLaneSlot ? 20f : 0f;
+                        float laneSlotRandomVal = Random.Range(minRange, 100f);
+                        if (laneSlotRandomVal < 20f) // 20% change of yeti
                         {
-                            GameObject snowBall = (GameObject)Instantiate(SnowBallPrefab,
-                                new Vector3(startX + x * xIncrement, -2.9f, 64f + 7 * 8f + (s * 4f)),
-                                Quaternion.identity, ItemContainer.transform);
-                            snowBall.GetComponent<Item>().SetExtraSpeed(extraSpeed);
+                            yeti++;
+                            laneSlotType = LaneSlotTypes.Yeti;
                         }
-                    }
-                    else if (laneTypes[x] == LaneTypes.CoinRun)
-                    {
-                        for (int s = 0; s < laneSlots; s++)
+                        else if (laneSlotRandomVal < 30f) // 10% chance of powerup
                         {
-                            GameObject powerup = (GameObject)Instantiate(CoinPowerupPrefab,
-                                new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f),
+                            laneSlotType = LaneSlotTypes.PowerUp;
+                        }
+                        laneSlotTypes[ls] = laneSlotType;
+                    }
+                    // Knuth shuffle algorithm
+                    for (int i = 0; i < laneTypes.Length; i++ )
+                    {
+                        LaneSlotTypes tmp = laneSlotTypes[i];
+                        int r = Random.Range(i, laneSlotTypes.Length);
+                        laneSlotTypes[i] = laneSlotTypes[r];
+                        laneSlotTypes[r] = tmp;
+                    }
+
+                    for (int s = 0; s < laneSlots; s++)
+                    {
+                        if (laneSlotTypes[s] == LaneSlotTypes.Yeti)
+                        {
+                            GameObject enemy = (GameObject)Instantiate(YetiPrefab,
+                                new Vector3(startX + x * xIncrement, -2.5f, 64f + s * 8f + Random.Range(-2f, 2f)),
                                 Quaternion.identity, ItemContainer.transform);
                         }
-                    }
-                    else
-                    {
-                        // random content
-                        LaneSlotTypes[] laneSlotTypes = new LaneSlotTypes[laneSlots];
-                        int yeti = 0;
-                        for (int ls = 0; ls < laneSlotTypes.Length; ls++)
+                        else if (laneSlotTypes[s] == LaneSlotTypes.PowerUp)
                         {
-                            LaneSlotTypes laneSlotType = LaneSlotTypes.Empty;
-                            float minRange = yeti >= maxYetiPerLaneSlot ? 20f : 0f;
-                            float laneSlotRandomVal = Random.Range(minRange, 100f);
-                            if (laneSlotRandomVal < 20f) // 20% change of yeti
+                            float powerupRandVal = Random.Range(0f, 100.0f);
+                            GameObject powerupPrefab = CoinPowerupPrefab;
+                            if (powerupRandVal > 70)
                             {
-                                yeti++;
-                                laneSlotType = LaneSlotTypes.Yeti;
+                                powerupPrefab = HeartPowerupPrefab;
                             }
-                            else if (laneSlotRandomVal < 30f) // 10% chance of powerup
-                            {
-                                laneSlotType = LaneSlotTypes.PowerUp;
-                            }
-                            laneSlotTypes[ls] = laneSlotType;
-                        }
-                        // Knuth shuffle algorithm
-                        for (int i = 0; i < laneTypes.Length; i++ )
-                        {
-                            LaneSlotTypes tmp = laneSlotTypes[i];
-                            int r = Random.Range(i, laneSlotTypes.Length);
-                            laneSlotTypes[i] = laneSlotTypes[r];
-                            laneSlotTypes[r] = tmp;
-                        }
-
-                        for (int s = 0; s < laneSlots; s++)
-                        {
-                            if (laneSlotTypes[s] == LaneSlotTypes.Yeti)
-                            {
-                                GameObject enemy = (GameObject)Instantiate(YetiPrefab,
-                                    new Vector3(startX + x * xIncrement, -2.5f, 64f + s * 8f + Random.Range(-2f, 2f)),
-                                    Quaternion.identity, ItemContainer.transform);
-                            }
-                            else if (laneSlotTypes[s] == LaneSlotTypes.PowerUp)
-                            {
-                                float powerupRandVal = Random.Range(0f, 100.0f);
-                                GameObject powerupPrefab = CoinPowerupPrefab;
-                                if (powerupRandVal > 70)
-                                {
-                                    powerupPrefab = HeartPowerupPrefab;
-                                }
-                                GameObject powerup = (GameObject)Instantiate(powerupPrefab,
-                                    new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f + Random.Range(-2f, 2f)),
-                                    Quaternion.identity, ItemContainer.transform);
-                            }
+                            GameObject powerup = (GameObject)Instantiate(powerupPrefab,
+                                new Vector3(startX + x * xIncrement, -3f, 64f + s * 8f + Random.Range(-2f, 2f)),
+                                Quaternion.identity, ItemContainer.transform);
                         }
                     }
                 }
-                distanceUntilSpawn = 64f;
+            }
+            distanceUntilSpawn = 64f;
+        }
+    }
+
+    void UpdateTrees(GameObject[] trees)
+    {
+        float treeMinZ = -4f;
+        float treeOffsetZ = 4f;
+        for (int i = 0; i < trees.Length; i++)
+        {
+            if (trees[i].transform.localPosition.z < treeMinZ)
+            {
+                int abutIndex = i == 0 ? trees.Length - 1 : i - 1;
+                trees[i].transform.localPosition = new Vector3(
+                        trees[i].transform.localPosition.x,
+                        trees[i].transform.localPosition.y,
+                        trees[abutIndex].transform.localPosition.z + treeOffsetZ
+                    );
             }
         }
     }
@@ -560,6 +555,12 @@ public class SceneManager : MonoBehaviour
         Globals.ScrollSpeed = new Vector3(0, 0, newSpeed);
         smokeManager.SpeedUp();
         StartSpeedLines(speedLineTimerMax);
+    }
+
+    public void StartSpeedLines(float timerMax)
+    {
+        speedLineTimer = timerMax;
+        SpeedLines.SetActive(true);
     }
 
     public void StartInvincible()
@@ -742,6 +743,18 @@ public class SceneManager : MonoBehaviour
         HUDRaceReady.GetComponent<GrowAndShrink>().StartEffect();
 
         Globals.CurrentGameState = Globals.GameState.Ready;
+    }
+
+    public void StartMoving()
+    {
+        HUDDistance.SetActive(true);
+        HUDHeartContainer.SetActive(true);
+        HUDRaceReady.SetActive(false);
+        HUDRaceReady.transform.localScale = new Vector3(.1f, .1f, .1f);
+        Globals.ScrollSpeed = new Vector3(0, 0, 15f);
+        Globals.CurrentGameState = Globals.GameState.Playing;
+        Camera.main.GetComponent<CameraTilt>().StartEffect();
+        audioManager.PlayStartMovingSound();
     }
 
     public void EndGame()

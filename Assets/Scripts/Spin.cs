@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Spin : MonoBehaviour
 {
+    float spinSpeed = 300f;
+
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.left * Time.deltaTime * 300f);
+        transform.Rotate(Vector3.left * Time.deltaTime * spinSpeed);
     }
 }

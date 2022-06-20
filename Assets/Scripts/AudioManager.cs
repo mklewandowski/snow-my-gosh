@@ -133,5 +133,4 @@ public class AudioManager : MonoBehaviour
         if (Globals.AudioOn)
             audioSource.PlayOneShot(SwipeSound[num], 1f);
     }
-
 }

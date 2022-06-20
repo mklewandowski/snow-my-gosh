@@ -40,8 +40,6 @@ public class StarManager : MonoBehaviour
                 Random.Range(2f, 5f),
                 0
             );
-
-            // twinkle
         }
     }
 }

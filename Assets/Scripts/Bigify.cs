@@ -23,6 +23,8 @@ public class Bigify : MonoBehaviour
     float BigifyY = -2.45f;
     [SerializeField]
     GameObject SmokeOrigin;
+    float bigifySmokeXPos = -0.2f;
+    float normalSmokeXPos = -0.085f;
 
     void Update ()
     {
@@ -34,7 +36,7 @@ public class Bigify : MonoBehaviour
             this.transform.localPosition = new Vector3(this.transform.localPosition.x, newY, this.transform.localPosition.z);
             if (newScale == GrowTo)
             {
-                SmokeOrigin.transform.localPosition = new Vector3(-0.2f, SmokeOrigin.transform.localPosition.y, SmokeOrigin.transform.localPosition.z);
+                SmokeOrigin.transform.localPosition = new Vector3(bigifySmokeXPos, SmokeOrigin.transform.localPosition.y, SmokeOrigin.transform.localPosition.z);
                 state =  JuicyState.Normal;
             }
         }
@@ -46,7 +48,7 @@ public class Bigify : MonoBehaviour
             this.transform.localPosition = new Vector3(this.transform.localPosition.x, newY, this.transform.localPosition.z);
             if (newScale == ShrinkTo)
             {
-                SmokeOrigin.transform.localPosition = new Vector3(-0.085f, SmokeOrigin.transform.localPosition.y, SmokeOrigin.transform.localPosition.z);
+                SmokeOrigin.transform.localPosition = new Vector3(normalSmokeXPos, SmokeOrigin.transform.localPosition.y, SmokeOrigin.transform.localPosition.z);
                 state =  JuicyState.Normal;
             }
         }

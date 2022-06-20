@@ -32,7 +32,9 @@ public class SpeedFlicker : MonoBehaviour
         }
         if (show)
         {
-            this.transform.localPosition = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y, this.transform.localPosition.z - Time.deltaTime * 2f);
+            this.transform.localPosition = new Vector3(this.transform.localPosition.x,
+                this.transform.localPosition.y,
+                this.transform.localPosition.z - Time.deltaTime * 2f);
         }
     }
 }
