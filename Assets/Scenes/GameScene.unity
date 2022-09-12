@@ -13977,7 +13977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GrowTo: 1.2
   ShrinkTo: 1
-  Rate: 7
+  Rate: 5
   JuiceTime: 0
 --- !u!1 &1076846566
 GameObject:
