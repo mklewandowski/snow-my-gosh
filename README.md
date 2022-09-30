@@ -28,11 +28,11 @@ Snow My Gosh is designed for use on multiple platforms including:
 ## Running Locally
 Use the following steps to run locally:
 1. Clone this repo
-2. Open repo folder using Unity 2021.3.3f.1
+2. Open repo folder using Unity 2021.3.10f1
 3. Install Text Mesh Pro
 
 ## Development Tools
-- Created using Unity 2021.3.3f.1
+- Created using Unity 2021.3.10f1
 - Code edited using Visual Studio Code
 - Voxel art made using [Magicavoxel](https://www.voxelmade.com/magicavoxel/)
 - Sounds created using [Bfxr](https://www.bfxr.net/)
