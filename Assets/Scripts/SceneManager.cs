@@ -131,6 +131,8 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
 	GameObject SnowBallPrefab;
     [SerializeField]
+	GameObject CandyCanePrefab;
+    [SerializeField]
 	GameObject HeartPowerupPrefab;
     [SerializeField]
 	GameObject CoinPowerupPrefab;
@@ -377,15 +379,28 @@ public class SceneManager : MonoBehaviour
         }
     }
 
+    bool lastWaveCanes = false;
     void SpawnWave()
     {
         waveNum++;
         bool spawnSpeedPoint = false;
+        bool spawnCandyCanes = false;
+
         for (int a = 0; a < speedPointWaves.Length; a++)
         {
             if (speedPointWaves[a] == waveNum)
                 spawnSpeedPoint = true;
         }
+        if (!lastWaveCanes && ((waveNum >= 8 && Random.Range(0, 100f) > 94f) || waveNum == 14))
+        {
+            spawnCandyCanes = true;
+            lastWaveCanes = true;
+        }
+        else
+        {
+            lastWaveCanes = false;
+        }
+
         if (spawnSpeedPoint)
         {
             // spawn a speed point
@@ -394,6 +409,35 @@ public class SceneManager : MonoBehaviour
                 Quaternion.identity,
                 ItemContainer.transform);
             distanceUntilSpawn = 16f;
+        }
+        else if (spawnCandyCanes)
+        {
+            int lanes = 5;
+            int laneSlots = 20;
+            float startX = -6f;
+            float xIncrement = 3f;
+            distanceUntilSpawn = 160f;
+            int openLane = 2;
+            int openLaneLength = 3;
+            for (int ls = 0; ls < laneSlots; ls++)
+            {
+                if (ls != (laneSlots - 1))
+                {
+                    for (int l = 0; l < lanes; l++)
+                    {
+                        GameObject powerup = (GameObject)Instantiate(l != openLane ? CandyCanePrefab : CoinPowerupPrefab,
+                                new Vector3(startX + l * xIncrement, l != openLane ? -1.6f : -3f, 64f + ls * 8f),
+                                Quaternion.identity, ItemContainer.transform);
+                    }
+                }
+                openLaneLength--;
+                if (openLaneLength == 0)
+                {
+                    openLaneLength = Random.Range(2, 5);
+                    int laneDir = Random.Range(0, 100f) > 50f ? 1 : -1;
+                    openLane = Mathf.Min(4, Mathf.Max(0, openLane + laneDir));
+                }
+            }
         }
         else
         {

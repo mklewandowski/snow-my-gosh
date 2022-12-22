@@ -6,7 +6,8 @@ public class Item : MonoBehaviour
         Yeti,
         Ball,
         Heart,
-        Coin
+        Coin,
+        Cane
     }
     public ItemType itemType = ItemType.Coin;
     protected Color debrisColor;
@@ -43,6 +44,10 @@ public class Item : MonoBehaviour
         else if (itemType == ItemType.Ball)
         {
             debrisColor = Color.white;
+        }
+        else if (itemType == ItemType.Cane)
+        {
+            debrisColor = Color.red;
         }
 
         GameObject dm = GameObject.Find ("DebrisManager");
