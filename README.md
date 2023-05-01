@@ -47,8 +47,8 @@ Setup of the `better-minimal-webgl-template` is as follows:
 
 ### Running a Unity WebGL Build
 1. Install the "Live Server" VS Code extension.
-1. Open the WebGL build output directory with VS Code.
-2. Right-click `index.html`, and select "Open with Live Server".
+2. Open the WebGL build output directory with VS Code.
+3. Right-click `index.html`, and select "Open with Live Server".
 
 ## Development Tools
 - Created using Unity
