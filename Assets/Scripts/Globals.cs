@@ -61,6 +61,7 @@ public class Globals
         Moon,
         Plaid2,
         Yeti,
+        LogTruck,
         Invincible
     }
 
@@ -75,7 +76,7 @@ public class Globals
     // keep track of coins
     public static int Coins = 0;
 
-    public static int MaxVehicles = 40;
+    public static int MaxVehicles = 41;
     public static int[] VehicleUnlockStates = new int[MaxVehicles];
 
     public const string AudioPlayerPrefsKey = "Audio";
@@ -204,6 +205,8 @@ public class Globals
             name = "Pine Needle Plaid";
         else if (type == Globals.VehicleType.Yeti)
             name = "Yeti-Mobile";
+        else if (type == Globals.VehicleType.LogTruck)
+            name = "Bethany's Timber Farm";
         return name;
     }
 
@@ -289,6 +292,8 @@ public class Globals
             return (new Color(0, 87f/255f, 0));
         else if (type == Globals.VehicleType.Yeti)
             return Color.white;
+        else if (type == Globals.VehicleType.LogTruck)
+            return Color.yellow;
         else
             return (new Color(255f/255f, 106f/255f, 0));
     }

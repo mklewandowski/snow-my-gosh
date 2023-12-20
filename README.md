@@ -7,7 +7,7 @@ Swipe left or right to move. Avoid Abominable Snowbots and Ice Boulders. Collect
 ![Snow My Gosh gameplay](https://github.com/mklewandowski/snow-my-gosh/blob/main/Assets/Images/snow-my-gosh-gameplay.gif?raw=true)
 
 ## Voxel Art
-Snow My Gosh contains 40 playable voxel art vehicles and additional in-game voxel art.
+Snow My Gosh contains 43 playable voxel art vehicles and additional in-game voxel art.
 
 ![Snow My Gosh cars](https://github.com/mklewandowski/snow-my-gosh/blob/main/Assets/Images/snow-my-gosh-vehicles.gif?raw=true)
 
