@@ -63,6 +63,7 @@ public class Globals
         Yeti,
         LogTruck,
         PresentTruck,
+        TreeCar,
         Invincible
     }
 
@@ -77,7 +78,7 @@ public class Globals
     // keep track of coins
     public static int Coins = 0;
 
-    public static int MaxVehicles = 42;
+    public static int MaxVehicles = 43;
     public static int[] VehicleUnlockStates = new int[MaxVehicles];
 
     public const string AudioPlayerPrefsKey = "Audio";
@@ -210,6 +211,8 @@ public class Globals
             name = "Bethany's Timber Farm";
         else if (type == Globals.VehicleType.PresentTruck)
             name = "Gift-Mobile";
+        else if (type == Globals.VehicleType.TreeCar)
+            name = "Family Tree";
         return name;
     }
 
@@ -299,6 +302,8 @@ public class Globals
             return Color.yellow;
         else if (type == Globals.VehicleType.PresentTruck)
             return (new Color(0, 209f/255f, 169f/255f));
+        else if (type == Globals.VehicleType.TreeCar)
+            return (new Color(0f, 87f/255f, 0));
         else
             return (new Color(255f/255f, 106f/255f, 0));
     }
