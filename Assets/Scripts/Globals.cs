@@ -20,6 +20,12 @@ public class Globals
     }
     public static GameState CurrentGameState = GameState.TitleScreen;
 
+    public enum SideObjectType {
+        PineTreeSmall,
+        PineTreeBig,
+        OldTree,
+    }
+
     public enum VehicleType {
         Default,
         Blizzard,

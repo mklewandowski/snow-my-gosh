@@ -32,6 +32,16 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GameObject[] Tracks;
     [SerializeField]
+    GameObject SideObjectPrefab;
+    [SerializeField]
+    GameObject TreesLeftContainer;
+    [SerializeField]
+    GameObject TreesRightContainer;
+    [SerializeField]
+    GameObject TreesLeftFarContainer;
+    [SerializeField]
+    GameObject TreesRightFarContainer;
+    [SerializeField]
     GameObject[] TreesLeft;
     [SerializeField]
     GameObject[] TreesRight;
@@ -166,6 +176,27 @@ public class SceneManager : MonoBehaviour
         Player.GetComponent<VehicleTypeManager>().SetVehicleType(vehicleType);
 
         audioManager = this.GetComponent<AudioManager>();
+
+        int maxSideObjects = 18;
+        for (int x = 0; x < maxSideObjects; x++)
+        {
+            TreesLeft[x] = Instantiate(SideObjectPrefab, Vector3.zero, Quaternion.identity, TreesLeftContainer.transform);
+            TreesLeft[x].transform.localPosition = new Vector3(-12f, -3.7f, x * 4f);
+            TreesLeft[x].transform.localEulerAngles = new Vector3(0, 110f, 0);
+            TreesLeft[x].GetComponent<SideObject>().SetType(Globals.SideObjectType.PineTreeSmall);
+            TreesRight[x] = Instantiate(SideObjectPrefab, Vector3.zero, Quaternion.identity, TreesRightContainer.transform);
+            TreesRight[x].transform.localPosition = new Vector3(12f, -3.7f, x * 4f);
+            TreesRight[x].transform.localEulerAngles = new Vector3(0, 70f, 0);
+            TreesRight[x].GetComponent<SideObject>().SetType(Globals.SideObjectType.PineTreeSmall);
+            TreesLeftFar[x] = Instantiate(SideObjectPrefab, Vector3.zero, Quaternion.identity, TreesLeftFarContainer.transform);
+            TreesLeftFar[x].transform.localPosition = new Vector3(-20f, -3.6f, x * 4f);
+            TreesLeftFar[x].transform.localEulerAngles = new Vector3(0, 110f, 0);
+            TreesLeftFar[x].GetComponent<SideObject>().SetType(Globals.SideObjectType.PineTreeBig);
+            TreesRightFar[x] = Instantiate(SideObjectPrefab, Vector3.zero, Quaternion.identity, TreesRightFarContainer.transform);
+            TreesRightFar[x].transform.localPosition = new Vector3(20f, -3.6f, x * 4f);
+            TreesRightFar[x].transform.localEulerAngles = new Vector3(0, 70f, 0);
+            TreesRightFar[x].GetComponent<SideObject>().SetType(Globals.SideObjectType.PineTreeBig);
+        }
     }
 
     // Update is called once per frame
