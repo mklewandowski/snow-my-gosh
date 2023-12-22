@@ -15,6 +15,7 @@ public class SceneManager : MonoBehaviour
     enum LaneSlotTypes {
         PowerUp,
         Yeti,
+        Snowman,
         Empty
     }
 
@@ -32,6 +33,16 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GameObject[] Tracks;
     [SerializeField]
+    GameObject SideObjectPrefab;
+    [SerializeField]
+    GameObject TreesLeftContainer;
+    [SerializeField]
+    GameObject TreesRightContainer;
+    [SerializeField]
+    GameObject TreesLeftFarContainer;
+    [SerializeField]
+    GameObject TreesRightFarContainer;
+    [SerializeField]
     GameObject[] TreesLeft;
     [SerializeField]
     GameObject[] TreesRight;
@@ -39,6 +50,11 @@ public class SceneManager : MonoBehaviour
     GameObject[] TreesLeftFar;
     [SerializeField]
     GameObject[] TreesRightFar;
+
+    SideObject[] TreesLeftScripts = new SideObject[18];
+    SideObject[] TreesRightScripts = new SideObject[18];
+    SideObject[] TreesLeftFarScripts = new SideObject[18];
+    SideObject[] TreesRightFarScripts = new SideObject[18];
 
     // titles and messages
     [SerializeField]
@@ -129,6 +145,8 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
 	GameObject YetiPrefab;
     [SerializeField]
+	GameObject SnowManPrefab;
+    [SerializeField]
 	GameObject SnowBallPrefab;
     [SerializeField]
 	GameObject CandyCanePrefab;
@@ -151,6 +169,9 @@ public class SceneManager : MonoBehaviour
 
     float fadeTimer = .75f;
 
+    Globals.SideObjectType currentInnerSideObjectType = Globals.SideObjectType.PineTreeSmall;
+    Globals.SideObjectType currentOuterSideObjectType = Globals.SideObjectType.PineTreeBig;
+
     void Awake()
     {
         Application.targetFrameRate = 60;
@@ -159,13 +180,39 @@ public class SceneManager : MonoBehaviour
 
         Globals.BestDistance = Globals.LoadIntFromPlayerPrefs(Globals.BestDistancePlayerPrefsKey);
 
-        Globals.Coins = Globals.LoadIntFromPlayerPrefs(Globals.CoinsPlayerPrefsKey);
+        Globals.Coins = 500;// Globals.LoadIntFromPlayerPrefs(Globals.CoinsPlayerPrefsKey);
         UpdateCoins();
 
         int vehicleType = Globals.LoadIntFromPlayerPrefs(Globals.VehicleTypePlayerPrefsKey);
         Player.GetComponent<VehicleTypeManager>().SetVehicleType(vehicleType);
 
         audioManager = this.GetComponent<AudioManager>();
+
+        int maxSideObjects = 18;
+        for (int x = 0; x < maxSideObjects; x++)
+        {
+            TreesLeft[x] = Instantiate(SideObjectPrefab, Vector3.zero, Quaternion.identity, TreesLeftContainer.transform);
+            TreesLeft[x].transform.localPosition = new Vector3(-12f, -3.7f, x * 4f);
+            TreesLeft[x].GetComponent<SideObject>().SetType(Globals.SideObjectType.PineTreeSmall);
+            TreesLeft[x].GetComponent<SideObject>().SetLeftSide();
+            TreesLeftScripts[x] = TreesLeft[x].GetComponent<SideObject>();
+
+            TreesRight[x] = Instantiate(SideObjectPrefab, Vector3.zero, Quaternion.identity, TreesRightContainer.transform);
+            TreesRight[x].transform.localPosition = new Vector3(12f, -3.7f, x * 4f);
+            TreesRight[x].GetComponent<SideObject>().SetType(Globals.SideObjectType.PineTreeSmall);
+            TreesRightScripts[x] = TreesRight[x].GetComponent<SideObject>();
+
+            TreesLeftFar[x] = Instantiate(SideObjectPrefab, Vector3.zero, Quaternion.identity, TreesLeftFarContainer.transform);
+            TreesLeftFar[x].transform.localPosition = new Vector3(-20f, -3.6f, x * 4f);
+            TreesLeftFar[x].GetComponent<SideObject>().SetType(Globals.SideObjectType.PineTreeBig);
+            TreesLeftFar[x].GetComponent<SideObject>().SetLeftSide();
+            TreesLeftFarScripts[x] = TreesLeftFar[x].GetComponent<SideObject>();
+
+            TreesRightFar[x] = Instantiate(SideObjectPrefab, Vector3.zero, Quaternion.identity, TreesRightFarContainer.transform);
+            TreesRightFar[x].transform.localPosition = new Vector3(20f, -3.6f, x * 4f);
+            TreesRightFar[x].GetComponent<SideObject>().SetType(Globals.SideObjectType.PineTreeBig);
+            TreesRightFarScripts[x] = TreesRightFar[x].GetComponent<SideObject>();
+        }
     }
 
     // Update is called once per frame
@@ -247,10 +294,10 @@ public class SceneManager : MonoBehaviour
             }
         }
 
-        UpdateTrees(TreesLeft);
-        UpdateTrees(TreesRight);
-        UpdateTrees(TreesLeftFar);
-        UpdateTrees(TreesRightFar);
+        UpdateTrees(TreesLeft, TreesLeftScripts, currentInnerSideObjectType);
+        UpdateTrees(TreesRight, TreesRightScripts, currentInnerSideObjectType);
+        UpdateTrees(TreesLeftFar, TreesLeftFarScripts, currentOuterSideObjectType);
+        UpdateTrees(TreesRightFar, TreesRightFarScripts, currentOuterSideObjectType);
 
         if (invincibleTimer > 0)
         {
@@ -370,12 +417,37 @@ public class SceneManager : MonoBehaviour
         distance = distance + Time.deltaTime * Globals.ScrollSpeed.z;
         distanceUntilSpawn = distanceUntilSpawn - Time.deltaTime * Globals.ScrollSpeed.z;
 
+        int prevDistance = Globals.CurrentDistance;
         Globals.CurrentDistance = (int)(distance / 10f);
+        if (Globals.CurrentDistance != prevDistance && Globals.CurrentDistance % 20 == 0)
+        {
+            ChangeSideObjectMode();
+        }
         HUDDistanceText.text = Globals.CurrentDistance.ToString();
 
         if (distanceUntilSpawn <= 0)
         {
             SpawnWave();
+        }
+    }
+
+    void ChangeSideObjectMode()
+    {
+        Globals.CurrentSideObjectMode = (Globals.SideObjectModes)Random.Range(0, 3);
+        if (Globals.CurrentSideObjectMode == Globals.SideObjectModes.PineTree)
+        {
+            currentInnerSideObjectType = Globals.SideObjectType.PineTreeSmall;
+            currentOuterSideObjectType = Globals.SideObjectType.PineTreeBig;
+        }
+        else if (Globals.CurrentSideObjectMode == Globals.SideObjectModes.OldTree)
+        {
+            currentInnerSideObjectType = Globals.SideObjectType.OldTree;
+            currentOuterSideObjectType = Globals.SideObjectType.OldTree;
+        }
+        else if (Globals.CurrentSideObjectMode == Globals.SideObjectModes.SnowBank)
+        {
+            currentInnerSideObjectType = Globals.SideObjectType.SnowBank;
+            currentOuterSideObjectType = Globals.SideObjectType.SnowBank;
         }
     }
 
@@ -520,6 +592,8 @@ public class SceneManager : MonoBehaviour
                         {
                             yeti++;
                             laneSlotType = LaneSlotTypes.Yeti;
+                            if (Globals.CurrentDistance > 50 && Random.Range(0, 3) >= 2) // 33% chance of snowman after 50 distance
+                                laneSlotType = LaneSlotTypes.Snowman;
                         }
                         else if (laneSlotRandomVal < 30f) // 10% chance of powerup
                         {
@@ -544,6 +618,12 @@ public class SceneManager : MonoBehaviour
                                 new Vector3(startX + x * xIncrement, -2.5f, 64f + s * 8f + Random.Range(-2f, 2f)),
                                 Quaternion.identity, ItemContainer.transform);
                         }
+                        else if (laneSlotTypes[s] == LaneSlotTypes.Snowman)
+                        {
+                            GameObject enemy = (GameObject)Instantiate(SnowManPrefab,
+                                new Vector3(startX + x * xIncrement, -2.9f, 64f + s * 8f + Random.Range(-2f, 2f)),
+                                Quaternion.identity, ItemContainer.transform);
+                        }
                         else if (laneSlotTypes[s] == LaneSlotTypes.PowerUp)
                         {
                             float powerupRandVal = Random.Range(0f, 100.0f);
@@ -563,7 +643,7 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    void UpdateTrees(GameObject[] trees)
+    void UpdateTrees(GameObject[] trees, SideObject[] treeScripts, Globals.SideObjectType soType)
     {
         float treeMinZ = -4f;
         float treeOffsetZ = 4f;
@@ -577,6 +657,7 @@ public class SceneManager : MonoBehaviour
                         trees[i].transform.localPosition.y,
                         trees[abutIndex].transform.localPosition.z + treeOffsetZ
                     );
+                treeScripts[i].SetType(soType);
             }
         }
     }

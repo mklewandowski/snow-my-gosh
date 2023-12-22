@@ -7,9 +7,11 @@ public class Item : MonoBehaviour
         Ball,
         Heart,
         Coin,
-        Cane
+        Cane,
+        Snowman
     }
     public ItemType itemType = ItemType.Coin;
+    public GameObject model;
     protected Color debrisColor;
     protected DebrisManager debrisManager;
 
@@ -19,6 +21,8 @@ public class Item : MonoBehaviour
     protected float extraSpeed = 0f;
 
     protected bool isActive = true;
+
+    bool displayed = true;
 
     void Awake()
     {
@@ -40,6 +44,11 @@ public class Item : MonoBehaviour
         else if (itemType == ItemType.Yeti)
         {
             debrisColor = Color.blue;
+        }
+        else if (itemType == ItemType.Snowman)
+        {
+            displayed = false;
+            debrisColor = Color.white;
         }
         else if (itemType == ItemType.Ball)
         {
@@ -74,6 +83,13 @@ public class Item : MonoBehaviour
             float speedBump = 0;
             if (this.transform.localPosition.z < 60f)
                 speedBump = extraSpeed;
+            if (!displayed && this.transform.localPosition.z < 35f)
+            {
+                displayed = true;
+                model.transform.localScale = new Vector3(.1f, .1f, .1f);
+                model.SetActive(true);
+                model.GetComponent<GrowAndShrink>().StartEffect();
+            }
             Vector3 movement = new Vector3 (0, 0, Globals.ScrollSpeed.z * Globals.ScrollDirection.z + speedBump * Globals.ScrollDirection.z);
             this.GetComponent<Rigidbody>().velocity = movement;
         }

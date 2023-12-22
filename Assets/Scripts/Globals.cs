@@ -20,6 +20,21 @@ public class Globals
     }
     public static GameState CurrentGameState = GameState.TitleScreen;
 
+    public enum SideObjectModes {
+        PineTree,
+        OldTree,
+        SnowBank,
+    }
+    public static SideObjectModes CurrentSideObjectMode = SideObjectModes.PineTree;
+
+    public enum SideObjectType {
+        None,
+        PineTreeSmall,
+        PineTreeBig,
+        OldTree,
+        SnowBank
+    }
+
     public enum VehicleType {
         Default,
         Blizzard,
@@ -61,6 +76,9 @@ public class Globals
         Moon,
         Plaid2,
         Yeti,
+        LogTruck,
+        PresentTruck,
+        TreeCar,
         Invincible
     }
 
@@ -75,7 +93,7 @@ public class Globals
     // keep track of coins
     public static int Coins = 0;
 
-    public static int MaxVehicles = 40;
+    public static int MaxVehicles = 43;
     public static int[] VehicleUnlockStates = new int[MaxVehicles];
 
     public const string AudioPlayerPrefsKey = "Audio";
@@ -204,6 +222,12 @@ public class Globals
             name = "Pine Needle Plaid";
         else if (type == Globals.VehicleType.Yeti)
             name = "Yeti-Mobile";
+        else if (type == Globals.VehicleType.LogTruck)
+            name = "Bethany's Timber Truck";
+        else if (type == Globals.VehicleType.PresentTruck)
+            name = "Present Express";
+        else if (type == Globals.VehicleType.TreeCar)
+            name = "Family Tree";
         return name;
     }
 
@@ -289,6 +313,12 @@ public class Globals
             return (new Color(0, 87f/255f, 0));
         else if (type == Globals.VehicleType.Yeti)
             return Color.white;
+        else if (type == Globals.VehicleType.LogTruck)
+            return Color.yellow;
+        else if (type == Globals.VehicleType.PresentTruck)
+            return (new Color(0, 209f/255f, 169f/255f));
+        else if (type == Globals.VehicleType.TreeCar)
+            return (new Color(0f, 87f/255f, 0));
         else
             return (new Color(255f/255f, 106f/255f, 0));
     }
