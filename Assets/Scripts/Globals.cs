@@ -20,7 +20,15 @@ public class Globals
     }
     public static GameState CurrentGameState = GameState.TitleScreen;
 
+    public enum SideObjectModes {
+        PineTree,
+        OldTree,
+        SnowBank,
+    }
+    public static SideObjectModes CurrentSideObjectMode = SideObjectModes.PineTree;
+
     public enum SideObjectType {
+        None,
         PineTreeSmall,
         PineTreeBig,
         OldTree,
@@ -215,9 +223,9 @@ public class Globals
         else if (type == Globals.VehicleType.Yeti)
             name = "Yeti-Mobile";
         else if (type == Globals.VehicleType.LogTruck)
-            name = "Bethany's Timber Farm";
+            name = "Bethany's Timber Truck";
         else if (type == Globals.VehicleType.PresentTruck)
-            name = "Gift-Mobile";
+            name = "Present Express";
         else if (type == Globals.VehicleType.TreeCar)
             name = "Family Tree";
         return name;

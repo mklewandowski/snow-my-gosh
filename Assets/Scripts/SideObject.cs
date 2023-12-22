@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SideObject : MonoBehaviour
 {
-    Globals.SideObjectType currentType;
+    Globals.SideObjectType currentType = Globals.SideObjectType.None;
 
     [SerializeField]
     GameObject PineTreeSmall;
@@ -33,6 +33,8 @@ public class SideObject : MonoBehaviour
 
     public void SetType(Globals.SideObjectType newType)
     {
+        if (currentType == newType)
+            return;
         currentType = newType;
         PineTreeSmall.SetActive(currentType == Globals.SideObjectType.PineTreeSmall);
         PineTreeBig.SetActive(currentType == Globals.SideObjectType.PineTreeBig);
