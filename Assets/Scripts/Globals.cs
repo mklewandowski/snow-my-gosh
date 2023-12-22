@@ -24,6 +24,7 @@ public class Globals
         PineTreeSmall,
         PineTreeBig,
         OldTree,
+        SnowBank
     }
 
     public enum VehicleType {
