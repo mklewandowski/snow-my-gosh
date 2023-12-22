@@ -15,6 +15,7 @@ public class SceneManager : MonoBehaviour
     enum LaneSlotTypes {
         PowerUp,
         Yeti,
+        Snowman,
         Empty
     }
 
@@ -143,6 +144,8 @@ public class SceneManager : MonoBehaviour
 	GameObject ItemContainer;
     [SerializeField]
 	GameObject YetiPrefab;
+    [SerializeField]
+	GameObject SnowManPrefab;
     [SerializeField]
 	GameObject SnowBallPrefab;
     [SerializeField]
@@ -589,6 +592,8 @@ public class SceneManager : MonoBehaviour
                         {
                             yeti++;
                             laneSlotType = LaneSlotTypes.Yeti;
+                            if (Globals.CurrentDistance > 50 && Random.Range(0, 3) >= 2) // 33% chance of snowman after 50 distance
+                                laneSlotType = LaneSlotTypes.Snowman;
                         }
                         else if (laneSlotRandomVal < 30f) // 10% chance of powerup
                         {
@@ -611,6 +616,12 @@ public class SceneManager : MonoBehaviour
                         {
                             GameObject enemy = (GameObject)Instantiate(YetiPrefab,
                                 new Vector3(startX + x * xIncrement, -2.5f, 64f + s * 8f + Random.Range(-2f, 2f)),
+                                Quaternion.identity, ItemContainer.transform);
+                        }
+                        else if (laneSlotTypes[s] == LaneSlotTypes.Snowman)
+                        {
+                            GameObject enemy = (GameObject)Instantiate(SnowManPrefab,
+                                new Vector3(startX + x * xIncrement, -2.9f, 64f + s * 8f + Random.Range(-2f, 2f)),
                                 Quaternion.identity, ItemContainer.transform);
                         }
                         else if (laneSlotTypes[s] == LaneSlotTypes.PowerUp)

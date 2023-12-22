@@ -19431,6 +19431,7 @@ MonoBehaviour:
   HUDHighScore: {fileID: 1296731647}
   ItemContainer: {fileID: 1332100143}
   YetiPrefab: {fileID: 6606426093814019360, guid: 447e34129f8aaef42b01f3c7e6ef327e, type: 3}
+  SnowManPrefab: {fileID: 6606426093814019360, guid: 51ae3f89b9fb52b48859b9b1885fbb99, type: 3}
   SnowBallPrefab: {fileID: 3810516749534826504, guid: 24cae34af9fdc614da633c8fec2ea075, type: 3}
   CandyCanePrefab: {fileID: 8970362211252784371, guid: 2a27fa3f6852eff41bcd13bae253137a, type: 3}
   HeartPowerupPrefab: {fileID: 4239040191334888971, guid: 7559425cdba247f479da359a930de131, type: 3}
