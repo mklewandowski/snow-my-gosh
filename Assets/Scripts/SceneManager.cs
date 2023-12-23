@@ -180,7 +180,7 @@ public class SceneManager : MonoBehaviour
 
         Globals.BestDistance = Globals.LoadIntFromPlayerPrefs(Globals.BestDistancePlayerPrefsKey);
 
-        Globals.Coins = 500;// Globals.LoadIntFromPlayerPrefs(Globals.CoinsPlayerPrefsKey);
+        Globals.Coins = Globals.LoadIntFromPlayerPrefs(Globals.CoinsPlayerPrefsKey);
         UpdateCoins();
 
         int vehicleType = Globals.LoadIntFromPlayerPrefs(Globals.VehicleTypePlayerPrefsKey);
