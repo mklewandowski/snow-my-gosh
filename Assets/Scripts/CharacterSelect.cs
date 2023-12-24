@@ -36,6 +36,7 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     float vehicleInstanceXInterval = 250f;
     private float lastDragPos;
     float scaleFactor;
+    float dragInertia = 0;
 
     void Start()
     {
@@ -46,8 +47,38 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         DragContainer.position = new Vector3(maxX, DragContainer.position.y, DragContainer.position.z);
     }
 
+    void Update()
+    {
+        if (Mathf.Abs(dragInertia) > .1f)
+        {
+            float dragOffset = dragInertia;
+            float newX = DragContainer.position.x - dragOffset;
+            newX = Mathf.Max(minX, newX);
+            newX = Mathf.Min(maxX, newX);
+            MoveVehicleContainer(newX);
+            if (dragInertia > 0)
+            {
+                dragInertia = Mathf.Max(0, dragInertia - dragInertia * .05f);
+            }
+            else if (dragInertia < 0)
+            {
+                dragInertia = Mathf.Min(0, dragInertia - dragInertia * .05f);
+            }
+        }
+    }
+
+    void recomputeScaleFactor()
+    {
+        // this is needed in case the user enters fullscreen mode in a browser and the scale factor changes
+        scaleFactor = this.GetComponent<Canvas>().scaleFactor;
+        maxX = Camera.main.scaledPixelWidth / 2 - vehicleInstanceXInterval / 2;
+        minX = maxX - vehicleInstanceXInterval * scaleFactor * (maxItems - 1);
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
+        dragInertia = 0;
+        recomputeScaleFactor();
         lastDragPos = eventData.position.x;
     }
 
@@ -59,6 +90,11 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         float newX = DragContainer.position.x - dragOffset;
         newX = Mathf.Max(minX, newX);
         newX = Mathf.Min(maxX, newX);
+        MoveVehicleContainer(newX);
+    }
+
+    void MoveVehicleContainer(float newX)
+    {
         DragContainer.position = new Vector3(newX, DragContainer.position.y, DragContainer.position.z);
 
         float indexDelta = maxX + vehicleInstanceXInterval / 2 - newX;
@@ -86,9 +122,31 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
+    public void SelectNextVehicle()
+    {
+        int newVehicleIndex = Mathf.Min(maxItems - 1, currentVehicle + 1);
+        updateCurrentVehicle(newVehicleIndex);
+        DragContainer.position = new Vector3(maxX - vehicleInstanceXInterval * scaleFactor * currentVehicle, DragContainer.position.y, DragContainer.position.z);
+    }
+    public void SelectPrevVehicle()
+    {
+        int newVehicleIndex = Mathf.Max(0, currentVehicle - 1);
+        updateCurrentVehicle(newVehicleIndex);
+        DragContainer.position = new Vector3(maxX - vehicleInstanceXInterval * scaleFactor * currentVehicle, DragContainer.position.y, DragContainer.position.z);
+    }
+
     public void OnEndDrag(PointerEventData eventData)
     {
         // Debug.Log("OnEndDrag: " + eventData.position.x);
+        dragInertia = lastDragPos - eventData.position.x;
+    }
+
+    public void AttemptVehicleSelection()
+    {
+        if (SelectButton.activeSelf)
+            SelectCurrentVehicle();
+        else if (BuyButton.activeSelf)
+            BuyCurrentVehicle();
     }
 
     public void SelectCurrentVehicle()

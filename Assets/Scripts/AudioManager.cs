@@ -4,7 +4,8 @@ public class AudioManager : MonoBehaviour
 {
     AudioSource audioSource;
     SettingsManager settingsManager;
-
+    [SerializeField]
+    AudioClip MenuMoveSound;
     [SerializeField]
     AudioClip MenuSound;
     [SerializeField]
@@ -53,6 +54,12 @@ public class AudioManager : MonoBehaviour
     public void StopMusic()
     {
         audioSource.Stop();
+    }
+
+    public void PlayMenuMoveSound()
+    {
+        if (Globals.AudioOn)
+            audioSource.PlayOneShot(MenuMoveSound, 1f);
     }
 
     public void PlayMenuSound()

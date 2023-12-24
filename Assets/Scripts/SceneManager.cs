@@ -20,6 +20,9 @@ public class SceneManager : MonoBehaviour
     }
 
     AudioManager audioManager;
+    [SerializeField]
+    CharacterSelect characterSelect;
+    SettingsManager settingsManager;
 
     [SerializeField]
     GameObject Player;
@@ -78,6 +81,8 @@ public class SceneManager : MonoBehaviour
 
     [SerializeField]
     GameObject HUDQuit;
+    [SerializeField]
+    GameObject HUDMovementButtons;
     [SerializeField]
     GameObject HUDRaceReady;
     [SerializeField]
@@ -176,17 +181,21 @@ public class SceneManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
 
+        int useMobileButtons = Globals.LoadIntFromPlayerPrefs(Globals.UseMobileButtonsPlayerPrefsKey, 1);
+        Globals.UseMobileButtons = useMobileButtons == 1;
+
         Globals.LoadVehicleUnlockStatesFromPlayerPrefs();
 
         Globals.BestDistance = Globals.LoadIntFromPlayerPrefs(Globals.BestDistancePlayerPrefsKey);
 
-        Globals.Coins = 500;// Globals.LoadIntFromPlayerPrefs(Globals.CoinsPlayerPrefsKey);
+        Globals.Coins = Globals.LoadIntFromPlayerPrefs(Globals.CoinsPlayerPrefsKey);
         UpdateCoins();
 
         int vehicleType = Globals.LoadIntFromPlayerPrefs(Globals.VehicleTypePlayerPrefsKey);
         Player.GetComponent<VehicleTypeManager>().SetVehicleType(vehicleType);
 
         audioManager = this.GetComponent<AudioManager>();
+        settingsManager = this.GetComponent<SettingsManager>();
 
         int maxSideObjects = 18;
         for (int x = 0; x < maxSideObjects; x++)
@@ -230,6 +239,7 @@ public class SceneManager : MonoBehaviour
         {
             UpdateShowScore();
         }
+        HandleInput();
     }
 
     void FixedUpdate()
@@ -259,6 +269,155 @@ public class SceneManager : MonoBehaviour
                 TreesRightFar[i].GetComponent<Rigidbody>().velocity = treeMovement;
             }
         }
+    }
+
+    // current button can be
+    // start, car, settings, about, music, sound
+    enum TitleButtons {
+        Play,
+        Car,
+        Settings,
+        About,
+        Sound,
+        Music,
+        MobileInput
+    }
+    TitleButtons currentTitleButton = TitleButtons.Play;
+    bool showVehicles;
+    bool showSettings;
+    [SerializeField]
+    GameObject PlayButton;
+    [SerializeField]
+    GameObject CarButton;
+    [SerializeField]
+    GameObject SettingsButton;
+    [SerializeField]
+    GameObject AboutButton;
+    [SerializeField]
+    GameObject MusicButton;
+    [SerializeField]
+    GameObject SoundButton;
+    [SerializeField]
+    GameObject MobileInputButton;
+    void HandleInput()
+    {
+        bool moveLeft = false;
+        bool moveRight = false;
+        bool action = false;
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            moveLeft = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            moveRight = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        {
+            action = true;
+        }
+
+        if (Globals.CurrentGameState == Globals.GameState.TitleScreen || Globals.CurrentGameState == Globals.GameState.Restart)
+        {
+            if (moveLeft)
+            {
+                audioManager.PlayMenuMoveSound();
+                if (showVehicles)
+                {
+                    characterSelect.SelectPrevVehicle();
+                }
+                else
+                {
+                    if (currentTitleButton == TitleButtons.Play)
+                        currentTitleButton = showSettings ? TitleButtons.MobileInput : TitleButtons.About;
+                    else if (currentTitleButton == TitleButtons.Car)
+                        currentTitleButton = TitleButtons.Play;
+                    else if (currentTitleButton == TitleButtons.Settings)
+                        currentTitleButton = TitleButtons.Car;
+                    else if (currentTitleButton == TitleButtons.About)
+                        currentTitleButton = TitleButtons.Settings;
+                    else if (currentTitleButton == TitleButtons.Sound)
+                        currentTitleButton = TitleButtons.About;
+                    else if (currentTitleButton == TitleButtons.Music)
+                        currentTitleButton = TitleButtons.Sound;
+                    else if (currentTitleButton == TitleButtons.MobileInput)
+                        currentTitleButton = TitleButtons.Music;
+
+                    UpdateTitleButtons();
+                }
+            }
+            else if (moveRight)
+            {
+                audioManager.PlayMenuMoveSound();
+                if (showVehicles)
+                {
+                    characterSelect.SelectNextVehicle();
+                }
+                else
+                {
+                    if (currentTitleButton == TitleButtons.Play)
+                        currentTitleButton = TitleButtons.Car;
+                    else if (currentTitleButton == TitleButtons.Car)
+                        currentTitleButton = TitleButtons.Settings;
+                    else if (currentTitleButton == TitleButtons.Settings)
+                        currentTitleButton = TitleButtons.About;
+                    else if (currentTitleButton == TitleButtons.About)
+                        currentTitleButton = showSettings ? TitleButtons.Sound : TitleButtons.Play;
+                    else if (currentTitleButton == TitleButtons.Sound)
+                        currentTitleButton = TitleButtons.Music;
+                    else if (currentTitleButton == TitleButtons.Music)
+                        currentTitleButton = TitleButtons.MobileInput;
+                    else if (currentTitleButton == TitleButtons.MobileInput)
+                        currentTitleButton = TitleButtons.Play;
+
+                    UpdateTitleButtons();
+                }
+            }
+            else if (action)
+            {
+                if (currentTitleButton == TitleButtons.Play)
+                    StartGame();
+                else if (currentTitleButton == TitleButtons.Car)
+                {
+                    if (showVehicles)
+                        characterSelect.AttemptVehicleSelection();
+                    else
+                        SelectVehiclesButton();
+                }
+                else if (currentTitleButton == TitleButtons.Settings)
+                    SelectSettingsButton();
+                else if (currentTitleButton == TitleButtons.About)
+                    SelectAboutButton();
+                else if (currentTitleButton == TitleButtons.Music)
+                    settingsManager.SelectMusicButton();
+                else if (currentTitleButton == TitleButtons.Sound)
+                    settingsManager.SelectAudioButton();
+                else if (currentTitleButton == TitleButtons.MobileInput)
+                    settingsManager.SelectMobileInputButton();
+            }
+        }
+        else if (Globals.CurrentGameState == Globals.GameState.Ready)
+        {
+            if (action)
+            {
+                StartMoving();
+            }
+        }
+        else if (Globals.CurrentGameState == Globals.GameState.ShowScore)
+        {
+            UpdateShowScore();
+        }
+    }
+
+    void UpdateTitleButtons()
+    {
+        PlayButton.transform.localScale = currentTitleButton == TitleButtons.Play ? new Vector3(1.2f, 1.2f, 1.2f) : new Vector3(1f, 1f, 1f);
+        CarButton.transform.localScale = currentTitleButton == TitleButtons.Car ? new Vector3(1.2f, 1.2f, 1.2f) : new Vector3(1f, 1f, 1f);
+        SettingsButton.transform.localScale = currentTitleButton == TitleButtons.Settings ? new Vector3(1.2f, 1.2f, 1.2f) : new Vector3(1f, 1f, 1f);
+        AboutButton.transform.localScale = currentTitleButton == TitleButtons.About ? new Vector3(1.2f, 1.2f, 1.2f) : new Vector3(1f, 1f, 1f);
+        MusicButton.transform.localScale = currentTitleButton == TitleButtons.Music ? new Vector3(1.2f, 1.2f, 1.2f) : new Vector3(1f, 1f, 1f);
+        SoundButton.transform.localScale = currentTitleButton == TitleButtons.Sound ? new Vector3(1.2f, 1.2f, 1.2f) : new Vector3(1f, 1f, 1f);
+        MobileInputButton.transform.localScale = currentTitleButton == TitleButtons.MobileInput ? new Vector3(1.2f, 1.2f, 1.2f) : new Vector3(1f, 1f, 1f);
     }
 
     void UpdateTitle()
@@ -831,14 +990,18 @@ public class SceneManager : MonoBehaviour
         Camera.main.transform.position = new Vector3(0, Camera.main.transform.position.y, Camera.main.transform.position.z);
         Player.GetComponent<Player>().Reset();
 
+        currentTitleButton = TitleButtons.Play;
+        UpdateTitleButtons();
         HUDGameOver.GetComponent<MoveNormal>().MoveUp();
         HUDSnow.SetActive(false);
         HUDBackground.SetActive(false);
         HUDAbout.GetComponent<MoveNormal>().MoveRight();
         HUDSettings.GetComponent<MoveNormal>().MoveRight();
+        showSettings = false;
         HUDTitle.GetComponent<MoveNormal>().MoveLeft();
         HUDButtons.GetComponent<MoveNormal>().MoveDown();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveDown();
+        showVehicles = false;
         Level.SetActive(true);
         Player.SetActive(true);
 
@@ -863,6 +1026,7 @@ public class SceneManager : MonoBehaviour
         HUDDistance.SetActive(false);
         HUDDistanceText.text = Globals.CurrentDistance.ToString();
         HUDQuit.SetActive(true);
+        HUDMovementButtons.SetActive(Globals.UseMobileButtons);
 
         HUDRaceReady.SetActive(true);
         HUDRaceReady.GetComponent<GrowAndShrink>().StartEffect();
@@ -917,8 +1081,10 @@ public class SceneManager : MonoBehaviour
 
         HUDButtons.GetComponent<MoveNormal>().MoveDown();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveUp();
+        showVehicles = true;
         HUDAbout.GetComponent<MoveNormal>().MoveRight();
         HUDSettings.GetComponent<MoveNormal>().MoveRight();
+        showSettings = false;
         HUDFinalStatsContainer.GetComponent<MoveNormal>().MoveRight();
     }
     public void SelectAboutButton()
@@ -927,17 +1093,21 @@ public class SceneManager : MonoBehaviour
 
         HUDAbout.GetComponent<MoveNormal>().MoveLeft();
         HUDSettings.GetComponent<MoveNormal>().MoveRight();
+        showSettings = false;
         HUDFinalStatsContainer.GetComponent<MoveNormal>().MoveRight();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveDown();
+        showVehicles = false;
     }
     public void SelectSettingsButton()
     {
         audioManager.PlayMenuSound();
 
         HUDSettings.GetComponent<MoveNormal>().MoveLeft();
+        showSettings = true;
         HUDAbout.GetComponent<MoveNormal>().MoveRight();
         HUDFinalStatsContainer.GetComponent<MoveNormal>().MoveRight();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveDown();
+        showVehicles = false;
     }
     public void SelectVehicleButton(int currentVehicleIndex)
     {
@@ -945,6 +1115,7 @@ public class SceneManager : MonoBehaviour
 
         HUDButtons.GetComponent<MoveNormal>().MoveUp();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveDown();
+        showVehicles = false;
 
         Player.GetComponent<VehicleTypeManager>().SetVehicleType(currentVehicleIndex);
     }
@@ -971,6 +1142,7 @@ public class SceneManager : MonoBehaviour
         Player.GetComponent<VehicleTypeManager>().EndGhost();
 
         HUDQuit.SetActive(false);
+        HUDMovementButtons.SetActive(false);
         BombFlash.SetActive(false);
         SpeedLines.SetActive(false);
         HUDRaceReady.SetActive(false);

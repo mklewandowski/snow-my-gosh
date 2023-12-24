@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 
     private void SwipeDetector_OnSwipe(SwipeData data)
     {
-        if (Globals.CurrentGameState != Globals.GameState.Playing)
+        if (Globals.CurrentGameState != Globals.GameState.Playing || Globals.UseMobileButtons)
             return;
         if (!requestMoveLeft && !requestMoveRight)
         {
@@ -51,6 +51,27 @@ public class Player : MonoBehaviour
         {
             requestMoveLeft = Input.GetKeyDown(KeyCode.LeftArrow);
             requestMoveRight = !requestMoveLeft && Input.GetKeyDown(KeyCode.RightArrow);
+            if ((requestMoveLeft || requestMoveRight) && !movingLeft && !movingRight)
+                audioManager.PlaySwipeSound();
+        }
+    }
+
+    public void MoveLeft()
+    {
+        if (!requestMoveLeft && !requestMoveRight)
+        {
+            requestMoveLeft = true;
+            requestMoveRight = false;
+            if ((requestMoveLeft || requestMoveRight) && !movingLeft && !movingRight)
+                audioManager.PlaySwipeSound();
+        }
+    }
+    public void MoveRight()
+    {
+        if (!requestMoveLeft && !requestMoveRight)
+        {
+            requestMoveLeft = false;
+            requestMoveRight = true;
             if ((requestMoveLeft || requestMoveRight) && !movingLeft && !movingRight)
                 audioManager.PlaySwipeSound();
         }
