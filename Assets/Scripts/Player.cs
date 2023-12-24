@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 
     private void SwipeDetector_OnSwipe(SwipeData data)
     {
-        if (Globals.CurrentGameState != Globals.GameState.Playing)
+        if (Globals.CurrentGameState != Globals.GameState.Playing || Globals.UseMobileButtons)
             return;
         if (!requestMoveLeft && !requestMoveRight)
         {

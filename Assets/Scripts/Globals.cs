@@ -82,6 +82,9 @@ public class Globals
         Invincible
     }
 
+    // mobile control type
+    public static bool UseMobileButtons;
+
     // audio and music
     public static bool AudioOn;
     public static bool MusicOn;
@@ -96,6 +99,7 @@ public class Globals
     public static int MaxVehicles = 43;
     public static int[] VehicleUnlockStates = new int[MaxVehicles];
 
+    public const string UseMobileButtonsPlayerPrefsKey = "UseMobileButtons";
     public const string AudioPlayerPrefsKey = "Audio";
     public const string MusicPlayerPrefsKey = "Music";
     public const string BestDistancePlayerPrefsKey = "BestDistance";

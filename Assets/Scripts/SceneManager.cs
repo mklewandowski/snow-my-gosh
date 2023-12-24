@@ -181,6 +181,9 @@ public class SceneManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
 
+        int useMobileButtons = Globals.LoadIntFromPlayerPrefs(Globals.UseMobileButtonsPlayerPrefsKey, 1);
+        Globals.UseMobileButtons = useMobileButtons == 1;
+
         Globals.LoadVehicleUnlockStatesFromPlayerPrefs();
 
         Globals.BestDistance = Globals.LoadIntFromPlayerPrefs(Globals.BestDistancePlayerPrefsKey);
@@ -275,8 +278,9 @@ public class SceneManager : MonoBehaviour
         Car,
         Settings,
         About,
-        Music,
         Sound,
+        Music,
+        MobileInput
     }
     TitleButtons currentTitleButton = TitleButtons.Play;
     bool showVehicles;
@@ -293,6 +297,8 @@ public class SceneManager : MonoBehaviour
     GameObject MusicButton;
     [SerializeField]
     GameObject SoundButton;
+    [SerializeField]
+    GameObject MobileInputButton;
     void HandleInput()
     {
         bool moveLeft = false;
@@ -323,7 +329,7 @@ public class SceneManager : MonoBehaviour
                 else
                 {
                     if (currentTitleButton == TitleButtons.Play)
-                        currentTitleButton = showSettings ? TitleButtons.Music : TitleButtons.About;
+                        currentTitleButton = showSettings ? TitleButtons.MobileInput : TitleButtons.About;
                     else if (currentTitleButton == TitleButtons.Car)
                         currentTitleButton = TitleButtons.Play;
                     else if (currentTitleButton == TitleButtons.Settings)
@@ -334,6 +340,8 @@ public class SceneManager : MonoBehaviour
                         currentTitleButton = TitleButtons.About;
                     else if (currentTitleButton == TitleButtons.Music)
                         currentTitleButton = TitleButtons.Sound;
+                    else if (currentTitleButton == TitleButtons.MobileInput)
+                        currentTitleButton = TitleButtons.Music;
 
                     UpdateTitleButtons();
                 }
@@ -358,6 +366,8 @@ public class SceneManager : MonoBehaviour
                     else if (currentTitleButton == TitleButtons.Sound)
                         currentTitleButton = TitleButtons.Music;
                     else if (currentTitleButton == TitleButtons.Music)
+                        currentTitleButton = TitleButtons.MobileInput;
+                    else if (currentTitleButton == TitleButtons.MobileInput)
                         currentTitleButton = TitleButtons.Play;
 
                     UpdateTitleButtons();
@@ -382,6 +392,8 @@ public class SceneManager : MonoBehaviour
                     settingsManager.SelectMusicButton();
                 else if (currentTitleButton == TitleButtons.Sound)
                     settingsManager.SelectAudioButton();
+                else if (currentTitleButton == TitleButtons.MobileInput)
+                    settingsManager.SelectMobileInputButton();
             }
         }
         else if (Globals.CurrentGameState == Globals.GameState.Ready)
@@ -405,6 +417,7 @@ public class SceneManager : MonoBehaviour
         AboutButton.transform.localScale = currentTitleButton == TitleButtons.About ? new Vector3(1.2f, 1.2f, 1.2f) : new Vector3(1f, 1f, 1f);
         MusicButton.transform.localScale = currentTitleButton == TitleButtons.Music ? new Vector3(1.2f, 1.2f, 1.2f) : new Vector3(1f, 1f, 1f);
         SoundButton.transform.localScale = currentTitleButton == TitleButtons.Sound ? new Vector3(1.2f, 1.2f, 1.2f) : new Vector3(1f, 1f, 1f);
+        MobileInputButton.transform.localScale = currentTitleButton == TitleButtons.MobileInput ? new Vector3(1.2f, 1.2f, 1.2f) : new Vector3(1f, 1f, 1f);
     }
 
     void UpdateTitle()
@@ -1013,7 +1026,7 @@ public class SceneManager : MonoBehaviour
         HUDDistance.SetActive(false);
         HUDDistanceText.text = Globals.CurrentDistance.ToString();
         HUDQuit.SetActive(true);
-        HUDMovementButtons.SetActive(true);
+        HUDMovementButtons.SetActive(Globals.UseMobileButtons);
 
         HUDRaceReady.SetActive(true);
         HUDRaceReady.GetComponent<GrowAndShrink>().StartEffect();
