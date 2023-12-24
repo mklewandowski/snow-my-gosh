@@ -19475,6 +19475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dce6b0aa43718b44a71a443c5fc0edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MenuMoveSound: {fileID: 8300000, guid: b3909f3b3bd633c40b83a46ff56daa2d, type: 3}
   MenuSound: {fileID: 8300000, guid: 49dd0086c27ceed439f37089f9d6af8e, type: 3}
   StartSound: {fileID: 8300000, guid: 3f1c790142799314d9cfe4c9c64db2a6, type: 3}
   StartMovingSound: {fileID: 8300000, guid: f59b13686f400c94084a6e6467777974, type: 3}

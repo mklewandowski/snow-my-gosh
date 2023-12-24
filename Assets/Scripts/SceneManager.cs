@@ -313,6 +313,7 @@ public class SceneManager : MonoBehaviour
         {
             if (moveLeft)
             {
+                audioManager.PlayMenuMoveSound();
                 if (showVehicles)
                 {
                     characterSelect.SelectPrevVehicle();
@@ -334,10 +335,10 @@ public class SceneManager : MonoBehaviour
 
                     UpdateTitleButtons();
                 }
-
             }
             else if (moveRight)
             {
+                audioManager.PlayMenuMoveSound();
                 if (showVehicles)
                 {
                     characterSelect.SelectNextVehicle();
