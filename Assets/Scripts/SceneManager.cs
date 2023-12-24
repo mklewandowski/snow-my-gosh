@@ -313,37 +313,52 @@ public class SceneManager : MonoBehaviour
         {
             if (moveLeft)
             {
-                if (currentTitleButton == TitleButtons.Play)
-                    currentTitleButton = showSettings ? TitleButtons.Music : TitleButtons.About;
-                else if (currentTitleButton == TitleButtons.Car)
-                    currentTitleButton = TitleButtons.Play;
-                else if (currentTitleButton == TitleButtons.Settings)
-                    currentTitleButton = TitleButtons.Car;
-                else if (currentTitleButton == TitleButtons.About)
-                    currentTitleButton = TitleButtons.Settings;
-                else if (currentTitleButton == TitleButtons.Sound)
-                    currentTitleButton = TitleButtons.About;
-                else if (currentTitleButton == TitleButtons.Music)
-                    currentTitleButton = TitleButtons.Sound;
+                if (showVehicles)
+                {
+                    characterSelect.SelectPrevVehicle();
+                }
+                else
+                {
+                    if (currentTitleButton == TitleButtons.Play)
+                        currentTitleButton = showSettings ? TitleButtons.Music : TitleButtons.About;
+                    else if (currentTitleButton == TitleButtons.Car)
+                        currentTitleButton = TitleButtons.Play;
+                    else if (currentTitleButton == TitleButtons.Settings)
+                        currentTitleButton = TitleButtons.Car;
+                    else if (currentTitleButton == TitleButtons.About)
+                        currentTitleButton = TitleButtons.Settings;
+                    else if (currentTitleButton == TitleButtons.Sound)
+                        currentTitleButton = TitleButtons.About;
+                    else if (currentTitleButton == TitleButtons.Music)
+                        currentTitleButton = TitleButtons.Sound;
 
-                UpdateTitleButtons();
+                    UpdateTitleButtons();
+                }
+
             }
             else if (moveRight)
             {
-                if (currentTitleButton == TitleButtons.Play)
-                    currentTitleButton = TitleButtons.Car;
-                else if (currentTitleButton == TitleButtons.Car)
-                    currentTitleButton = TitleButtons.Settings;
-                else if (currentTitleButton == TitleButtons.Settings)
-                    currentTitleButton = TitleButtons.About;
-                else if (currentTitleButton == TitleButtons.About)
-                    currentTitleButton = showSettings ? TitleButtons.Sound : TitleButtons.Play;
-                else if (currentTitleButton == TitleButtons.Sound)
-                    currentTitleButton = TitleButtons.Music;
-                else if (currentTitleButton == TitleButtons.Music)
-                    currentTitleButton = TitleButtons.Play;
+                if (showVehicles)
+                {
+                    characterSelect.SelectNextVehicle();
+                }
+                else
+                {
+                    if (currentTitleButton == TitleButtons.Play)
+                        currentTitleButton = TitleButtons.Car;
+                    else if (currentTitleButton == TitleButtons.Car)
+                        currentTitleButton = TitleButtons.Settings;
+                    else if (currentTitleButton == TitleButtons.Settings)
+                        currentTitleButton = TitleButtons.About;
+                    else if (currentTitleButton == TitleButtons.About)
+                        currentTitleButton = showSettings ? TitleButtons.Sound : TitleButtons.Play;
+                    else if (currentTitleButton == TitleButtons.Sound)
+                        currentTitleButton = TitleButtons.Music;
+                    else if (currentTitleButton == TitleButtons.Music)
+                        currentTitleButton = TitleButtons.Play;
 
-                UpdateTitleButtons();
+                    UpdateTitleButtons();
+                }
             }
             else if (action)
             {

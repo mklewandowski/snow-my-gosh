@@ -122,6 +122,19 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
+    public void SelectNextVehicle()
+    {
+        int newVehicleIndex = Mathf.Min(maxItems - 1, currentVehicle + 1);
+        updateCurrentVehicle(newVehicleIndex);
+        DragContainer.position = new Vector3(maxX - vehicleInstanceXInterval * scaleFactor * currentVehicle, DragContainer.position.y, DragContainer.position.z);
+    }
+    public void SelectPrevVehicle()
+    {
+        int newVehicleIndex = Mathf.Max(0, currentVehicle - 1);
+        updateCurrentVehicle(newVehicleIndex);
+        DragContainer.position = new Vector3(maxX - vehicleInstanceXInterval * scaleFactor * currentVehicle, DragContainer.position.y, DragContainer.position.z);
+    }
+
     public void OnEndDrag(PointerEventData eventData)
     {
         // Debug.Log("OnEndDrag: " + eventData.position.x);
