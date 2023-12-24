@@ -46,8 +46,17 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         DragContainer.position = new Vector3(maxX, DragContainer.position.y, DragContainer.position.z);
     }
 
+    void recomputeScaleFactor()
+    {
+        // this is needed in case the user enters fullscreen mode in a browser and the scale factor changes
+        scaleFactor = this.GetComponent<Canvas>().scaleFactor;
+        maxX = Camera.main.scaledPixelWidth / 2 - vehicleInstanceXInterval / 2;
+        minX = maxX - vehicleInstanceXInterval * scaleFactor * (maxItems - 1);
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
+        recomputeScaleFactor();
         lastDragPos = eventData.position.x;
     }
 
