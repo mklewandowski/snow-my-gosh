@@ -82,6 +82,8 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GameObject HUDQuit;
     [SerializeField]
+    GameObject HUDMovementButtons;
+    [SerializeField]
     GameObject HUDRaceReady;
     [SerializeField]
     GameObject HUDDistance;
@@ -1011,6 +1013,7 @@ public class SceneManager : MonoBehaviour
         HUDDistance.SetActive(false);
         HUDDistanceText.text = Globals.CurrentDistance.ToString();
         HUDQuit.SetActive(true);
+        HUDMovementButtons.SetActive(true);
 
         HUDRaceReady.SetActive(true);
         HUDRaceReady.GetComponent<GrowAndShrink>().StartEffect();
@@ -1126,6 +1129,7 @@ public class SceneManager : MonoBehaviour
         Player.GetComponent<VehicleTypeManager>().EndGhost();
 
         HUDQuit.SetActive(false);
+        HUDMovementButtons.SetActive(false);
         BombFlash.SetActive(false);
         SpeedLines.SetActive(false);
         HUDRaceReady.SetActive(false);

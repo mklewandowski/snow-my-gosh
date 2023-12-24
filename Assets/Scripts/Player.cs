@@ -56,6 +56,27 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void MoveLeft()
+    {
+        if (!requestMoveLeft && !requestMoveRight)
+        {
+            requestMoveLeft = true;
+            requestMoveRight = false;
+            if ((requestMoveLeft || requestMoveRight) && !movingLeft && !movingRight)
+                audioManager.PlaySwipeSound();
+        }
+    }
+    public void MoveRight()
+    {
+        if (!requestMoveLeft && !requestMoveRight)
+        {
+            requestMoveLeft = false;
+            requestMoveRight = true;
+            if ((requestMoveLeft || requestMoveRight) && !movingLeft && !movingRight)
+                audioManager.PlaySwipeSound();
+        }
+    }
+
     public void Die()
     {
         this.gameObject.SetActive(false);
