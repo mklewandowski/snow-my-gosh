@@ -130,6 +130,8 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void SelectCurrentVehicle()
     {
+        if (!SelectButton.activeSelf && !BuyButton.activeSelf)
+            return;
         sceneManager.SelectVehicleButton((int)Vehicles[currentVehicle].GetComponent<CharacterSelectVehicle>().VehicleType);
     }
 
