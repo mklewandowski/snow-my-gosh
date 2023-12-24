@@ -368,7 +368,7 @@ public class SceneManager : MonoBehaviour
                 else if (currentTitleButton == TitleButtons.Car)
                 {
                     if (showVehicles)
-                        characterSelect.SelectCurrentVehicle();
+                        characterSelect.AttemptVehicleSelection();
                     else
                         SelectVehiclesButton();
                 }

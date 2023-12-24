@@ -141,10 +141,16 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         dragInertia = lastDragPos - eventData.position.x;
     }
 
+    public void AttemptVehicleSelection()
+    {
+        if (SelectButton.activeSelf)
+            SelectCurrentVehicle();
+        else if (BuyButton.activeSelf)
+            BuyCurrentVehicle();
+    }
+
     public void SelectCurrentVehicle()
     {
-        if (!SelectButton.activeSelf && !BuyButton.activeSelf)
-            return;
         sceneManager.SelectVehicleButton((int)Vehicles[currentVehicle].GetComponent<CharacterSelectVehicle>().VehicleType);
     }
 
