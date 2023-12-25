@@ -79,6 +79,8 @@ public class Globals
         LogTruck,
         PresentTruck,
         TreeCar,
+        GrinchTruck,
+        RedTruck,
         Invincible
     }
 
@@ -96,7 +98,7 @@ public class Globals
     // keep track of coins
     public static int Coins = 0;
 
-    public static int MaxVehicles = 43;
+    public static int MaxVehicles = 45;
     public static int[] VehicleUnlockStates = new int[MaxVehicles];
 
     public const string UseMobileButtonsPlayerPrefsKey = "UseMobileButtons";
@@ -232,6 +234,10 @@ public class Globals
             name = "Present Express";
         else if (type == Globals.VehicleType.TreeCar)
             name = "Family Tree";
+        else if (type == Globals.VehicleType.GrinchTruck)
+            name = "Grinch";
+        else if (type == Globals.VehicleType.RedTruck)
+            name = "Old Red";
         return name;
     }
 
@@ -323,6 +329,10 @@ public class Globals
             return (new Color(0, 209f/255f, 169f/255f));
         else if (type == Globals.VehicleType.TreeCar)
             return (new Color(0f, 87f/255f, 0));
+        else if (type == Globals.VehicleType.GrinchTruck)
+            return Color.green;
+        else if (type == Globals.VehicleType.RedTruck)
+            return Color.red;
         else
             return (new Color(255f/255f, 106f/255f, 0));
     }
