@@ -1078,7 +1078,8 @@ public class SceneManager : MonoBehaviour
     public void SelectVehiclesButton()
     {
         audioManager.PlayMenuSound();
-
+        currentTitleButton = TitleButtons.Car;
+        UpdateTitleButtons();
         HUDButtons.GetComponent<MoveNormal>().MoveDown();
         HUDSelectVehicle.GetComponent<MoveNormal>().MoveUp();
         showVehicles = true;
@@ -1090,6 +1091,8 @@ public class SceneManager : MonoBehaviour
     public void SelectAboutButton()
     {
         audioManager.PlayMenuSound();
+        currentTitleButton = TitleButtons.About;
+        UpdateTitleButtons();
 
         HUDAbout.GetComponent<MoveNormal>().MoveLeft();
         HUDSettings.GetComponent<MoveNormal>().MoveRight();
@@ -1101,6 +1104,8 @@ public class SceneManager : MonoBehaviour
     public void SelectSettingsButton()
     {
         audioManager.PlayMenuSound();
+        currentTitleButton = TitleButtons.Settings;
+        UpdateTitleButtons();
 
         HUDSettings.GetComponent<MoveNormal>().MoveLeft();
         showSettings = true;

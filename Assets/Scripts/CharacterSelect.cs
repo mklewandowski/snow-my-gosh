@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
 {
     SceneManager sceneManager;
 
@@ -31,13 +31,15 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     float minX = 0;
     float maxX = 0;
-    int maxItems = 43;
+    int maxItems = 45;
     int currentVehicle = 0;
     float vehicleInstanceXInterval = 250f;
     private float lastDragPos;
     float scaleFactor;
     float dragInertia = 0;
-
+    float lastDragInertia = 0;
+    float dragTimer = 0f;
+    float dragTimerMax = .1f;
     void Start()
     {
         sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
@@ -65,6 +67,12 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 dragInertia = Mathf.Min(0, dragInertia - dragInertia * .05f);
             }
         }
+        if (dragTimer > 0)
+        {
+            dragTimer -= Time.deltaTime;
+            if (dragTimer <= 0)
+                lastDragInertia = 0;
+        }
     }
 
     void recomputeScaleFactor()
@@ -75,8 +83,14 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         minX = maxX - vehicleInstanceXInterval * scaleFactor * (maxItems - 1);
     }
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        dragInertia = 0;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
+        // Debug.Log("OnBeginDrag");
         dragInertia = 0;
         recomputeScaleFactor();
         lastDragPos = eventData.position.x;
@@ -86,6 +100,8 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void OnDrag(PointerEventData data)
     {
         float dragOffset = lastDragPos - data.position.x;
+        lastDragInertia = dragOffset;
+        dragTimer = dragTimerMax;
         lastDragPos = data.position.x;
         float newX = DragContainer.position.x - dragOffset;
         newX = Mathf.Max(minX, newX);
@@ -137,8 +153,10 @@ public class CharacterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        // Debug.Log("OnEndDrag: " + eventData.position.x);
         dragInertia = lastDragPos - eventData.position.x;
+        dragInertia = lastDragInertia;
+        // Debug.Log("dragInertia: " + dragInertia);
+        // Debug.Log("lastDragInertia: " + lastDragInertia);
     }
 
     public void AttemptVehicleSelection()
